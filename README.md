@@ -5,7 +5,7 @@
 The "easy_date_timeline" package is a customizable Flutter library that displays a timeline of dates in a horizontal timeline.
 
 <p>
- <img src=""/>
+ <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_1.jpg"/>
 </p>
 
 ## How To Use
@@ -18,19 +18,20 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 
 ## Usage
 
-This version is breaking backwards compatibility
-
 Use the `EasyDateTimeLine` Widget
 
 ```dart
-    Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        EasyDateTimeLine(
-          initialDate: DateTime.now(),
-        ),
-      ],
-    )
+   Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          EasyDateTimeLine(
+            initialDate: DateTime.now(),
+            onDateChange: (selectedDate) {
+              //[selectedDate] the new date selected.
+            },
+          ),
+        ],
+      ),
 ```
 
 ##### Constructor:
