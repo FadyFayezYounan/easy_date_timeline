@@ -75,10 +75,10 @@ for both active and inactive day.
 ## Change day structure
 
 In the `dayProps` change the `dayStructure` to:
-* DayStructure.dayNumDayStr : show the current day number then current day name.
-* DayStructure.dayStrDayNum : show the current name then current day number.
-* DayStructure.monthDayNumDayStr : show current month name then the current day number finally current day name.
-* DayStructure.dayStrDayNumMonth : show current day name then the current day number finally current moth name.
+* `DayStructure.dayNumDayStr` : show the current day number then current day name.
+* `DayStructure.dayStrDayNum` : show the current name then current day number.
+* `DayStructure.monthDayNumDayStr` : show current month name then the current day number finally current day name.
+* `DayStructure.dayStrDayNumMonth` : show current day name then the current day number finally current moth name.
 
 <p>
  <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_3.jpg"/>
@@ -105,6 +105,46 @@ In the `dayProps` change the `dayStructure` to:
               ),
             ),
           )
+        ],
+      ),
+```
+## Change header appearance
+
+In the `headerProps` change the `monthPickerType` to:
+* `MonthPickerType.switcher` : show the month and you can change month by clicking the arrow buttons.
+* `MonthPickerType.dropDown` : show the month and you can change month from a dropdown menu.
+also in the `headerProps` change the `selectedDateFormat` to:
+* `SelectedDateFormat.fullDateDMY` : show the data as:`11/7/2023`
+* `SelectedDateFormat.fullDateDayAsStrMY` : show the data as:`Sunday 6,2023`
+* `SelectedDateFormat.fullDateDMonthAsStrY` : show the data as:`11 June,2023`
+* `SelectedDateFormat.fullDateDMonthAsStrY` : show the data as:`11 June,2023`
+* `SelectedDateFormat.dayOnly` : show the only the selected day as:`Sunday`
+* `SelectedDateFormat.monthOnly` : show the only the selected month as:`June`
+
+<p>
+ <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_4.jpg"/>
+</p>
+
+```dart
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          EasyDateTimeLine(
+            initialDate: DateTime.now(),
+            activeColor: const Color(0xff37306B),
+            headerProps: const EasyHeaderProps(
+              monthPickerType: MonthPickerType.switcher,
+              selectedDateFormat: SelectedDateFormat.fullDateDMY,
+            ),
+            dayProps: const EasyDayProps(
+              activeBorderRadius: 32.0,
+              inactiveBorderRadius: 32.0,
+            ),
+            timeLineProps: const TimeLineProps(
+              padding: 16.0, // padding from left and right
+              separatorPadding: 16.0, // padding between days
+            ),
+          ),
         ],
       ),
 ```

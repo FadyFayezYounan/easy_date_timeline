@@ -25,7 +25,7 @@ enum SelectedDateFormat {
   monthOnly("MMMM"),
   fullDateDMY("dd/MM/yyyy"),
   fullDateMDY("MM/dd/yyyy"),
-  fullDateDayAsStrMY("EEEE/d/yyyy"),
+  fullDateDayAsStrMY("EEEE M,y"),
   fullDateDMonthAsStrY("d MMMM, yyyy"),
   fullDateMonthAsStrDY("MMMM d, yyyy");
 
