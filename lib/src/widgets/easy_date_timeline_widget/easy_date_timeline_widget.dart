@@ -18,15 +18,15 @@ class EasyDateTimeLine extends StatefulWidget {
     this.dayProps,
     this.onDateChange,
     this.itemBuilder,
-    this.primaryColor,
+    this.activeColor,
   });
 
   ///Represents the initial date for the timeline widget.
   ///This is the date that will be displayed as the first day in the timeline.
   final DateTime initialDate;
 
-  /// The color for the active day
-  final Color? primaryColor;
+  /// The color for the active day.
+  final Color? activeColor;
 
   ///Contains properties for configuring the appearance and behavior of the timeline header.
   final EasyHeaderProps? headerProps;
@@ -84,10 +84,9 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
 
   @override
   Widget build(BuildContext context) {
-    final activeDayColor =
-        widget.primaryColor ?? Theme.of(context).primaryColor;
+    final activeDayColor = widget.activeColor ?? Theme.of(context).primaryColor;
     final brightness = ThemeData.estimateBrightnessForColor(
-        widget.primaryColor ?? activeDayColor);
+        widget.activeColor ?? activeDayColor);
     final activeDayTextColor = brightness == Brightness.light
         ? EasyColors.dayAsNumColor
         : Colors.white;
