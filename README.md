@@ -152,10 +152,16 @@ also in the `headerProps` change the `selectedDateFormat` to:
 
 You can use the `itemBuilder` to customize the appearance of the day widget.
 The `itemBuilder` provides the following:
+* `BuildContext context`.
+* `String dayNumber` : the day number ex: "11".
+* `String dayName` : the day name ex: "Sunday".
+* `String monthName` : the month name ex: "June".
+* `DateTime fullDate` : the full date of the day for fully customization.
+* `bool isSelected` : whether the day is selected or not.
 
 
 <p>
- <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_4.jpg"/>
+ <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_5.jpg"/>
 </p>
 
 ```dart
