@@ -90,6 +90,9 @@ In the `dayProps` change the `dayStructure` to:
         children: [
           EasyDateTimeLine(
             initialDate: DateTime.now(),
+            onDateChange: (selectedDate) {
+              //[selectedDate] the new date selected.
+            },
             activeColor: const Color(0xffFFBF9B),
             dayProps: const EasyDayProps(
               dayStructure: DayStructure.dayNumDayStr,
@@ -131,6 +134,9 @@ also in the `headerProps` change the `selectedDateFormat` to:
         children: [
           EasyDateTimeLine(
             initialDate: DateTime.now(),
+            onDateChange: (selectedDate) {
+              //[selectedDate] the new date selected.
+            },
             activeColor: const Color(0xff37306B),
             headerProps: const EasyHeaderProps(
               monthPickerType: MonthPickerType.switcher,
@@ -170,6 +176,9 @@ Column(
         children: [
           EasyDateTimeLine(
             initialDate: DateTime.now(),
+            onDateChange: (selectedDate) {
+              //[selectedDate] the new date selected.
+            },
             dayProps: const EasyDayProps(
               height: 56.0,
               activeBorderRadius: 16.0,
