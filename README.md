@@ -114,12 +114,12 @@ In the `headerProps` change the `monthPickerType` to:
 * `MonthPickerType.switcher` : show the month and you can change month by clicking the arrow buttons.
 * `MonthPickerType.dropDown` : show the month and you can change month from a dropdown menu.
 also in the `headerProps` change the `selectedDateFormat` to:
-* `SelectedDateFormat.fullDateDMY` : show the data as:`11/7/2023`
-* `SelectedDateFormat.fullDateDayAsStrMY` : show the data as:`Sunday 6,2023`
-* `SelectedDateFormat.fullDateDMonthAsStrY` : show the data as:`11 June,2023`
-* `SelectedDateFormat.fullDateDMonthAsStrY` : show the data as:`11 June,2023`
-* `SelectedDateFormat.dayOnly` : show the only the selected day as:`Sunday`
-* `SelectedDateFormat.monthOnly` : show the only the selected month as:`June`
+* `SelectedDateFormat.fullDateDMY` : show the data as:"11/7/2023"
+* `SelectedDateFormat.fullDateDayAsStrMY` : show the data as:"Sunday 6,2023"
+* `SelectedDateFormat.fullDateDMonthAsStrY` : show the data as:"11 June,2023"
+* `SelectedDateFormat.fullDateDMonthAsStrY` : show the data as:"11 June,2023"
+* `SelectedDateFormat.dayOnly` : show the only the selected day as:"Sunday"
+* `SelectedDateFormat.monthOnly` : show the only the selected month as:"June"
 
 <p>
  <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_4.jpg"/>
@@ -145,6 +145,75 @@ also in the `headerProps` change the `selectedDateFormat` to:
               separatorPadding: 16.0, // padding between days
             ),
           ),
+        ],
+      ),
+```
+## Customize day appearance
+
+You can use the `itemBuilder` to customize the appearance of the day widget.
+The `itemBuilder` provides the following:
+
+
+<p>
+ <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_4.jpg"/>
+</p>
+
+```dart
+Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          EasyDateTimeLine(
+            initialDate: DateTime.now(),
+            dayProps: const EasyDayProps(
+              height: 56.0,
+              activeBorderRadius: 16.0,
+            ),
+            itemBuilder:
+                (context, dayNumber, dayName, monthName, fullDate, isSelected) {
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                decoration: BoxDecoration(
+                  color: isSelected ? const Color(0xffFF6D60) : null,
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      monthName,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color:
+                            isSelected ? Colors.white : const Color(0xff6D5D6E),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 8.0,
+                    ),
+                    Text(
+                      dayNumber,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color:
+                            isSelected ? Colors.white : const Color(0xff393646),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 8.0,
+                    ),
+                    Text(
+                      dayName,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color:
+                            isSelected ? Colors.white : const Color(0xff6D5D6E),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          )
         ],
       ),
 ```
