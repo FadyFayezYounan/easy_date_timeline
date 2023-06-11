@@ -181,17 +181,22 @@ Column(
             },
             dayProps: const EasyDayProps(
               height: 56.0,
+              //you must provide the width in this case 
+              width: 124.0,
               activeBorderRadius: 16.0,
             ),
             itemBuilder:
                 (context, dayNumber, dayName, monthName, fullDate, isSelected) {
               return Container(
+                //the same width that provided previously.
+                width: 124.0,
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 decoration: BoxDecoration(
                   color: isSelected ? const Color(0xffFF6D60) : null,
                   borderRadius: BorderRadius.circular(16.0),
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       monthName,
