@@ -68,6 +68,42 @@ for both active and inactive day.
         ],
       ),
 ```
+## Change day structure
+
+In the `dayProps` change the `dayStructure` to:
+* DayStructure.dayNumDayStr : show the current day number then current day name.
+* DayStructure.dayStrDayNum : show the current name then current day number.
+* DayStructure.monthDayNumDayStr : show current month name then the current day number finally current day name.
+* DayStructure.dayStrDayNumMonth : show current day name then the current day number finally current moth name.
+
+<p>
+ <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_3.jpg"/>
+</p>
+
+```dart
+       Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          EasyDateTimeLine(
+            initialDate: DateTime.now(),
+            activeColor: const Color(0xffFFBF9B),
+            dayProps: const EasyDayProps(
+              dayStructure: DayStructure.dayNumDayStr,
+              inactiveBorderRadius: 48.0,
+              height: 56.0,
+              width: 56.0,
+              activeDayNumStyle: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+              inactiveDayNumStyle: TextStyle(
+                fontSize: 18.0,
+              ),
+            ),
+          )
+        ],
+      ),
+```
 
 ##### Constructor:
 
