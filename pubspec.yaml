@@ -17,17 +17,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-screenshots:
-  - description: 'The main image for the package'
-    path: screenshots\package_image.png
-  - description: 'example for customizing background for the day'
-    path: screenshots\example_2.jpg
-  - description: 'example for changing day structure'
-    path: screenshots\example_3.jpg
-  - description: 'example for changing header appearance'
-    path: screenshots\example_4.jpg
-  - description: 'example for customizing day appearance'
-    path: screenshots\example_5.jpg
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
