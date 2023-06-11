@@ -5,8 +5,11 @@
 The "easy_date_timeline" package is a customizable Flutter library that displays a timeline of dates in a horizontal timeline.
 
 <p>
- <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_1.jpg"/>
+ <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/package_image.png"/>
 </p>
+<!-- <p>
+ <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_1.jpg"/>
+</p> -->
 
 ## How To Use
 
