@@ -1,11 +1,10 @@
 # EasyDateTimeline
 
-<!-- [![Pub](https://img.shields.io/pub/v/date_picker_timeline?color=%232bb6f6)](https://pub.dev/packages/date_picker_timeline) -->
 
 The "easy_date_timeline" package is a customizable Flutter library that displays a timeline of dates in a horizontal timeline.
 
 <p>
- <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/package_image.png"/>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/easy_date_timeline.png"/>
 </p>
 <!-- <p>
  <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_1.jpg"/>
@@ -46,7 +45,7 @@ Use the `dayProps` that contains decoration
 for both active and inactive day.
 
 <p>
- <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_2.jpg"/>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/example_2.jpg"/>
 </p>
 
 ```dart
@@ -84,7 +83,7 @@ In the `dayProps` change the `dayStructure` to:
 * `DayStructure.dayStrDayNumMonth` : show current day name then the current day number finally current moth name.
 
 <p>
- <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_3.jpg"/>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/example_3.jpg"/>
 </p>
 
 ```dart
@@ -128,7 +127,7 @@ also in the `headerProps` change the `selectedDateFormat` to:
 * `SelectedDateFormat.monthOnly` : show the only the selected month as:"June"
 
 <p>
- <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_4.jpg"/>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/example_4.jpg"/>
 </p>
 
 ```dart
@@ -170,7 +169,7 @@ The `itemBuilder` provides the following:
 
 
 <p>
- <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_5.jpg"/>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/example_5.jpg"/>
 </p>
 
 ```dart
