@@ -33,6 +33,41 @@ Use the `EasyDateTimeLine` Widget
         ],
       ),
 ```
+## Custom background
+
+Use the `dayProps` that contains decoration
+for both active and inactive day.
+
+<p>
+ <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_2.jpg"/>
+</p>
+
+```dart
+ Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          EasyDateTimeLine(
+            initialDate: DateTime.now(),
+            onDateChange: (selectedDate) {
+              //[selectedDate] the new date selected.
+            },
+            dayProps: const EasyDayProps(
+              activeDayDecoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xff3371FF),
+                    Color(0xff8426D6),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+```
 
 ##### Constructor:
 
