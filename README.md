@@ -1,39 +1,55 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# EasyDateTimeline
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+<!-- [![Pub](https://img.shields.io/pub/v/date_picker_timeline?color=%232bb6f6)](https://pub.dev/packages/date_picker_timeline) -->
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+The "easy_date_timeline" package is a customizable Flutter library that displays a timeline of dates in a horizontal timeline.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+<p>
+ <img src=""/>
+</p>
 
-## Features
+## How To Use
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Import the following package in your dart file
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+```dart
+import 'package:easy_date_timeline/easy_date_timeline.dart';
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+This version is breaking backwards compatibility
+
+Use the `EasyDateTimeLine` Widget
 
 ```dart
-const like = 'sample';
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        EasyDateTimeLine(
+          initialDate: DateTime.now(),
+        ),
+      ],
+    )
 ```
 
-## Additional information
+##### Constructor:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+  EasyDateTimeLine({
+    super.key,
+    required this.initialDate,
+    this.activeColor,
+    this.headerProps,
+    this.timeLineProps,
+    this.dayProps,
+    this.onDateChange,
+    this.itemBuilder,
+    this.locale = "en_US",
+  });
+```
+
+Author
+------
+
+* [Fady Fayez](https://github.com/FadyFayezYounan)
