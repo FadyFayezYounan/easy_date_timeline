@@ -113,6 +113,28 @@ In the `dayProps` change the `dayStructure` to:
         ],
       ),
 ```
+## Locale support
+
+With `easy_date_timeline`, you can display dates and timelines in your preferred language and format. Simply pass the locale parameter with the appropriate language code and region as a value. For example, if you want to display the dates in Arabic, you can set the locale parameter to "ar". The package's support for localization allows you to provide a better user experience for users around the world by displaying text and information in their preferred language and format.
+<p>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/example_6.jpg"/>
+</p>
+
+```dart
+       Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          EasyDateTimeLine(
+            initialDate: DateTime.now(),
+            onDateChange: (selectedDate) {
+              //[selectedDate] the new date selected.
+            },
+            activeColor: const Color(0xffB04759),
+            locale:"ar",
+          ),
+        ],
+      ),
+```
 ## Change header appearance
 
 In the `headerProps` change the `monthPickerType` to:
