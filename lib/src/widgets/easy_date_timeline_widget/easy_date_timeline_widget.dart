@@ -8,6 +8,7 @@ import '../easy_month_picker/easy_month_picker.dart';
 import '../timeline_widget.dart';
 import 'selected_text_widget.dart';
 
+/// Represents a timeline widget for displaying dates in a horizontal line.
 class EasyDateTimeLine extends StatefulWidget {
   const EasyDateTimeLine({
     super.key,
@@ -21,32 +22,32 @@ class EasyDateTimeLine extends StatefulWidget {
     this.activeColor,
   });
 
-  ///Represents the initial date for the timeline widget.
-  ///This is the date that will be displayed as the first day in the timeline.
+  /// Represents the initial date for the timeline widget.
+  /// This is the date that will be displayed as the first day in the timeline.
   final DateTime initialDate;
 
   /// The color for the active day.
   final Color? activeColor;
 
-  ///Contains properties for configuring the appearance and behavior of the timeline header.
+  /// Contains properties for configuring the appearance and behavior of the timeline header.
   final EasyHeaderProps? headerProps;
 
-  ///Contains properties for configuring the appearance and behavior of the timeline widget.
+  /// Contains properties for configuring the appearance and behavior of the timeline widget.
   final TimeLineProps? timeLineProps;
 
-  ///contains properties for configuring the appearance and behavior of the day widgets in the timeline.
-  ///This includes properties such as the width and height of each day widget,
-  ///the color of the text and background, and the font size.
+  /// Contains properties for configuring the appearance and behavior of the day widgets in the timeline.
+  /// This includes properties such as the width and height of each day widget,
+  /// the color of the text and background, and the font size.
   final EasyDayProps? dayProps;
 
-  ///Called when the selected date in the timeline changes. This function takes a DateTime object as its parameter,
-  ///which represents the new selected date.
+  /// Called when the selected date in the timeline changes.
+  /// This function takes a `DateTime` object as its parameter, which represents the new selected date.
   final OnDateChangeCallBack? onDateChange;
 
-  ///Called for each day in the timeline, allowing to customize the appearance and behavior of each day widget.
+  /// Called for each day in the timeline, allowing to customize the appearance and behavior of each day widget.
   final ItemBuilderCallBack? itemBuilder;
 
-  ///A String that represents the locale code to use for formatting the dates in the timeline.
+  /// A `String` that represents the locale code to use for formatting the dates in the timeline.
   final String locale;
 
   @override
@@ -64,6 +65,7 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
     // Init easy date timeline locale
     initializeDateFormatting(widget.locale, null);
     super.initState();
+    // Get initial month
     _easyMonth =
         EasyDateUtils.convertDateToEasyMonth(widget.initialDate, widget.locale);
     _focusedDateListener = ValueNotifier(initialDate);
@@ -84,9 +86,21 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
 
   @override
   Widget build(BuildContext context) {
+    /// activeDayColor is initialized to the value of widget.activeColor if it is not null,
+    /// or to the primary color of the current theme if widget.activeColor is null.
+    /// This provides a fallback color if no active color is explicitly provided.
     final activeDayColor = widget.activeColor ?? Theme.of(context).primaryColor;
+
+    /// brightness is initialized to the brightness of the active color or the fallback color,
+    /// using the ThemeData.estimateBrightnessForColor method.
+    /// This method returns Brightness.dark if the color is closer to black,
+    ///  and Brightness.light if the color is closer to white.
     final brightness = ThemeData.estimateBrightnessForColor(
         widget.activeColor ?? activeDayColor);
+
+    /// activeDayTextColor is initialized to EasyColors.dayAsNumColor if the brightness is Brightness.light,
+    ///  indicating that the active color is light, or to Colors.white if the brightness is Brightness.dark,
+    /// indicating that the active color is dark.
     final activeDayTextColor = brightness == Brightness.light
         ? EasyColors.dayAsNumColor
         : Colors.white;
@@ -118,7 +132,7 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
                     child!,
                   if (_showMonthPicker(pickerType: MonthPickerType.switcher))
                     EasyMonthSwitcher(
-                      locale: 'en',
+                      locale: widget.locale,
                       value: _easyMonth,
                       onMonthChange: (month) {
                         setState(() {
@@ -140,12 +154,13 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
             itemBuilder: widget.itemBuilder,
             activeDayTextColor: activeDayTextColor,
             activeDayColor: activeDayColor,
+            locale: widget.locale,
           ),
         ],
       ),
       child: EasyMonthDropDown(
         value: _easyMonth,
-        locale: 'en',
+        locale: widget.locale,
         onMonthChange: (month) {
           setState(() {
             _easyMonth = month!;
@@ -155,6 +170,15 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
     );
   }
 
+  /// The method returns a boolean value, which indicates whether the month picker
+  /// should be displayed. If the _headerProps object is not null and its monthPickerType property
+  /// matches the pickerType parameter,
+  /// or if _headerProps is null and the isDefaultPicker parameter is true,
+  /// then the method returns true. Additionally,
+  /// if the showMonthPicker property of _headerProps is true when _headerProps is not null,
+  /// then the method also returns true. Otherwise, it returns false.
+  ///
+  /// This method used to determine whether to display the month picker in the header of the EasyDateTimeLineWidget.
   bool _showMonthPicker(
       {required MonthPickerType pickerType, bool isDefaultPicker = false}) {
     return _headerProps?.monthPickerType == pickerType ||

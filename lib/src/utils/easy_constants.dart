@@ -1,20 +1,25 @@
-final class EasyConstants {
+/// A utility class that provides easy access to commonly used constants in the `EasyDateTimeLine` widget.
+class EasyConstants {
   EasyConstants._();
-  //day widget
+
+  // Day widget constants
   static const double dayWidgetBorderRadius = 12.0;
   static const double dayWidgetWidth = 68.0;
   static const double dayWidgetHeight = 112.0;
   static const double dayAsNumFontSize = 20.0;
   static const double dayAsStrFontSize = 12.0;
   static const int animationDuration = 300;
-  //timeline list
+
+  // Timeline list constants
   static const double separatorPadding = 8.0;
   static const double timelinePadding = 8.0;
   static const String startLocale = "en_US";
-  //month dropDown
+
+  // Month dropdown constants
   static const double monthDropDownRadius = 12.0;
   static const int monthDropDownElevation = 4;
   static const double monthAsStrFontSize = 12.0;
-  //header
+
+  // Header constants
   static const double selectedDateFontSize = 16.0;
 }

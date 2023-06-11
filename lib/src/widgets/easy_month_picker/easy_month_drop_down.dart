@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/easy_month.dart';
 import '../../utils/utils.dart';
 
+/// A widget that displays a drop-down list of months.
 class EasyMonthDropDown extends StatelessWidget {
   const EasyMonthDropDown({
     super.key,
@@ -10,8 +11,14 @@ class EasyMonthDropDown extends StatelessWidget {
     this.onMonthChange,
     required this.locale,
   });
+
+  /// The currently selected month.
   final EasyMonth? value;
+
+  /// A callback function that is called when the selected month changes.
   final OnMonthChangeCallBack? onMonthChange;
+
+  /// A `String` that represents the locale code to use for formatting the month names in the drop-down list.
   final String locale;
 
   @override

@@ -3,23 +3,21 @@ import 'package:flutter/material.dart' show DateUtils;
 import '../models/models.dart';
 import 'utils.dart';
 
-abstract final class EasyDateUtils {
+/// A utility class that provides easy access to commonly used date-related functions in the `EasyDateTimeLine` widget.
+abstract class EasyDateUtils {
+  /// Returns the number of days in the month of the given date.
   static int getDaysInMonth(DateTime date) {
     return DateUtils.getDaysInMonth(date.year, date.month);
   }
 
-  static bool isCurrentMonth(DateTime date) {
-    final now = DateTime.now();
-    return DateUtils.isSameMonth(date, now);
-  }
-
+  /// Returns whether the given two dates represent the same day or not.
   static bool isSameDay(DateTime dateA, DateTime dateB) {
     return DateUtils.isSameDay(dateA, dateB);
   }
 
+  /// Returns a list of `EasyMonth` objects representing the 12 months of the year in the specified locale.
   static List<EasyMonth> getYearMonths(DateTime date, String locale) {
     final List<EasyMonth> months = [];
-    //DateTime date = DateTime(_date.year);
     for (int month = 1; month <= 12; month++) {
       months.add(EasyMonth(
         name: EasyDateFormatter.shortMonthName(
@@ -30,6 +28,7 @@ abstract final class EasyDateUtils {
     return months;
   }
 
+  /// Converts the given date to an `EasyMonth` object in the specified locale.
   static EasyMonth convertDateToEasyMonth(DateTime date, String locale) {
     return EasyMonth(
       name: EasyDateFormatter.shortMonthName(

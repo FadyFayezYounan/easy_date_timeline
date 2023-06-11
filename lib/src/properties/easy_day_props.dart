@@ -3,21 +3,6 @@ import 'package:flutter/material.dart' show BoxDecoration, Color, TextStyle;
 import '../utils/utils.dart';
 
 final class EasyDayProps {
-  final BoxDecoration? activeDayDecoration;
-  final BoxDecoration? inactiveDayDecoration;
-  final DayStructure? dayStructure;
-  final double activeBorderRadius;
-  final double inactiveBorderRadius;
-  final Color borderColor;
-  final TextStyle? activeDayNumStyle;
-  final TextStyle? inactiveDayNumStyle;
-  final TextStyle? activeDayStrStyle;
-  final TextStyle? inactiveDayStrStyle;
-  final TextStyle? activeMothStrStyle;
-  final TextStyle? inactiveMothStrStyle;
-  final double width;
-  final double height;
-
   const EasyDayProps({
     this.activeDayDecoration,
     this.inactiveDayDecoration,
@@ -34,6 +19,48 @@ final class EasyDayProps {
     this.activeMothStrStyle,
     this.inactiveMothStrStyle,
   });
+
+  /// The decoration applied to the active day. If null, it used default decoration.
+  final BoxDecoration? activeDayDecoration;
+
+  /// The decoration applied to inactive days. If null, inactive days are not decorated.
+  final BoxDecoration? inactiveDayDecoration;
+
+  /// The structure used to build the day widget.
+  final DayStructure? dayStructure;
+
+  /// The border radius of the active day.
+  final double activeBorderRadius;
+
+  /// The border radius of inactive days.
+  final double inactiveBorderRadius;
+
+  /// The color of the border around the day widget.
+  final Color borderColor;
+
+  /// The text style applied to the number of the active day.
+  final TextStyle? activeDayNumStyle;
+
+  /// The text style applied to the number of inactive days.
+  final TextStyle? inactiveDayNumStyle;
+
+  /// The text style applied to the string representing the active day.
+  final TextStyle? activeDayStrStyle;
+
+  /// The text style applied to the string representing inactive days.
+  final TextStyle? inactiveDayStrStyle;
+
+  /// The text style applied to the month string when the day is active.
+  final TextStyle? activeMothStrStyle;
+
+  /// The text style applied to the month string when the day is inactive.
+  final TextStyle? inactiveMothStrStyle;
+
+  /// The width of the day widget.
+  final double width;
+
+  /// The height of the day widget.
+  final double height;
 }
 
 enum DayStructure {

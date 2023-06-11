@@ -5,6 +5,7 @@ import '../properties/time_line_props.dart';
 import '../utils/utils.dart';
 import 'easy_day_widget/easy_day_widget.dart';
 
+/// A widget that displays a timeline of days.
 class TimeLineWidget extends StatefulWidget {
   const TimeLineWidget({
     super.key,
@@ -19,33 +20,38 @@ class TimeLineWidget extends StatefulWidget {
     required this.activeDayColor,
   });
 
-  ///Represents the initial date for the timeline widget.
-  ///This is the date that will be displayed as the first day in the timeline.
+  /// Represents the initial date for the timeline widget.
+  /// This is the date that will be displayed as the first day in the timeline.
   final DateTime initialDate;
+
+  /// The currently focused date in the timeline.
   final DateTime? focusedDate;
 
-  ///Contains properties for configuring the appearance and behavior of the timeline widget.
-  ///This object includes properties such as the height of the timeline, the color of the selected day,
-  ///and the animation duration for scrolling.
+  /// Contains properties for configuring the appearance and behavior of the timeline widget.
+  /// This object includes properties such as the height of the timeline, the color of the selected day,
+  /// and the animation duration for scrolling.
   final TimeLineProps? timeLineProps;
 
-  ///contains properties for configuring the appearance and behavior of the day widgets in the timeline.
-  ///This object includes properties such as the width and height of each day widget,
-  ///the color of the text and background, and the font size.
+  /// Contains properties for configuring the appearance and behavior of the day widgets in the timeline.
+  /// This object includes properties such as the width and height of each day widget,
+  /// the color of the text and background, and the font size.
   final EasyDayProps? easyDayProps;
 
-  ///Called when the selected date in the timeline changes. This function takes a DateTime object as its parameter,
-  ///which represents the new selected date.
+  /// Called when the selected date in the timeline changes.
+  /// This function takes a `DateTime` object as its parameter, which represents the new selected date.
   final OnDateChangeCallBack? onDateChange;
 
-  ///Called for each day in the timeline, allowing the developer to customize the appearance and behavior of each day widget.
-  ///This function takes a BuildContext and a DateTime object as its parameters, and should return a Widget that represents the day.
+  /// Called for each day in the timeline, allowing the developer to customize the appearance and behavior of each day widget.
+  /// This function takes a `BuildContext` and a `DateTime` object as its parameters, and should return a `Widget` that represents the day.
   final ItemBuilderCallBack? itemBuilder;
 
-  ///A String that represents the locale code to use for formatting the dates in the timeline.
+  /// A `String` that represents the locale code to use for formatting the dates in the timeline.
   final String locale;
 
+  /// The color of the text for the selected day.
   final Color activeDayTextColor;
+
+  /// The background color of the selected day.
   final Color activeDayColor;
 
   @override

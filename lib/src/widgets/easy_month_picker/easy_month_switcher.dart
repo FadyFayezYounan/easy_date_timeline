@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/models.dart';
 import '../../utils/utils.dart';
 
+/// A widget that displays a button for switching to the previous or next month.
 class EasyMonthSwitcher extends StatefulWidget {
   const EasyMonthSwitcher({
     super.key,
@@ -10,8 +11,14 @@ class EasyMonthSwitcher extends StatefulWidget {
     required this.value,
     this.onMonthChange,
   });
+
+  /// A `String` that represents the locale code to use for formatting the month name in the switcher.
   final String locale;
+
+  /// The currently selected month.
   final EasyMonth? value;
+
+  /// A callback function that is called when the selected month changes.
   final OnMonthChangeCallBack? onMonthChange;
 
   @override

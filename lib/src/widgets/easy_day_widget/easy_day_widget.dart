@@ -4,6 +4,7 @@ import '../../properties/easy_day_props.dart';
 import '../../utils/utils.dart';
 import 'day_info_text.dart';
 
+/// A widget that displays a single day in the timeline.
 class EasyDayWidget extends StatelessWidget {
   const EasyDayWidget({
     super.key,
@@ -15,12 +16,26 @@ class EasyDayWidget extends StatelessWidget {
     required this.activeTextColor,
     required this.activeDayColor,
   });
+
+  /// Contains properties for configuring the appearance and behavior of the day widget.
   final EasyDayProps? easyDayProps;
+
+  /// The date to display in the day widget.
   final DateTime date;
+
+  /// A `String` that represents the locale code to use for formatting the date in the day widget.
   final String locale;
+
+  /// A boolean value that indicates whether the day is selected.
   final bool isSelected;
+
+  /// A callback function that is called when the day widget is pressed.
   final VoidCallback onDayPressed;
+
+  /// The color of the text for the selected day.
   final Color activeTextColor;
+
+  /// The background color of the selected day.
   final Color activeDayColor;
 
   @override
@@ -42,6 +57,9 @@ class EasyDayWidget extends StatelessWidget {
     );
   }
 
+  /// Builds the default decoration for the day widget.
+  ///
+  /// This method returns a `BoxDecoration` object with the appropriate properties based on the `isSelected` boolean value and the `easyDayProps` object.
   BoxDecoration _buildDayDefaultDecoration(Color color) {
     return BoxDecoration(
       color: isSelected ? color : null,
@@ -55,6 +73,9 @@ class EasyDayWidget extends StatelessWidget {
     );
   }
 
+  /// Returns the `BorderRadius` of the day widget.
+  ///
+  /// This method returns a `BorderRadius` object with the appropriate radius based on the `isSelected` boolean value and the `easyDayProps` object.
   BorderRadius get _dayBorderRadius {
     return BorderRadius.all(
       Radius.circular(
@@ -66,6 +87,11 @@ class EasyDayWidget extends StatelessWidget {
       ),
     );
   }
+
+  /// Builds a `DayInfoText` widget for the month.
+  ///
+  /// This method returns a `DayInfoText` widget that displays the short name of the month of the current date, in uppercase.
+  /// The `textStyle` property of the widget is determined based on the `isSelected` boolean value and the `easyDayProps` object.
 
   DayInfoText _buildMonth() {
     return DayInfoText(
@@ -80,6 +106,10 @@ class EasyDayWidget extends StatelessWidget {
     );
   }
 
+  /// Builds a `DayInfoText` widget for the day number.
+  ///
+  /// This method returns a `DayInfoText` widget that displays the day number of the current date.
+  /// The `textStyle` property of the widget is determined based on the `isSelected` boolean value and the `easyDayProps` object.
   DayInfoText _buildDayNumber() {
     return DayInfoText(
       text: date.day.toString(),
@@ -91,6 +121,11 @@ class EasyDayWidget extends StatelessWidget {
           : (easyDayProps?.inactiveDayNumStyle ?? EasyTextStyles.dayAsNumStyle),
     );
   }
+
+  /// Builds a `DayInfoText` widget for the day number.
+  ///
+  /// This method returns a `DayInfoText` widget that displays the day number of the current date.
+  /// The `textStyle` property of the widget is determined based on the `isSelected` boolean value and the `easyDayProps` object.
 
   DayInfoText _buildDayString() {
     return DayInfoText(
@@ -104,6 +139,10 @@ class EasyDayWidget extends StatelessWidget {
     );
   }
 
+  /// Builds the structure of a day widget based on the provided `DayStructure`.
+  ///
+  /// `structure` is an enum value that represents the structure to use for the day widget.
+  /// This method returns a `Column` widget that contains the appropriate widgets for the `DayStructure`.
   Widget _buildDayStructure(DayStructure? structure) {
     List<Widget> items = [];
     switch (structure) {

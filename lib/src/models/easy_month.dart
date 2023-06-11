@@ -1,11 +1,14 @@
 class EasyMonth {
-  final String name;
-  final int vale;
-
   const EasyMonth({
     required this.name,
     required this.vale,
   });
+
+  /// The name of the month
+  final String name;
+
+  ///the value of the month and this value has range of 1,...12
+  final int vale;
 
   @override
   bool operator ==(Object other) =>
