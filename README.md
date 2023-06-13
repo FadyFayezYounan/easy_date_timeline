@@ -17,11 +17,6 @@ Import the following package in your dart file
 ```dart
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 ```
-## Features
-* `Dynamic Text Color` : The "easy_date_timeline" package automatically adjusts the text color of the active day based on the active color. If the active color is a dark color, the text color will be light, and if the active color is a light color, the text color will be dark. This ensures that the text is always easy to read and contrasts well with the background color.
-* `Customizable Item Builder` : The "easy_date_timeline" package provides an item builder that allows for full customization of the timeline items. With the item builder, developers can customize the appearance and behavior of each date item in the timeline, including the text, background color,etc..
-* `Locale Support` : The "easy_date_timeline" package supports locale, allowing developers to display the timeline in different languages and formats based on the user's device settings. This feature ensures that the package can be used in a variety of international contexts and provides a seamless user experience for users around the world.
-
 ## Usage
 
 Use the `EasyDateTimeLine` Widget
@@ -39,6 +34,13 @@ Use the `EasyDateTimeLine` Widget
         ],
       ),
 ```
+
+## Features
+* `Dynamic Text Color` : The "easy_date_timeline" package automatically adjusts the text color of the active day based on the active color. If the active color is a dark color, the text color will be light, and if the active color is a light color, the text color will be dark. This ensures that the text is always easy to read and contrasts well with the background color.
+* `Customizable Item Builder` : The "easy_date_timeline" package provides an item builder that allows for full customization of the timeline items. With the item builder, developers can customize the appearance and behavior of each date item in the timeline, including the text, background color,etc..
+* `Locale Support` : The "easy_date_timeline" package supports locale, allowing developers to display the timeline in different languages and formats based on the user's device settings. This feature ensures that the package can be used in a variety of international contexts and provides a seamless user experience for users around the world.
+
+
 ## Custom background
 
 Use the `dayProps` that contains decoration
@@ -141,12 +143,13 @@ In the `headerProps` change the `monthPickerType` to:
 * `MonthPickerType.switcher` : show the month and you can change month by clicking the arrow buttons.
 * `MonthPickerType.dropDown` : show the month and you can change month from a dropdown menu.
 also in the `headerProps` change the `selectedDateFormat` to:
-* `SelectedDateFormat.fullDateDMY` : show the data as:"11/7/2023"
+* `SelectedDateFormat.fullDateDMY` : show the data as:"11/06/2023"
+* `SelectedDateFormat.fullDateMDY` : show the data as:"06/11/2023"
 * `SelectedDateFormat.fullDateDayAsStrMY` : show the data as:"Sunday 6,2023"
 * `SelectedDateFormat.fullDateDMonthAsStrY` : show the data as:"11 June,2023"
-* `SelectedDateFormat.fullDateDMonthAsStrY` : show the data as:"11 June,2023"
-* `SelectedDateFormat.dayOnly` : show the only the selected day as:"Sunday"
-* `SelectedDateFormat.monthOnly` : show the only the selected month as:"June"
+* `SelectedDateFormat.fullDateMonthAsStrDY` : show the data as:"June 11,2023"
+* `SelectedDateFormat.dayOnly` : show only the selected day as:"Sunday"
+* `SelectedDateFormat.monthOnly` : show only the selected month as:"June"
 
 <p>
  <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/example_4.jpg"/>

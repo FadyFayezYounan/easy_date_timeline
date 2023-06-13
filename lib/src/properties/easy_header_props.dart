@@ -34,12 +34,25 @@ final class EasyHeaderProps {
 }
 
 enum SelectedDateFormat {
+  /// Show only the selected day as:"Sunday"
   dayOnly("EEEE"),
+
+  /// Show only the selected month as:"June"
   monthOnly("MMMM"),
+
+  /// Show the data as:"11/06/2023"
   fullDateDMY("dd/MM/yyyy"),
+
+  /// Show the data as:"06/11/2023"
   fullDateMDY("MM/dd/yyyy"),
+
+  /// Show the data as:"Sunday 6,2023"
   fullDateDayAsStrMY("EEEE M,y"),
+
+  /// Show the data as:"11 June,2023"
   fullDateDMonthAsStrY("d MMMM, yyyy"),
+
+  /// Show the data as:"June 11,2023"
   fullDateMonthAsStrDY("MMMM d, yyyy");
 
   const SelectedDateFormat(this.formatter);
