@@ -1,3 +1,7 @@
+## 0.0.4
+
+* add package screenshot.
+
 ## 0.0.3
 
 * add landscape day view and two new day structures.
