@@ -6,7 +6,7 @@ import '../../properties/properties.dart';
 import '../../utils/utils.dart';
 import '../easy_month_picker/easy_month_picker.dart';
 import '../timeline_widget.dart';
-import 'selected_text_widget.dart';
+import 'selected_date_widget.dart';
 
 /// Represents a timeline widget for displaying dates in a horizontal line.
 class EasyDateTimeLine extends StatefulWidget {

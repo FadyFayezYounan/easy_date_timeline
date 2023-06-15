@@ -82,6 +82,8 @@ In the `dayProps` change the `dayStructure` to:
 * `DayStructure.dayNumDayStr` : show the current day number then current day name.
 * `DayStructure.dayStrDayNum` : show the current name then current day number.
 * `DayStructure.monthDayNumDayStr` : show current month name then the current day number finally current day name.
+* `DayStructure.dayNumberOnly` : show only current day number.
+* `DayStructure.dayNameOnly` : show only current day name.
 * `DayStructure.dayStrDayNumMonth` : show current day name then the current day number finally current moth name.
 
 <p>
@@ -133,6 +135,37 @@ With `easy_date_timeline`, you can display dates and timelines in your preferred
             },
             activeColor: const Color(0xffB04759),
             locale:"ar",
+          ),
+        ],
+      ),
+```
+## landscape view
+
+With `easy_date_timeline`, you can display dates and timelines in landscape view just set
+`landScapeMode` to `true` in `dayProps`.
+<p>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/landscape_example.jpg"/>
+</p>
+
+```dart
+       Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+                EasyDateTimeLine(
+            initialDate: DateTime.now(),
+            onDateChange: (selectedDate) {
+              //[selectedDate] the new date selected.
+            },
+            activeColor: const Color(0xff116A7B),
+            dayProps: const EasyDayProps(
+              //set landScapeMode = true
+              landScapeMode: true,
+              activeBorderRadius: 48.0,
+              dayStructure: DayStructure.dayStrDayNum,
+            ),
+            headerProps: const EasyHeaderProps(
+              selectedDateFormat: SelectedDateFormat.fullDateDMonthAsStrY,
+            ),
           ),
         ],
       ),

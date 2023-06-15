@@ -51,6 +51,10 @@ class MyHomePage extends StatelessWidget {
             const SizedBox(
               height: 32.0,
             ),
+            _landscapeViewExample(),
+            const SizedBox(
+              height: 32.0,
+            ),
             _changeHeaderAppearanceExample(),
             const SizedBox(
               height: 32.0,
@@ -123,6 +127,24 @@ class MyHomePage extends StatelessWidget {
         inactiveDayNumStyle: TextStyle(
           fontSize: 18.0,
         ),
+      ),
+    );
+  }
+
+  EasyDateTimeLine _landscapeViewExample() {
+    return EasyDateTimeLine(
+      initialDate: DateTime.now(),
+      onDateChange: (selectedDate) {
+        //[selectedDate] the new date selected.
+      },
+      activeColor: const Color(0xff116A7B),
+      dayProps: const EasyDayProps(
+        landScapeMode: true,
+        activeBorderRadius: 48.0,
+        dayStructure: DayStructure.dayStrDayNum,
+      ),
+      headerProps: const EasyHeaderProps(
+        selectedDateFormat: SelectedDateFormat.fullDateDMonthAsStrY,
       ),
     );
   }

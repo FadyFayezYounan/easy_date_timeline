@@ -32,7 +32,10 @@ class SelectedDateWidget extends StatelessWidget {
       child: Text(
         headerProps != null
             ? EasyDateFormatter.customFormat(
-                headerProps!.selectedDateFormat.formatter, date, locale)
+                headerProps!.selectedDateFormat.formatter,
+                date,
+                locale,
+              )
             : EasyDateFormatter.fullDayName(
                 date,
                 locale,
