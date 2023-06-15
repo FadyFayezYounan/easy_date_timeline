@@ -33,7 +33,7 @@ class EasyDateTimeLine extends StatefulWidget {
   final EasyHeaderProps? headerProps;
 
   /// Contains properties for configuring the appearance and behavior of the timeline widget.
-  final TimeLineProps? timeLineProps;
+  final EasyTimeLineProps? timeLineProps;
 
   /// Contains properties for configuring the appearance and behavior of the day widgets in the timeline.
   /// This includes properties such as the width and height of each day widget,
@@ -109,7 +109,7 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
       builder: (context, focusedDate, child) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (_headerProps != null ? _headerProps!.showHeader == true : true)
+          if (_headerProps?.showHeader ?? true)
             Padding(
               padding: const EdgeInsets.only(
                 left: EasyConstants.timelinePadding * 2,
@@ -121,24 +121,21 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
                     ? MainAxisAlignment.center
                     : MainAxisAlignment.spaceBetween,
                 children: [
-                  SelectedTextWidget(
+                  SelectedDateWidget(
                     date: focusedDate ?? initialDate,
                     locale: widget.locale,
                     headerProps: _headerProps,
                   ),
                   if (_showMonthPicker(
-                      pickerType: MonthPickerType.dropDown,
-                      isDefaultPicker: true))
+                    pickerType: MonthPickerType.dropDown,
+                    isDefaultPicker: true,
+                  ))
                     child!,
                   if (_showMonthPicker(pickerType: MonthPickerType.switcher))
                     EasyMonthSwitcher(
                       locale: widget.locale,
                       value: _easyMonth,
-                      onMonthChange: (month) {
-                        setState(() {
-                          _easyMonth = month!;
-                        });
-                      },
+                      onMonthChange: _onMonthChange,
                     ),
                 ],
               ),
@@ -150,7 +147,7 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
             focusedDate: focusedDate,
             onDateChange: _onFocusedDateChanged,
             timeLineProps: widget.timeLineProps,
-            easyDayProps: widget.dayProps,
+            dayProps: widget.dayProps,
             itemBuilder: widget.itemBuilder,
             activeDayTextColor: activeDayTextColor,
             activeDayColor: activeDayColor,
@@ -161,13 +158,15 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
       child: EasyMonthDropDown(
         value: _easyMonth,
         locale: widget.locale,
-        onMonthChange: (month) {
-          setState(() {
-            _easyMonth = month!;
-          });
-        },
+        onMonthChange: _onMonthChange,
       ),
     );
+  }
+
+  void _onMonthChange(month) {
+    setState(() {
+      _easyMonth = month!;
+    });
   }
 
   /// The method returns a boolean value, which indicates whether the month picker
@@ -181,10 +180,17 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
   /// This method used to determine whether to display the month picker in the header of the EasyDateTimeLineWidget.
   bool _showMonthPicker(
       {required MonthPickerType pickerType, bool isDefaultPicker = false}) {
+    /// Set a boolean flag `isDefault` to true if `isDefaultPickerEnabled` is true
+    /// and `_headerProps` is null. This avoids accessing `_headerProps` unnecessarily.
+    final bool isDefault = _headerProps == null && isDefaultPicker;
+
+    /// Get a boolean flag `useCustomHeader` that is true if `_headerProps` exists
+    /// and its `showMonthPicker` property is true, otherwise set it to true.
+    final bool useCustomHeader = _headerProps?.showMonthPicker ?? true;
+
+    /// Return true if the month picker type in `_headerProps` matches `pickerType`
+    /// or if `isDefault` is true and `useCustomHeader` is true.
     return _headerProps?.monthPickerType == pickerType ||
-        (_headerProps == null && isDefaultPicker) &&
-            (_headerProps != null
-                ? _headerProps!.showMonthPicker == true
-                : true);
+        (isDefault && useCustomHeader);
   }
 }

@@ -18,6 +18,7 @@ final class EasyDayProps {
     this.inactiveDayStrStyle,
     this.activeMothStrStyle,
     this.inactiveMothStrStyle,
+    this.landScapeMode = false,
   });
 
   /// The decoration applied to the active day. If null, it used default decoration.
@@ -61,6 +62,9 @@ final class EasyDayProps {
 
   /// The height of the day widget.
   final double height;
+
+  /// The appearance of the day widget whether in vertical or horizontal .
+  final bool landScapeMode;
 }
 
 enum DayStructure {
@@ -68,4 +72,6 @@ enum DayStructure {
   dayStrDayNumMonth,
   dayNumDayStr,
   dayStrDayNum,
+  dayNumberOnly,
+  dayNameOnly,
 }

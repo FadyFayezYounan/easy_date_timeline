@@ -141,8 +141,9 @@ class MyHomePage extends StatelessWidget {
       dayProps: const EasyDayProps(
         activeBorderRadius: 32.0,
         inactiveBorderRadius: 32.0,
+        // landScapeMode: true,
       ),
-      timeLineProps: const TimeLineProps(
+      timeLineProps: const EasyTimeLineProps(
         padding: 16.0, // padding from left and right
         separatorPadding: 16.0, // padding between days
       ),

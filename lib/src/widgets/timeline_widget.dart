@@ -10,7 +10,7 @@ class TimeLineWidget extends StatefulWidget {
   const TimeLineWidget({
     super.key,
     required this.initialDate,
-    this.easyDayProps,
+    this.dayProps,
     this.locale = "en_US",
     this.timeLineProps,
     this.onDateChange,
@@ -30,12 +30,12 @@ class TimeLineWidget extends StatefulWidget {
   /// Contains properties for configuring the appearance and behavior of the timeline widget.
   /// This object includes properties such as the height of the timeline, the color of the selected day,
   /// and the animation duration for scrolling.
-  final TimeLineProps? timeLineProps;
+  final EasyTimeLineProps? timeLineProps;
 
   /// Contains properties for configuring the appearance and behavior of the day widgets in the timeline.
   /// This object includes properties such as the width and height of each day widget,
   /// the color of the text and background, and the font size.
-  final EasyDayProps? easyDayProps;
+  final EasyDayProps? dayProps;
 
   /// Called when the selected date in the timeline changes.
   /// This function takes a `DateTime` object as its parameter, which represents the new selected date.
@@ -59,8 +59,12 @@ class TimeLineWidget extends StatefulWidget {
 }
 
 class _TimeLineWidgetState extends State<TimeLineWidget> {
-  EasyDayProps? get _easyDayProps => widget.easyDayProps;
-  TimeLineProps? get _timeLineProps => widget.timeLineProps;
+  EasyDayProps? get _dayProps => widget.dayProps;
+  EasyTimeLineProps? get _timeLineProps => widget.timeLineProps;
+  bool get _isLandscapeMode => _dayProps?.landScapeMode ?? false;
+  double get _dayWidth => _dayProps?.width ?? EasyConstants.dayWidgetWidth;
+  double get _dayHeight => _dayProps?.height ?? EasyConstants.dayWidgetHeight;
+  double get _dayOffsetConstrains => _isLandscapeMode ? _dayHeight : _dayWidth;
 
   late ScrollController _controller;
   @override
@@ -91,48 +95,57 @@ class _TimeLineWidgetState extends State<TimeLineWidget> {
     if (offset == 0) {
       return 0.0;
     }
-    return (offset *
-            (widget.easyDayProps?.width ?? EasyConstants.dayWidgetWidth)) +
+    return (offset * _dayOffsetConstrains) +
         (offset * (_timeLineProps?.padding ?? EasyConstants.timelinePadding));
   }
 
   @override
   Widget build(BuildContext context) {
     final initialDate = widget.initialDate;
+
     return Container(
-      color: _timeLineProps?.backgroundColor,
-      height: _easyDayProps?.height ?? EasyConstants.dayWidgetHeight,
-      child: ListView.separated(
-        controller: _controller,
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(
-          horizontal: _timeLineProps?.padding ?? EasyConstants.timelinePadding,
+      height: _isLandscapeMode ? _dayWidth : _dayHeight,
+      margin: _timeLineProps?.margin,
+      color: _timeLineProps?.decoration == null
+          ? _timeLineProps?.backgroundColor
+          : null,
+      decoration: _timeLineProps?.decoration,
+      child: ClipRRect(
+        borderRadius:
+            _timeLineProps?.decoration?.borderRadius ?? BorderRadius.zero,
+        child: ListView.separated(
+          controller: _controller,
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.symmetric(
+            horizontal:
+                _timeLineProps?.padding ?? EasyConstants.timelinePadding,
+          ),
+          itemBuilder: (context, index) {
+            final currentDate = DateTime(initialDate.year, initialDate.month, 1)
+                .add(Duration(days: index));
+            final isSelected = widget.focusedDate != null
+                ? EasyDateUtils.isSameDay(widget.focusedDate!, currentDate)
+                : EasyDateUtils.isSameDay(widget.initialDate, currentDate);
+            return widget.itemBuilder != null
+                ? _dayItemBuilder(isSelected, currentDate, context)
+                : EasyDayWidget(
+                    easyDayProps: _dayProps,
+                    date: currentDate,
+                    locale: widget.locale,
+                    isSelected: isSelected,
+                    onDayPressed: () => _onDayChanged(isSelected, currentDate),
+                    activeTextColor: widget.activeDayTextColor,
+                    activeDayColor: widget.activeDayColor,
+                  );
+          },
+          separatorBuilder: (context, index) {
+            return SizedBox(
+              width: _timeLineProps?.separatorPadding ??
+                  EasyConstants.separatorPadding,
+            );
+          },
+          itemCount: EasyDateUtils.getDaysInMonth(initialDate),
         ),
-        itemBuilder: (context, index) {
-          final currentDate = DateTime(initialDate.year, initialDate.month, 1)
-              .add(Duration(days: index));
-          final isSelected = widget.focusedDate != null
-              ? EasyDateUtils.isSameDay(widget.focusedDate!, currentDate)
-              : EasyDateUtils.isSameDay(widget.initialDate, currentDate);
-          return widget.itemBuilder != null
-              ? _dayItemBuilder(isSelected, currentDate, context)
-              : EasyDayWidget(
-                  easyDayProps: _easyDayProps,
-                  date: currentDate,
-                  locale: widget.locale,
-                  isSelected: isSelected,
-                  onDayPressed: () => _onDayChanged(isSelected, currentDate),
-                  activeTextColor: widget.activeDayTextColor,
-                  activeDayColor: widget.activeDayColor,
-                );
-        },
-        separatorBuilder: (context, index) {
-          return SizedBox(
-            width: _timeLineProps?.separatorPadding ??
-                EasyConstants.separatorPadding,
-          );
-        },
-        itemCount: EasyDateUtils.getDaysInMonth(initialDate),
       ),
     );
   }
@@ -144,8 +157,8 @@ class _TimeLineWidgetState extends State<TimeLineWidget> {
   ) {
     return InkWell(
       onTap: () => _onDayChanged(isSelected, date),
-      borderRadius: BorderRadius.circular(_easyDayProps?.activeBorderRadius ??
-          _easyDayProps?.inactiveBorderRadius ??
+      borderRadius: BorderRadius.circular(_dayProps?.activeBorderRadius ??
+          _dayProps?.inactiveBorderRadius ??
           0.0),
       child: widget.itemBuilder!(
         context,

@@ -9,6 +9,7 @@ class EasyConstants {
   static const double dayAsNumFontSize = 20.0;
   static const double dayAsStrFontSize = 12.0;
   static const int animationDuration = 300;
+  static const double landscapeDayPadding = 4.0;
 
   // Timeline list constants
   static const double separatorPadding = 8.0;

@@ -4,8 +4,8 @@ import '../../properties/properties.dart';
 import '../../utils/utils.dart';
 
 /// Represents a header widget for displaying the name of a month and year.
-class SelectedTextWidget extends StatelessWidget {
-  const SelectedTextWidget({
+class SelectedDateWidget extends StatelessWidget {
+  const SelectedDateWidget({
     super.key,
     required this.date,
     this.headerProps,

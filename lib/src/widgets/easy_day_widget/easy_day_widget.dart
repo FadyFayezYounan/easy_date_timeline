@@ -40,21 +40,37 @@ class EasyDayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLandScapeMode = easyDayProps?.landScapeMode ?? false;
+    final width = isLandScapeMode ? easyDayProps?.height : easyDayProps?.width;
+    final height = isLandScapeMode ? easyDayProps?.width : easyDayProps?.height;
+    // final activeDayDecoration = (easyDayProps?.activeDayDecoration ??
+    //     _buildDayDefaultDecoration(activeDayColor));
     return InkWell(
       onTap: onDayPressed,
       borderRadius: _dayBorderRadius,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: EasyConstants.animationDuration),
-        width: easyDayProps?.width ?? EasyConstants.dayWidgetWidth,
-        height: easyDayProps?.height ?? EasyConstants.dayWidgetHeight,
-        decoration: isSelected
-            ? (easyDayProps?.activeDayDecoration ??
-                _buildDayDefaultDecoration(activeDayColor))
-            : (easyDayProps?.inactiveDayDecoration ??
-                _buildDayDefaultDecoration(activeDayColor)),
-        child: _buildDayStructure(easyDayProps?.dayStructure),
+        width: width ?? EasyConstants.dayWidgetWidth,
+        height: height ?? EasyConstants.dayWidgetHeight,
+        decoration: isSelected ? _activeDayDecoration : _inactiveDayDecoration,
+        child: _buildDayStructure(
+          structure: easyDayProps?.dayStructure,
+          isLandScape: isLandScapeMode,
+          //  easyDayProps?.dayStructure,
+          // easyDayProps?.landScapeMode,
+        ),
       ),
     );
+  }
+
+  BoxDecoration get _inactiveDayDecoration {
+    return (easyDayProps?.inactiveDayDecoration ??
+        _buildDayDefaultDecoration(activeDayColor));
+  }
+
+  BoxDecoration get _activeDayDecoration {
+    return (easyDayProps?.activeDayDecoration ??
+        _buildDayDefaultDecoration(activeDayColor));
   }
 
   /// Builds the default decoration for the day widget.
@@ -77,13 +93,13 @@ class EasyDayWidget extends StatelessWidget {
   ///
   /// This method returns a `BorderRadius` object with the appropriate radius based on the `isSelected` boolean value and the `easyDayProps` object.
   BorderRadius get _dayBorderRadius {
+    final activeBorderRadius =
+        easyDayProps?.activeBorderRadius ?? EasyConstants.dayWidgetBorderRadius;
+    final inactiveBorderRadius = easyDayProps?.inactiveBorderRadius ??
+        EasyConstants.dayWidgetBorderRadius;
     return BorderRadius.all(
       Radius.circular(
-        isSelected
-            ? (easyDayProps?.activeBorderRadius ??
-                EasyConstants.dayWidgetBorderRadius)
-            : (easyDayProps?.inactiveBorderRadius ??
-                EasyConstants.dayWidgetBorderRadius),
+        isSelected ? activeBorderRadius : inactiveBorderRadius,
       ),
     );
   }
@@ -94,15 +110,15 @@ class EasyDayWidget extends StatelessWidget {
   /// The `textStyle` property of the widget is determined based on the `isSelected` boolean value and the `easyDayProps` object.
 
   DayInfoText _buildMonth() {
+    final activeMothStrStyle = easyDayProps?.activeMothStrStyle ??
+        EasyTextStyles.monthAsStrStyle.copyWith(
+          color: activeTextColor,
+        );
+    final inactiveMothStrStyle =
+        easyDayProps?.inactiveMothStrStyle ?? EasyTextStyles.monthAsStrStyle;
     return DayInfoText(
       text: EasyDateFormatter.shortMonthName(date, locale).toUpperCase(),
-      textStyle: isSelected
-          ? (easyDayProps?.activeMothStrStyle ??
-              EasyTextStyles.monthAsStrStyle.copyWith(
-                color: activeTextColor,
-              ))
-          : (easyDayProps?.inactiveMothStrStyle ??
-              EasyTextStyles.monthAsStrStyle),
+      textStyle: isSelected ? activeMothStrStyle : inactiveMothStrStyle,
     );
   }
 
@@ -111,14 +127,15 @@ class EasyDayWidget extends StatelessWidget {
   /// This method returns a `DayInfoText` widget that displays the day number of the current date.
   /// The `textStyle` property of the widget is determined based on the `isSelected` boolean value and the `easyDayProps` object.
   DayInfoText _buildDayNumber() {
+    final activeDayNumStyle = easyDayProps?.activeDayNumStyle ??
+        EasyTextStyles.dayAsNumStyle.copyWith(
+          color: activeTextColor,
+        );
+    final inactiveDayNumStyle =
+        easyDayProps?.inactiveDayNumStyle ?? EasyTextStyles.dayAsNumStyle;
     return DayInfoText(
       text: date.day.toString(),
-      textStyle: isSelected
-          ? (easyDayProps?.activeDayNumStyle ??
-              EasyTextStyles.dayAsNumStyle.copyWith(
-                color: activeTextColor,
-              ))
-          : (easyDayProps?.inactiveDayNumStyle ?? EasyTextStyles.dayAsNumStyle),
+      textStyle: isSelected ? activeDayNumStyle : inactiveDayNumStyle,
     );
   }
 
@@ -128,14 +145,15 @@ class EasyDayWidget extends StatelessWidget {
   /// The `textStyle` property of the widget is determined based on the `isSelected` boolean value and the `easyDayProps` object.
 
   DayInfoText _buildDayString() {
+    final activeDayStrStyle = easyDayProps?.activeDayStrStyle ??
+        EasyTextStyles.dayAsStrStyle.copyWith(
+          color: activeTextColor,
+        );
+    final inactiveDayStrStyle =
+        easyDayProps?.inactiveDayStrStyle ?? EasyTextStyles.dayAsStrStyle;
     return DayInfoText(
       text: EasyDateFormatter.shortDayName(date, locale).toUpperCase(),
-      textStyle: isSelected
-          ? (easyDayProps?.activeDayStrStyle ??
-              EasyTextStyles.dayAsStrStyle.copyWith(
-                color: activeTextColor,
-              ))
-          : (easyDayProps?.inactiveDayStrStyle ?? EasyTextStyles.dayAsStrStyle),
+      textStyle: isSelected ? activeDayStrStyle : inactiveDayStrStyle,
     );
   }
 
@@ -143,18 +161,35 @@ class EasyDayWidget extends StatelessWidget {
   ///
   /// `structure` is an enum value that represents the structure to use for the day widget.
   /// This method returns a `Column` widget that contains the appropriate widgets for the `DayStructure`.
-  Widget _buildDayStructure(DayStructure? structure) {
+  Widget _buildDayStructure(
+      {DayStructure? structure, bool isLandScape = false}) {
     List<Widget> items = [];
     switch (structure) {
+      case DayStructure.dayNumberOnly:
+        items = [
+          _buildDayNumber(),
+        ];
+        break;
+      case DayStructure.dayNameOnly:
+        items = [
+          _buildDayString(),
+        ];
+        break;
       case DayStructure.dayNumDayStr:
         items = [
           _buildDayNumber(),
+          const SizedBox(
+            width: EasyConstants.landscapeDayPadding,
+          ),
           _buildDayString(),
         ];
         break;
       case DayStructure.dayStrDayNum:
         items = [
           _buildDayString(),
+          const SizedBox(
+            width: EasyConstants.landscapeDayPadding,
+          ),
           _buildDayNumber(),
         ];
         break;
@@ -172,14 +207,26 @@ class EasyDayWidget extends StatelessWidget {
           _buildDayString(),
         ];
     }
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment:
-          (easyDayProps?.dayStructure == DayStructure.dayNumDayStr ||
-                  easyDayProps?.dayStructure == DayStructure.dayStrDayNum)
-              ? MainAxisAlignment.center
-              : MainAxisAlignment.spaceEvenly,
-      children: items,
-    );
+
+    ///`isCompleteDate` means that the day will contains its name, number and month.
+    bool isNotCompleteDate = (structure == DayStructure.dayNumDayStr ||
+        structure == DayStructure.dayStrDayNum);
+    return isLandScape
+        ? Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: _dayItemsMainAxisAlignment(isNotCompleteDate),
+            children: items,
+          )
+        : Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: _dayItemsMainAxisAlignment(isNotCompleteDate),
+            children: items,
+          );
+  }
+
+  MainAxisAlignment _dayItemsMainAxisAlignment(bool isNotCompleteDate) {
+    return isNotCompleteDate
+        ? MainAxisAlignment.center
+        : MainAxisAlignment.spaceEvenly;
   }
 }
