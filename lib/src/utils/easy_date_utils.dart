@@ -36,4 +36,11 @@ abstract class EasyDateUtils {
       vale: date.month,
     );
   }
+
+  /// function that takes a DateTime object as input and returns a boolean value
+  /// indicating whether it is the current date or not.
+  static bool isCurrentDay(DateTime date) {
+    DateTime now = DateTime.now();
+    return isSameDay(now, date);
+  }
 }

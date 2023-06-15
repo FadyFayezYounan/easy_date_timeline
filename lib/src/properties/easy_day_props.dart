@@ -19,6 +19,8 @@ final class EasyDayProps {
     this.activeMothStrStyle,
     this.inactiveMothStrStyle,
     this.landScapeMode = false,
+    this.currentDateHighlightColor,
+    this.highlightCurrentDay = true,
   });
 
   /// The decoration applied to the active day. If null, it used default decoration.
@@ -65,6 +67,12 @@ final class EasyDayProps {
 
   /// The appearance of the day widget whether in vertical or horizontal .
   final bool landScapeMode;
+
+  /// Set a background color for the current date.
+  final Color? currentDateHighlightColor;
+
+  /// Show the background color for the current date or not.
+  final bool highlightCurrentDay;
 }
 
 enum DayStructure {

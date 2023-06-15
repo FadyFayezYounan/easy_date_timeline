@@ -77,10 +77,21 @@ class EasyDayWidget extends StatelessWidget {
   ///
   /// This method returns a `BoxDecoration` object with the appropriate properties based on the `isSelected` boolean value and the `easyDayProps` object.
   BoxDecoration _buildDayDefaultDecoration(Color color) {
+    final isCurrentDay = EasyDateUtils.isCurrentDay(date);
+    final showCurrentDayHighlightColor =
+        easyDayProps?.highlightCurrentDay ?? true;
+    final currantDayColorOrNull = showCurrentDayHighlightColor
+        ? (easyDayProps?.currentDateHighlightColor ?? color.withOpacity(0.2))
+        : null;
+    final currentDayBackgroundColor =
+        isCurrentDay ? currantDayColorOrNull : null;
+
     return BoxDecoration(
-      color: isSelected ? color : null,
+      color: isSelected ? color : currentDayBackgroundColor,
       borderRadius: _dayBorderRadius,
-      border: isSelected
+
+      /// Hide the day border if the day is selected or is the current day.
+      border: isSelected || showCurrentDayHighlightColor
           ? null
           : Border.all(
               color:
