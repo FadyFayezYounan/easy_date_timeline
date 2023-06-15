@@ -19,7 +19,15 @@ dev_dependencies:
 
 screenshots:
   - description: The package main image.
-    path: screenshots\easy_date_timeline.png
+    path: screenshots\package_screenshot.jpg
+
+platforms:
+  android:
+  ios:
+  linux:
+  macos:
+  web:
+  windows:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
