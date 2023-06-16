@@ -17,9 +17,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-screenshots:
-  - description: The package main image.
-    path: screenshots\package_screenshot.jpg
+# screenshots:
+#   - description: The package main image.
+#     path: screenshots\package_screenshot.jpg
 
 platforms:
   android:
