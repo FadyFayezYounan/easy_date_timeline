@@ -1,3 +1,7 @@
+## 0.0.5
+
+* add highlight color for the current day.
+
 ## 0.0.4
 
 * add package screenshot.

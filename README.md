@@ -139,7 +139,7 @@ With `easy_date_timeline`, you can display dates and timelines in your preferred
         ],
       ),
 ```
-## landscape view
+## Landscape view
 
 With `easy_date_timeline`, you can display dates and timelines in landscape view just set
 `landScapeMode` to `true` in `dayProps`.

@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Easy Date Timeline',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -52,6 +53,10 @@ class MyHomePage extends StatelessWidget {
               height: 32.0,
             ),
             _landscapeViewExample(),
+            const SizedBox(
+              height: 32.0,
+            ),
+            _localeExample(),
             const SizedBox(
               height: 32.0,
             ),
@@ -146,6 +151,17 @@ class MyHomePage extends StatelessWidget {
       headerProps: const EasyHeaderProps(
         selectedDateFormat: SelectedDateFormat.fullDateDMonthAsStrY,
       ),
+    );
+  }
+
+  EasyDateTimeLine _localeExample() {
+    return EasyDateTimeLine(
+      initialDate: DateTime.now(),
+      onDateChange: (selectedDate) {
+        //[selectedDate] the new date selected.
+      },
+      activeColor: const Color(0xffB04759),
+      locale: "ar",
     );
   }
 
