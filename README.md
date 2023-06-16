@@ -4,7 +4,7 @@
 The "easy_date_timeline" package is a customizable Flutter library that displays a timeline of dates in a horizontal view.
 
 <p>
- <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/easy_date_timeline.png"/>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/easy_date_timeline.jpg"/>
 </p>
 <!-- <p>
  <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_1.jpg"/>
@@ -47,7 +47,7 @@ Use the `dayProps` that contains decoration
 for both active and inactive day.
 
 <p>
- <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/example_2.jpg"/>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/custom_background_example.jpg"/>
 </p>
 
 ```dart
@@ -87,7 +87,7 @@ In the `dayProps` change the `dayStructure` to:
 * `DayStructure.dayStrDayNumMonth` : show current day name then the current day number finally current moth name.
 
 <p>
- <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/example_3.jpg"/>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/change_day_structure_example.jpg"/>
 </p>
 
 ```dart
@@ -121,7 +121,7 @@ In the `dayProps` change the `dayStructure` to:
 
 With `easy_date_timeline`, you can display dates and timelines in your preferred language and format. Simply pass the locale parameter with the appropriate language code and region as a value. For example, if you want to display the dates in Arabic, you can set the locale parameter to "ar". The package's support for localization allows you to provide a better user experience for users around the world by displaying text and information in their preferred language and format.
 <p>
- <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/example_6.jpg"/>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/locale_support_example.jpg"/>
 </p>
 
 ```dart
@@ -144,7 +144,7 @@ With `easy_date_timeline`, you can display dates and timelines in your preferred
 With `easy_date_timeline`, you can display dates and timelines in landscape view just set
 `landScapeMode` to `true` in `dayProps`.
 <p>
- <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/landscape_example.jpg"/>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/landscape_view_example.jpg"/>
 </p>
 
 ```dart
@@ -185,7 +185,7 @@ also in the `headerProps` change the `selectedDateFormat` to:
 * `SelectedDateFormat.monthOnly` : show only the selected month as:"June"
 
 <p>
- <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/example_4.jpg"/>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/change_header_appearance_example.jpg"/>
 </p>
 
 ```dart
@@ -227,7 +227,7 @@ The `itemBuilder` provides the following:
 
 
 <p>
- <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/example_5.jpg"/>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/customize_day_appearance_example.jpg"/>
 </p>
 
 ```dart
