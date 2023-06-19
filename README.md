@@ -181,7 +181,7 @@ With `easy_date_timeline`, you can display dates and timelines in your preferred
 With `easy_date_timeline`, you can display dates and timelines in landscape view just set
 `landScapeMode` to `true` in `dayProps`.
 <p>
- <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/landscape_view_example.jpg"/>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/landscape_view_example_2.jpg"/>
 </p>
 
 ```dart
