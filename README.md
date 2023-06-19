@@ -107,6 +107,12 @@ to change the highlight color you can use `todayHighlightColor` and set your own
         ],
       ),
 ```
+> **NOTE:**
+> 
+> If you provide an `inactiveDecoration` to the EasyDateTimeline widget, the current day highlight feature will be disabled. This is because the inactiveDecoration is used to style the dates that are not in the active date range, and applying the current day highlight to those dates may not be desirable. If you want to use the current day highlight feature, do not provide an inactiveDecoration to the widget.  
+> 
+
+
 ## Change day structure
 
 In the `dayProps` change the `dayStructure` to:
