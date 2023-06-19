@@ -86,7 +86,7 @@ by default the highlight color equal to primary color with opacity of 20%.
 to change the highlight color you can use `todayHighlightColor` and set your own color.
 
 <p>
- <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/custom_background_example.jpg"/>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/change_today_highlight_color_and_style.jpg"/>
 </p>
 
 ```dart
