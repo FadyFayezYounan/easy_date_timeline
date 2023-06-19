@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show TextStyle;
+import 'package:flutter/material.dart' show TextStyle, EdgeInsets;
 
 final class EasyHeaderProps {
   const EasyHeaderProps({
@@ -9,28 +9,32 @@ final class EasyHeaderProps {
     this.selectedDateFormat = SelectedDateFormat.dayOnly,
     this.monthPickerType = MonthPickerType.dropDown,
     this.selectedDateStyle,
+    this.padding,
   });
 
-  /// Whether to show the header of the calendar widget.
+  /// Whether to show the header of the date timeline widget.
   final bool showHeader;
 
-  /// Whether to show the selected date in the header of the calendar widget.
+  /// Whether to show the selected date in the header of the date timeline widget.
   final bool showSelectedDate;
 
-  /// Whether to show the month picker at the top of the calendar widget.
+  /// Whether to show the month picker at the top of the date timeline widget.
   final bool showMonthPicker;
 
   /// Whether to center the header of the calendar widget.
   final bool centerHeader;
 
-  /// The format used to display the selected date in the header of the calendar widget.
+  /// The format used to display the selected date in the header of the date timeline widget.
   final SelectedDateFormat selectedDateFormat;
 
   /// The type of month picker to use if [showMonthPicker] is true.
   final MonthPickerType monthPickerType;
 
-  /// The text style applied to the selected date string in the header of the calendar widget.
+  /// The text style applied to the selected date string in the header of the date timeline widget.
   final TextStyle? selectedDateStyle;
+
+  /// The padding applied to the date timeline widget headers.
+  final EdgeInsets? padding;
 }
 
 enum SelectedDateFormat {

@@ -48,6 +48,10 @@ class MyHomePage extends StatelessWidget {
             const SizedBox(
               height: 32.0,
             ),
+            _changeTodyHighlightColorExample(),
+            const SizedBox(
+              height: 32.0,
+            ),
             _changeDayStructureExample(),
             const SizedBox(
               height: 32.0,
@@ -106,6 +110,20 @@ class MyHomePage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  EasyDateTimeLine _changeTodyHighlightColorExample() {
+    return EasyDateTimeLine(
+      initialDate: DateTime.now(),
+      onDateChange: (selectedDate) {
+        //[selectedDate] the new date selected.
+      },
+      activeColor: const Color(0xff85A389),
+      dayProps: const EasyDayProps(
+        todayHighlightStyle: TodayHighlightStyle.withBackground,
+        todayHighlightColor: Color(0xffE1ECC8),
       ),
     );
   }
@@ -182,7 +200,7 @@ class MyHomePage extends StatelessWidget {
         // landScapeMode: true,
       ),
       timeLineProps: const EasyTimeLineProps(
-        padding: 16.0, // padding from left and right
+        hPadding: 16.0, // padding from left and right
         separatorPadding: 16.0, // padding between days
       ),
     );

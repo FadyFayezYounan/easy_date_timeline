@@ -8,7 +8,7 @@ import 'day_info_text.dart';
 class EasyDayWidget extends StatelessWidget {
   const EasyDayWidget({
     super.key,
-    this.easyDayProps,
+    this.easyDayProps = const EasyDayProps(),
     required this.date,
     required this.locale,
     this.isSelected = false,
@@ -18,7 +18,7 @@ class EasyDayWidget extends StatelessWidget {
   });
 
   /// Contains properties for configuring the appearance and behavior of the day widget.
-  final EasyDayProps? easyDayProps;
+  final EasyDayProps easyDayProps;
 
   /// The date to display in the day widget.
   final DateTime date;
@@ -40,62 +40,84 @@ class EasyDayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLandScapeMode = easyDayProps?.landScapeMode ?? false;
-    final width = isLandScapeMode ? easyDayProps?.height : easyDayProps?.width;
-    final height = isLandScapeMode ? easyDayProps?.width : easyDayProps?.height;
-    // final activeDayDecoration = (easyDayProps?.activeDayDecoration ??
-    //     _buildDayDefaultDecoration(activeDayColor));
+    final isLandScapeMode = easyDayProps.landScapeMode;
+    final width = isLandScapeMode ? easyDayProps.height : easyDayProps.width;
+    final height = isLandScapeMode ? easyDayProps.width : easyDayProps.height;
+    // Check if the date is today and if it should be highlighted with a background or a border
+    final isToday = EasyDateUtils.isCurrentDay(date);
+
     return InkWell(
       onTap: onDayPressed,
       borderRadius: _dayBorderRadius,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: EasyConstants.animationDuration),
-        width: width ?? EasyConstants.dayWidgetWidth,
-        height: height ?? EasyConstants.dayWidgetHeight,
+        width: width,
+        height: height,
         decoration: isSelected ? _activeDayDecoration : _inactiveDayDecoration,
         child: _buildDayStructure(
-          structure: easyDayProps?.dayStructure,
+          structure: easyDayProps.dayStructure,
           isLandScape: isLandScapeMode,
-          //  easyDayProps?.dayStructure,
-          // easyDayProps?.landScapeMode,
+          isToday: isToday,
         ),
       ),
     );
   }
 
   BoxDecoration get _inactiveDayDecoration {
-    return (easyDayProps?.inactiveDayDecoration ??
+    return (easyDayProps.inactiveDayDecoration ??
         _buildDayDefaultDecoration(activeDayColor));
   }
 
   BoxDecoration get _activeDayDecoration {
-    return (easyDayProps?.activeDayDecoration ??
+    return (easyDayProps.activeDayDecoration ??
         _buildDayDefaultDecoration(activeDayColor));
   }
 
   /// Builds the default decoration for the day widget.
   ///
   /// This method returns a `BoxDecoration` object with the appropriate properties based on the `isSelected` boolean value and the `easyDayProps` object.
-  BoxDecoration _buildDayDefaultDecoration(Color color) {
-    final isCurrentDay = EasyDateUtils.isCurrentDay(date);
-    final showCurrentDayHighlightColor =
-        easyDayProps?.highlightCurrentDay ?? true;
-    final currantDayColorOrNull = showCurrentDayHighlightColor
-        ? (easyDayProps?.currentDateHighlightColor ?? color.withOpacity(0.2))
-        : null;
-    final currentDayBackgroundColor =
-        isCurrentDay ? currantDayColorOrNull : null;
 
+  BoxDecoration _buildDayDefaultDecoration(Color backgroundColor) {
+    // Check if the date is today and if it should be highlighted with a background or a border
+    final isToday = EasyDateUtils.isCurrentDay(date);
+    // Check if the dayHighlightStyle is `withBackground` it returns true otherwise it returns false.
+    final isBackgroundHighlight =
+        easyDayProps.todayHighlightStyle == TodayHighlightStyle.withBackground;
+    // Check if the dayHighlightStyle is `withBorder` it returns true otherwise it returns false.
+    final isBorderHighlight =
+        easyDayProps.todayHighlightStyle == TodayHighlightStyle.withBorder;
+    // Indicating that today's date should be highlighted or not.
+    final shouldHighlightToday =
+        easyDayProps.todayHighlightStyle != TodayHighlightStyle.none;
+
+    // Get the highlight color for today or use a default color if it should be highlighted
+    final todayHighlightColor = easyDayProps.todayHighlightColor ??
+        (isBackgroundHighlight
+            ? backgroundColor.withOpacity(0.2)
+            : backgroundColor);
+
+    // Check if the date has a background or a border highlight
+    final isHighlightedDate = isToday && shouldHighlightToday;
+    final hasBackgroundHighlight = (isHighlightedDate && isBackgroundHighlight);
+    final hasBorderHighlight = (isHighlightedDate && isBorderHighlight);
+
+    // Hide the border if the date is selected or has a background highlight
+    final hideBorder = isSelected || hasBackgroundHighlight;
     return BoxDecoration(
-      color: isSelected ? color : currentDayBackgroundColor,
+      // Use the background color for the selected date or the highlight color for the highlighted date
+      color: isSelected
+          ? backgroundColor
+          : (hasBackgroundHighlight ? todayHighlightColor : null),
       borderRadius: _dayBorderRadius,
 
-      /// Hide the day border if the day is selected or is the current day.
-      border: isSelected || showCurrentDayHighlightColor
+      // Use the border color for the highlighted date or hide the border otherwise
+      border: hideBorder
           ? null
           : Border.all(
-              color:
-                  easyDayProps?.borderColor ?? EasyColors.dayWidgetBorderColor,
+              color: hasBorderHighlight
+                  ? todayHighlightColor
+                  : easyDayProps.borderColor,
+              //width: hasBorderHighlight ? 2.0 : 1.0,
             ),
     );
   }
@@ -103,15 +125,12 @@ class EasyDayWidget extends StatelessWidget {
   /// Returns the `BorderRadius` of the day widget.
   ///
   /// This method returns a `BorderRadius` object with the appropriate radius based on the `isSelected` boolean value and the `easyDayProps` object.
+
   BorderRadius get _dayBorderRadius {
-    final activeBorderRadius =
-        easyDayProps?.activeBorderRadius ?? EasyConstants.dayWidgetBorderRadius;
-    final inactiveBorderRadius = easyDayProps?.inactiveBorderRadius ??
-        EasyConstants.dayWidgetBorderRadius;
-    return BorderRadius.all(
-      Radius.circular(
-        isSelected ? activeBorderRadius : inactiveBorderRadius,
-      ),
+    final activeBorderRadius = easyDayProps.activeBorderRadius;
+    final inactiveBorderRadius = easyDayProps.inactiveBorderRadius;
+    return BorderRadius.circular(
+      isSelected ? activeBorderRadius : inactiveBorderRadius,
     );
   }
 
@@ -120,16 +139,20 @@ class EasyDayWidget extends StatelessWidget {
   /// This method returns a `DayInfoText` widget that displays the short name of the month of the current date, in uppercase.
   /// The `textStyle` property of the widget is determined based on the `isSelected` boolean value and the `easyDayProps` object.
 
-  DayInfoText _buildMonth() {
-    final activeMothStrStyle = easyDayProps?.activeMothStrStyle ??
+  DayInfoText _buildMonth(bool isToday) {
+    final activeMothStrStyle = easyDayProps.activeMothStrStyle ??
         EasyTextStyles.monthAsStrStyle.copyWith(
           color: activeTextColor,
         );
     final inactiveMothStrStyle =
-        easyDayProps?.inactiveMothStrStyle ?? EasyTextStyles.monthAsStrStyle;
+        easyDayProps.inactiveMothStrStyle ?? EasyTextStyles.monthAsStrStyle;
+    final todayMonthStrStyle =
+        easyDayProps.todayMonthStrStyle ?? EasyTextStyles.monthAsStrStyle;
     return DayInfoText(
       text: EasyDateFormatter.shortMonthName(date, locale).toUpperCase(),
-      textStyle: isSelected ? activeMothStrStyle : inactiveMothStrStyle,
+      textStyle: isSelected
+          ? activeMothStrStyle
+          : (isToday ? todayMonthStrStyle : inactiveMothStrStyle),
     );
   }
 
@@ -137,16 +160,20 @@ class EasyDayWidget extends StatelessWidget {
   ///
   /// This method returns a `DayInfoText` widget that displays the day number of the current date.
   /// The `textStyle` property of the widget is determined based on the `isSelected` boolean value and the `easyDayProps` object.
-  DayInfoText _buildDayNumber() {
-    final activeDayNumStyle = easyDayProps?.activeDayNumStyle ??
+  DayInfoText _buildDayNumber(bool isToday) {
+    final activeDayNumStyle = easyDayProps.activeDayNumStyle ??
         EasyTextStyles.dayAsNumStyle.copyWith(
           color: activeTextColor,
         );
     final inactiveDayNumStyle =
-        easyDayProps?.inactiveDayNumStyle ?? EasyTextStyles.dayAsNumStyle;
+        easyDayProps.inactiveDayNumStyle ?? EasyTextStyles.dayAsNumStyle;
+    final todayNumStyle =
+        easyDayProps.todayNumStyle ?? EasyTextStyles.dayAsNumStyle;
     return DayInfoText(
       text: date.day.toString(),
-      textStyle: isSelected ? activeDayNumStyle : inactiveDayNumStyle,
+      textStyle: isSelected
+          ? activeDayNumStyle
+          : (isToday ? todayNumStyle : inactiveDayNumStyle),
     );
   }
 
@@ -155,16 +182,20 @@ class EasyDayWidget extends StatelessWidget {
   /// This method returns a `DayInfoText` widget that displays the day number of the current date.
   /// The `textStyle` property of the widget is determined based on the `isSelected` boolean value and the `easyDayProps` object.
 
-  DayInfoText _buildDayString() {
-    final activeDayStrStyle = easyDayProps?.activeDayStrStyle ??
+  DayInfoText _buildDayString(bool isToday) {
+    final activeDayStrStyle = easyDayProps.activeDayStrStyle ??
         EasyTextStyles.dayAsStrStyle.copyWith(
           color: activeTextColor,
         );
     final inactiveDayStrStyle =
-        easyDayProps?.inactiveDayStrStyle ?? EasyTextStyles.dayAsStrStyle;
+        easyDayProps.inactiveDayStrStyle ?? EasyTextStyles.dayAsStrStyle;
+    final todayStrStyle =
+        easyDayProps.todayStrStyle ?? EasyTextStyles.dayAsStrStyle;
     return DayInfoText(
       text: EasyDateFormatter.shortDayName(date, locale).toUpperCase(),
-      textStyle: isSelected ? activeDayStrStyle : inactiveDayStrStyle,
+      textStyle: isSelected
+          ? activeDayStrStyle
+          : (isToday ? todayStrStyle : inactiveDayStrStyle),
     );
   }
 
@@ -173,49 +204,51 @@ class EasyDayWidget extends StatelessWidget {
   /// `structure` is an enum value that represents the structure to use for the day widget.
   /// This method returns a `Column` widget that contains the appropriate widgets for the `DayStructure`.
   Widget _buildDayStructure(
-      {DayStructure? structure, bool isLandScape = false}) {
+      {required DayStructure structure,
+      bool isLandScape = false,
+      required bool isToday}) {
     List<Widget> items = [];
     switch (structure) {
       case DayStructure.dayNumberOnly:
         items = [
-          _buildDayNumber(),
+          _buildDayNumber(isToday),
         ];
         break;
       case DayStructure.dayNameOnly:
         items = [
-          _buildDayString(),
+          _buildDayString(isToday),
         ];
         break;
       case DayStructure.dayNumDayStr:
         items = [
-          _buildDayNumber(),
+          _buildDayNumber(isToday),
           const SizedBox(
             width: EasyConstants.landscapeDayPadding,
           ),
-          _buildDayString(),
+          _buildDayString(isToday),
         ];
         break;
       case DayStructure.dayStrDayNum:
         items = [
-          _buildDayString(),
+          _buildDayString(isToday),
           const SizedBox(
             width: EasyConstants.landscapeDayPadding,
           ),
-          _buildDayNumber(),
+          _buildDayNumber(isToday),
         ];
         break;
       case DayStructure.dayStrDayNumMonth:
         items = [
-          _buildDayString(),
-          _buildDayNumber(),
-          _buildMonth(),
+          _buildDayString(isToday),
+          _buildDayNumber(isToday),
+          _buildMonth(isToday),
         ];
         break;
       default:
         items = [
-          _buildMonth(),
-          _buildDayNumber(),
-          _buildDayString(),
+          _buildMonth(isToday),
+          _buildDayNumber(isToday),
+          _buildDayString(isToday),
         ];
     }
 

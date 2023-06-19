@@ -76,6 +76,37 @@ for both active and inactive day.
         ],
       ),
 ```
+## Change current day highlight color and style
+
+in the `dayProps` you can set `todayHighlightStyle` to :
+* `TodayHighlightStyle.withBackground` : Set a background color for the current day. 
+* `TodayHighlightStyle.withBorder` : Set just a colored border for the current day. 
+* `TodayHighlightStyle.none` : Remove the highlight from the current day.
+by default the highlight color equal to primary color with opacity of 20%.
+to change the highlight color you can use `todayHighlightColor` and set your own color.
+
+<p>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/custom_background_example.jpg"/>
+</p>
+
+```dart
+ Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          EasyDateTimeLine(
+            initialDate: DateTime.now(),
+            onDateChange: (selectedDate) {
+              //[selectedDate] the new date selected.
+            },
+            activeColor: const Color(0xff85A389),
+            dayProps: const EasyDayProps(
+              todayHighlightStyle: TodayHighlightStyle.withBackground,
+              todayHighlightColor: Color(0xffE1ECC8),
+            ),
+          ),
+        ],
+      ),
+```
 ## Change day structure
 
 In the `dayProps` change the `dayStructure` to:
@@ -207,7 +238,7 @@ also in the `headerProps` change the `selectedDateFormat` to:
               inactiveBorderRadius: 32.0,
             ),
             timeLineProps: const TimeLineProps(
-              padding: 16.0, // padding from left and right
+              hPadding: 16.0, // padding from left and right
               separatorPadding: 16.0, // padding between days
             ),
           ),

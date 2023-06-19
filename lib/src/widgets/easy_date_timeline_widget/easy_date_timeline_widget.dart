@@ -5,7 +5,7 @@ import '../../models/models.dart';
 import '../../properties/properties.dart';
 import '../../utils/utils.dart';
 import '../easy_month_picker/easy_month_picker.dart';
-import '../timeline_widget.dart';
+import '../time_line_widget/timeline_widget.dart';
 import 'selected_date_widget.dart';
 
 /// Represents a timeline widget for displaying dates in a horizontal line.
@@ -14,9 +14,9 @@ class EasyDateTimeLine extends StatefulWidget {
     super.key,
     required this.initialDate,
     this.locale = "en_US",
-    this.headerProps,
-    this.timeLineProps,
-    this.dayProps,
+    this.headerProps = const EasyHeaderProps(),
+    this.timeLineProps = const EasyTimeLineProps(),
+    this.dayProps = const EasyDayProps(),
     this.onDateChange,
     this.itemBuilder,
     this.activeColor,
@@ -30,15 +30,15 @@ class EasyDateTimeLine extends StatefulWidget {
   final Color? activeColor;
 
   /// Contains properties for configuring the appearance and behavior of the timeline header.
-  final EasyHeaderProps? headerProps;
+  final EasyHeaderProps headerProps;
 
   /// Contains properties for configuring the appearance and behavior of the timeline widget.
-  final EasyTimeLineProps? timeLineProps;
+  final EasyTimeLineProps timeLineProps;
 
   /// Contains properties for configuring the appearance and behavior of the day widgets in the timeline.
   /// This includes properties such as the width and height of each day widget,
   /// the color of the text and background, and the font size.
-  final EasyDayProps? dayProps;
+  final EasyDayProps dayProps;
 
   /// Called when the selected date in the timeline changes.
   /// This function takes a `DateTime` object as its parameter, which represents the new selected date.
@@ -82,7 +82,7 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
     super.dispose();
   }
 
-  EasyHeaderProps? get _headerProps => widget.headerProps;
+  EasyHeaderProps get _headerProps => widget.headerProps;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +96,8 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
     /// This method returns Brightness.dark if the color is closer to black,
     ///  and Brightness.light if the color is closer to white.
     final brightness = ThemeData.estimateBrightnessForColor(
-        widget.activeColor ?? activeDayColor);
+      widget.activeColor ?? activeDayColor,
+    );
 
     /// activeDayTextColor is initialized to EasyColors.dayAsNumColor if the brightness is Brightness.light,
     ///  indicating that the active color is light, or to Colors.white if the brightness is Brightness.dark,
@@ -109,15 +110,16 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
       builder: (context, focusedDate, child) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (_headerProps?.showHeader ?? true)
+          if (_headerProps.showHeader)
             Padding(
-              padding: const EdgeInsets.only(
-                left: EasyConstants.timelinePadding * 2,
-                right: EasyConstants.timelinePadding,
-                bottom: EasyConstants.timelinePadding,
-              ),
+              padding: _headerProps.padding ??
+                  const EdgeInsets.only(
+                    left: EasyConstants.timelinePadding * 2,
+                    right: EasyConstants.timelinePadding,
+                    bottom: EasyConstants.timelinePadding,
+                  ),
               child: Row(
-                mainAxisAlignment: _headerProps?.centerHeader == true
+                mainAxisAlignment: _headerProps.centerHeader == true
                     ? MainAxisAlignment.center
                     : MainAxisAlignment.spaceBetween,
                 children: [
@@ -128,7 +130,6 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
                   ),
                   if (_showMonthPicker(
                     pickerType: MonthPickerType.dropDown,
-                    isDefaultPicker: true,
                   ))
                     child!,
                   if (_showMonthPicker(pickerType: MonthPickerType.switcher))
@@ -178,19 +179,13 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
   /// then the method also returns true. Otherwise, it returns false.
   ///
   /// This method used to determine whether to display the month picker in the header of the EasyDateTimeLineWidget.
-  bool _showMonthPicker(
-      {required MonthPickerType pickerType, bool isDefaultPicker = false}) {
-    /// Set a boolean flag `isDefault` to true if `isDefaultPickerEnabled` is true
-    /// and `_headerProps` is null. This avoids accessing `_headerProps` unnecessarily.
-    final bool isDefault = _headerProps == null && isDefaultPicker;
-
+  bool _showMonthPicker({required MonthPickerType pickerType}) {
     /// Get a boolean flag `useCustomHeader` that is true if `_headerProps` exists
     /// and its `showMonthPicker` property is true, otherwise set it to true.
-    final bool useCustomHeader = _headerProps?.showMonthPicker ?? true;
+    final bool showMonthPicker = _headerProps.showMonthPicker;
 
     /// Return true if the month picker type in `_headerProps` matches `pickerType`
     /// or if `isDefault` is true and `useCustomHeader` is true.
-    return _headerProps?.monthPickerType == pickerType ||
-        (isDefault && useCustomHeader);
+    return _headerProps.monthPickerType == pickerType && showMonthPicker;
   }
 }

@@ -1,3 +1,7 @@
+## 0.0.6
+
+* add highlight style for the current day (highlight today border or background color or none).
+
 ## 0.0.5
 
 * add highlight color for the current day.
