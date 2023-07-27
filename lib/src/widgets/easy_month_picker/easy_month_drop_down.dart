@@ -10,6 +10,7 @@ class EasyMonthDropDown extends StatelessWidget {
     this.value,
     this.onMonthChange,
     required this.locale,
+    this.style,
   });
 
   /// The currently selected month.
@@ -20,6 +21,9 @@ class EasyMonthDropDown extends StatelessWidget {
 
   /// A `String` that represents the locale code to use for formatting the month names in the drop-down list.
   final String locale;
+
+  /// The text style applied to the month string.
+  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +37,7 @@ class EasyMonthDropDown extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         elevation: EasyConstants.monthDropDownElevation,
         value: value,
+        style: style,
         items: EasyDateUtils.getYearMonths(DateTime.now(), locale)
             .map(
               (month) => DropdownMenuItem<EasyMonth>(

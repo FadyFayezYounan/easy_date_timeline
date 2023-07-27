@@ -10,6 +10,7 @@ class EasyMonthSwitcher extends StatefulWidget {
     required this.locale,
     required this.value,
     this.onMonthChange,
+    this.style,
   });
 
   /// A `String` that represents the locale code to use for formatting the month name in the switcher.
@@ -20,6 +21,9 @@ class EasyMonthSwitcher extends StatefulWidget {
 
   /// A callback function that is called when the selected month changes.
   final OnMonthChangeCallBack? onMonthChange;
+
+  /// The text style applied to the month string.
+  final TextStyle? style;
 
   @override
   State<EasyMonthSwitcher> createState() => _EasyMonthSwitcherState();
@@ -67,6 +71,7 @@ class _EasyMonthSwitcherState extends State<EasyMonthSwitcher> {
               child: Text(
                 _yearMonths[_currentMonth].name,
                 textAlign: TextAlign.center,
+                style: widget.style,
               ),
             ),
           ),

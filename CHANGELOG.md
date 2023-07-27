@@ -1,3 +1,6 @@
+## 0.0.7
+
+* add text style for the month picker.
 ## 0.0.6
 
 * add highlight style for the current day (highlight today border or background color or none).

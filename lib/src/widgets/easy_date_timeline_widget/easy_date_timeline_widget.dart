@@ -128,15 +128,14 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
                     locale: widget.locale,
                     headerProps: _headerProps,
                   ),
-                  if (_showMonthPicker(
-                    pickerType: MonthPickerType.dropDown,
-                  ))
+                  if (_showMonthPicker(pickerType: MonthPickerType.dropDown))
                     child!,
                   if (_showMonthPicker(pickerType: MonthPickerType.switcher))
                     EasyMonthSwitcher(
                       locale: widget.locale,
                       value: _easyMonth,
                       onMonthChange: _onMonthChange,
+                      style: _headerProps.monthStyle,
                     ),
                 ],
               ),
@@ -160,6 +159,7 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
         value: _easyMonth,
         locale: widget.locale,
         onMonthChange: _onMonthChange,
+        style: _headerProps.monthStyle,
       ),
     );
   }

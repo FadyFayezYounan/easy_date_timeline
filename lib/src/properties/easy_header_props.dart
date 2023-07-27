@@ -9,6 +9,7 @@ final class EasyHeaderProps {
     this.selectedDateFormat = SelectedDateFormat.dayOnly,
     this.monthPickerType = MonthPickerType.dropDown,
     this.selectedDateStyle,
+    this.monthStyle,
     this.padding,
   });
 
@@ -32,6 +33,9 @@ final class EasyHeaderProps {
 
   /// The text style applied to the selected date string in the header of the date timeline widget.
   final TextStyle? selectedDateStyle;
+
+  /// The text style applied to the month string in the header of the date timeline widget.
+  final TextStyle? monthStyle;
 
   /// The padding applied to the date timeline widget headers.
   final EdgeInsets? padding;
