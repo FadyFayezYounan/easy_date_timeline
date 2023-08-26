@@ -18,6 +18,7 @@ class TimeLineWidget extends StatefulWidget {
     required this.focusedDate,
     required this.activeDayTextColor,
     required this.activeDayColor,
+    this.autoCenter = true,
   })  : assert(timeLineProps.hPadding > -1,
             "Can't set timeline hPadding less than zero."),
         assert(timeLineProps.separatorPadding > -1,
@@ -58,6 +59,11 @@ class TimeLineWidget extends StatefulWidget {
 
   /// The background color of the selected day.
   final Color activeDayColor;
+
+  /// Automatically centers the selected day in the timeline.
+  /// If set to `true`, the timeline will automatically scroll to center the selected day.
+  /// If set to `false`, the timeline will not scroll when the selected day changes.
+  final bool autoCenter;
 
   @override
   State<TimeLineWidget> createState() => _TimeLineWidgetState();
@@ -181,5 +187,13 @@ class _TimeLineWidgetState extends State<TimeLineWidget> {
   void _onDayChanged(bool isSelected, DateTime currentDate) {
     // A date is selected
     widget.onDateChange?.call(currentDate);
+    // Mantain the selected day in the center of the timeline
+    if (widget.autoCenter)
+      _controller.animateTo(
+        _calculateDateOffset(currentDate) -
+            (MediaQuery.of(context).size.width - _dayOffsetConstrains) / 2.09,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.decelerate,
+      );
   }
 }
