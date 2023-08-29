@@ -39,7 +39,7 @@ abstract class EasyDateUtils {
 
   /// function that takes a DateTime object as input and returns a boolean value
   /// indicating whether it is the current date or not.
-  static bool isCurrentDay(DateTime date) {
+  static bool isToday(DateTime date) {
     DateTime now = DateTime.now();
     return isSameDay(now, date);
   }

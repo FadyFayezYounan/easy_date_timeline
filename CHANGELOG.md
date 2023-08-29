@@ -1,3 +1,7 @@
+## 0.1.0
+
+* New Feature: `EasyDateTimeline` now includes support for disabled days. In addition, some variable names have been updated, and the old ones have been marked as deprecated
+
 ## 0.0.7
 
 * add text style for the month picker.

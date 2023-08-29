@@ -13,18 +13,23 @@ class EasyDateTimeLine extends StatefulWidget {
   const EasyDateTimeLine({
     super.key,
     required this.initialDate,
-    this.locale = "en_US",
+    this.disabledDates,
     this.headerProps = const EasyHeaderProps(),
     this.timeLineProps = const EasyTimeLineProps(),
     this.dayProps = const EasyDayProps(),
     this.onDateChange,
     this.itemBuilder,
     this.activeColor,
+    this.locale = "en_US",
   });
 
   /// Represents the initial date for the timeline widget.
   /// This is the date that will be displayed as the first day in the timeline.
   final DateTime initialDate;
+
+  /// Represents a list of inactive dates for the timeline widget.
+  /// Note that all the dates defined in the `disabledDates` list will be deactivated.
+  final List<DateTime>? disabledDates;
 
   /// The color for the active day.
   final Color? activeColor;
@@ -44,7 +49,18 @@ class EasyDateTimeLine extends StatefulWidget {
   /// This function takes a `DateTime` object as its parameter, which represents the new selected date.
   final OnDateChangeCallBack? onDateChange;
 
-  /// Called for each day in the timeline, allowing to customize the appearance and behavior of each day widget.
+  /// > **NOTE:**
+  /// > When utilizing the `itemBuilder`, it is essential to provide the width of each day for the date timeline widget.
+  /// >
+  ///
+  /// For example:
+  /// ```dart
+  /// dayProps: const EasyDayProps(
+  ///  // You must specify the width in this case.
+  ///  width: 124.0,
+  /// )
+  /// ```
+
   final ItemBuilderCallBack? itemBuilder;
 
   /// A `String` that represents the locale code to use for formatting the dates in the timeline.
@@ -144,6 +160,7 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
             initialDate: initialDate.copyWith(
               month: _easyMonth.vale,
             ),
+            inactiveDates: widget.disabledDates,
             focusedDate: focusedDate,
             onDateChange: _onFocusedDateChanged,
             timeLineProps: widget.timeLineProps,

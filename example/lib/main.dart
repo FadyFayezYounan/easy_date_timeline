@@ -81,7 +81,7 @@ class MyHomePage extends StatelessWidget {
     return EasyDateTimeLine(
       initialDate: DateTime.now(),
       onDateChange: (selectedDate) {
-        //[selectedDate] the new date selected.
+        //`selectedDate` the new date selected.
       },
     );
   }
@@ -90,7 +90,7 @@ class MyHomePage extends StatelessWidget {
     return EasyDateTimeLine(
       initialDate: DateTime.now(),
       onDateChange: (selectedDate) {
-        //[selectedDate] the new date selected.
+        //`selectedDate` the new date selected.
       },
       headerProps: const EasyHeaderProps(
         monthPickerType: MonthPickerType.switcher,
@@ -98,15 +98,17 @@ class MyHomePage extends StatelessWidget {
       ),
       dayProps: const EasyDayProps(
         dayStructure: DayStructure.dayStrDayNum,
-        activeDayDecoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xff3371FF),
-              Color(0xff8426D6),
-            ],
+        activeDayStyle: DayStyle(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xff3371FF),
+                Color(0xff8426D6),
+              ],
+            ),
           ),
         ),
       ),
@@ -117,7 +119,7 @@ class MyHomePage extends StatelessWidget {
     return EasyDateTimeLine(
       initialDate: DateTime.now(),
       onDateChange: (selectedDate) {
-        //[selectedDate] the new date selected.
+        //`selectedDate` the new date selected.
       },
       activeColor: const Color(0xff85A389),
       dayProps: const EasyDayProps(
@@ -131,42 +133,28 @@ class MyHomePage extends StatelessWidget {
     return EasyDateTimeLine(
       initialDate: DateTime.now(),
       onDateChange: (selectedDate) {
-        //[selectedDate] the new date selected.
+        //`selectedDate` the new date selected.
       },
       activeColor: const Color(0xffFFBF9B),
       headerProps: const EasyHeaderProps(
         selectedDateFormat: SelectedDateFormat.monthOnly,
       ),
       dayProps: const EasyDayProps(
-        dayStructure: DayStructure.dayNumDayStr,
-        inactiveBorderRadius: 48.0,
         height: 56.0,
         width: 56.0,
-        activeDayNumStyle: TextStyle(
-          fontSize: 18.0,
-          fontWeight: FontWeight.bold,
+        dayStructure: DayStructure.dayNumDayStr,
+        inactiveDayStyle: DayStyle(
+          borderRadius: 48.0,
+          dayNumStyle: TextStyle(
+            fontSize: 18.0,
+          ),
         ),
-        inactiveDayNumStyle: TextStyle(
-          fontSize: 18.0,
+        activeDayStyle: DayStyle(
+          dayNumStyle: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-      ),
-    );
-  }
-
-  EasyDateTimeLine _landscapeViewExample() {
-    return EasyDateTimeLine(
-      initialDate: DateTime.now(),
-      onDateChange: (selectedDate) {
-        //[selectedDate] the new date selected.
-      },
-      activeColor: const Color(0xff116A7B),
-      dayProps: const EasyDayProps(
-        landScapeMode: true,
-        activeBorderRadius: 48.0,
-        dayStructure: DayStructure.dayStrDayNum,
-      ),
-      headerProps: const EasyHeaderProps(
-        selectedDateFormat: SelectedDateFormat.fullDateDMonthAsStrY,
       ),
     );
   }
@@ -175,10 +163,30 @@ class MyHomePage extends StatelessWidget {
     return EasyDateTimeLine(
       initialDate: DateTime.now(),
       onDateChange: (selectedDate) {
-        //[selectedDate] the new date selected.
+        //`selectedDate` the new date selected.
       },
       activeColor: const Color(0xffB04759),
       locale: "ar",
+    );
+  }
+
+  EasyDateTimeLine _landscapeViewExample() {
+    return EasyDateTimeLine(
+      initialDate: DateTime.now(),
+      onDateChange: (selectedDate) {
+        //`selectedDate` the new date selected.
+      },
+      activeColor: const Color(0xff116A7B),
+      dayProps: const EasyDayProps(
+        landScapeMode: true,
+        activeDayStyle: DayStyle(
+          borderRadius: 48.0,
+        ),
+        dayStructure: DayStructure.dayStrDayNum,
+      ),
+      headerProps: const EasyHeaderProps(
+        selectedDateFormat: SelectedDateFormat.fullDateDMonthAsStrY,
+      ),
     );
   }
 
@@ -186,7 +194,7 @@ class MyHomePage extends StatelessWidget {
     return EasyDateTimeLine(
       initialDate: DateTime.now(),
       onDateChange: (selectedDate) {
-        //[selectedDate] the new date selected.
+        //`selectedDate` the new date selected.
       },
       activeColor: const Color(0xff37306B),
       headerProps: const EasyHeaderProps(
@@ -194,9 +202,12 @@ class MyHomePage extends StatelessWidget {
         selectedDateFormat: SelectedDateFormat.fullDateDayAsStrMY,
       ),
       dayProps: const EasyDayProps(
-        activeBorderRadius: 32.0,
-        inactiveBorderRadius: 32.0,
-        // landScapeMode: true,
+        activeDayStyle: DayStyle(
+          borderRadius: 32.0,
+        ),
+        inactiveDayStyle: DayStyle(
+          borderRadius: 32.0,
+        ),
       ),
       timeLineProps: const EasyTimeLineProps(
         hPadding: 16.0, // padding from left and right
@@ -209,13 +220,12 @@ class MyHomePage extends StatelessWidget {
     return EasyDateTimeLine(
       initialDate: DateTime.now(),
       onDateChange: (selectedDate) {
-        //[selectedDate] the new date selected.
+        //`selectedDate` the new date selected.
       },
       dayProps: const EasyDayProps(
         height: 56.0,
-        //you must provide the width in this case
+        // You must specify the width in this case.
         width: 124.0,
-        activeBorderRadius: 16.0,
       ),
       headerProps: const EasyHeaderProps(
         selectedDateFormat: SelectedDateFormat.fullDateMonthAsStrDY,

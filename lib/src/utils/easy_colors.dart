@@ -1,7 +1,7 @@
 import 'dart:ui' show Color;
 
 /// A utility class that provides easy access to commonly used colors in the `EasyDateTimeLine` widget.
-class EasyColors {
+final class EasyColors {
   EasyColors._();
 
   /// The border color of the day widget.
@@ -15,4 +15,7 @@ class EasyColors {
 
   /// The color of the string representing the month.
   static const Color monthAsStrColor = Color(0xff8F8F8F);
+
+  /// The color of the disabled day.
+  static const Color disabledDayColor = Color(0xB39CA3AF);
 }

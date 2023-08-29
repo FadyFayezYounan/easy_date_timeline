@@ -10,14 +10,15 @@ class TimeLineWidget extends StatefulWidget {
   TimeLineWidget({
     super.key,
     required this.initialDate,
+    required this.focusedDate,
+    required this.activeDayTextColor,
+    required this.activeDayColor,
+    this.inactiveDates,
     this.dayProps = const EasyDayProps(),
     this.locale = "en_US",
     this.timeLineProps = const EasyTimeLineProps(),
     this.onDateChange,
     this.itemBuilder,
-    required this.focusedDate,
-    required this.activeDayTextColor,
-    required this.activeDayColor,
   })  : assert(timeLineProps.hPadding > -1,
             "Can't set timeline hPadding less than zero."),
         assert(timeLineProps.separatorPadding > -1,
@@ -31,6 +32,16 @@ class TimeLineWidget extends StatefulWidget {
 
   /// The currently focused date in the timeline.
   final DateTime? focusedDate;
+
+  /// The color of the text for the selected day.
+  final Color activeDayTextColor;
+
+  /// The background color of the selected day.
+  final Color activeDayColor;
+
+  /// Represents a list of inactive dates for the timeline widget.
+  /// Note that all the dates defined in the inactiveDates list will be deactivated.
+  final List<DateTime>? inactiveDates;
 
   /// Contains properties for configuring the appearance and behavior of the timeline widget.
   /// This object includes properties such as the height of the timeline, the color of the selected day,
@@ -52,12 +63,6 @@ class TimeLineWidget extends StatefulWidget {
 
   /// A `String` that represents the locale code to use for formatting the dates in the timeline.
   final String locale;
-
-  /// The color of the text for the selected day.
-  final Color activeDayTextColor;
-
-  /// The background color of the selected day.
-  final Color activeDayColor;
 
   @override
   State<TimeLineWidget> createState() => _TimeLineWidgetState();
@@ -136,13 +141,29 @@ class _TimeLineWidgetState extends State<TimeLineWidget> {
             final isSelected = widget.focusedDate != null
                 ? EasyDateUtils.isSameDay(widget.focusedDate!, currentDate)
                 : EasyDateUtils.isSameDay(widget.initialDate, currentDate);
+
+            bool isDisabledDay = false;
+            // Check if this date should be deactivated only for the DeactivatedDates.
+            if (widget.inactiveDates != null) {
+              for (DateTime inactiveDate in widget.inactiveDates!) {
+                if (EasyDateUtils.isSameDay(currentDate, inactiveDate)) {
+                  isDisabledDay = true;
+                  break;
+                }
+              }
+            }
             return widget.itemBuilder != null
-                ? _dayItemBuilder(isSelected, currentDate, context)
+                ? _dayItemBuilder(
+                    context,
+                    isSelected,
+                    currentDate,
+                  )
                 : EasyDayWidget(
                     easyDayProps: _dayProps,
                     date: currentDate,
                     locale: widget.locale,
                     isSelected: isSelected,
+                    isDisabled: isDisabledDay,
                     onDayPressed: () => _onDayChanged(isSelected, currentDate),
                     activeTextColor: widget.activeDayTextColor,
                     activeDayColor: widget.activeDayColor,
@@ -160,9 +181,9 @@ class _TimeLineWidgetState extends State<TimeLineWidget> {
   }
 
   InkWell _dayItemBuilder(
+    BuildContext context,
     bool isSelected,
     DateTime date,
-    BuildContext context,
   ) {
     return InkWell(
       onTap: () => _onDayChanged(isSelected, date),

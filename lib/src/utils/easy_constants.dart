@@ -1,9 +1,13 @@
+import 'package:flutter/material.dart' show BorderRadius, Radius;
+
 /// A utility class that provides easy access to commonly used constants in the `EasyDateTimeLine` widget.
 class EasyConstants {
   EasyConstants._();
 
   // Day widget constants
   static const double dayWidgetBorderRadius = 12.0;
+  static const BorderRadius daySplashBorder =
+      BorderRadius.all(Radius.circular(dayWidgetBorderRadius));
   static const double dayWidgetWidth = 68.0;
   static const double dayWidgetHeight = 112.0;
   static const double dayAsNumFontSize = 20.0;

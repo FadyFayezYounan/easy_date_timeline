@@ -1,30 +1,99 @@
 import 'package:flutter/material.dart' show BoxDecoration, Color, TextStyle;
 
 import '../utils/utils.dart';
+import 'day_style.dart';
 
 final class EasyDayProps {
   const EasyDayProps({
+    this.activeDayStyle = const DayStyle(),
+    this.inactiveDayStyle = const DayStyle(),
+    this.disabledDayStyle = const DayStyle(),
+    this.todayStyle = const DayStyle(),
+    @Deprecated(
+      'Use `activeDayStyle` instead. '
+      'This feature was deprecated after v0.0.7',
+    )
     this.activeDayDecoration,
+    @Deprecated(
+      'Use `inactiveDayStyle` instead. '
+      'This feature was deprecated after v0.0.7',
+    )
     this.inactiveDayDecoration,
     this.dayStructure = DayStructure.monthDayNumDayStr,
+    @Deprecated(
+      'Use `activeDayStyle` instead. '
+      'This feature was deprecated after v0.0.7',
+    )
     this.activeBorderRadius = EasyConstants.dayWidgetBorderRadius,
+    @Deprecated(
+      'Use `inactiveDayStyle` instead. '
+      'This feature was deprecated after v0.0.7',
+    )
     this.inactiveBorderRadius = EasyConstants.dayWidgetBorderRadius,
     this.borderColor = EasyColors.dayWidgetBorderColor,
     this.width = EasyConstants.dayWidgetWidth,
     this.height = EasyConstants.dayWidgetHeight,
+    @Deprecated(
+      'Use `activeDayStyle` instead. '
+      'This feature was deprecated after v0.0.7',
+    )
     this.activeDayNumStyle,
+    @Deprecated(
+      'Use `inactiveDayStyle` instead. '
+      'This feature was deprecated after v0.0.7',
+    )
     this.inactiveDayNumStyle,
+    @Deprecated(
+      'Use `todayStyle` instead. '
+      'This feature was deprecated after v0.0.7',
+    )
     this.todayNumStyle,
+    @Deprecated(
+      'Use `TodayProps` instead. '
+      'This feature was deprecated after v0.0.7',
+    )
     this.todayStrStyle,
+    @Deprecated(
+      'Use `activeDayStyle` instead. '
+      'This feature was deprecated after v0.0.7',
+    )
     this.activeDayStrStyle,
+    @Deprecated(
+      'Use `inactiveDayStyle` instead. '
+      'This feature was deprecated after v0.0.7',
+    )
     this.inactiveDayStrStyle,
+    @Deprecated(
+      'Use `todayStyle` instead. '
+      'This feature was deprecated after v0.0.7',
+    )
     this.todayMonthStrStyle,
+    @Deprecated(
+      'Use `activeDayStyle` instead. '
+      'This feature was deprecated after v0.0.7',
+    )
     this.activeMothStrStyle,
+    @Deprecated(
+      'Use `inactiveDayStyle` instead. '
+      'This feature was deprecated after v0.0.7',
+    )
     this.inactiveMothStrStyle,
     this.landScapeMode = false,
     this.todayHighlightColor,
     this.todayHighlightStyle = TodayHighlightStyle.withBorder,
   });
+
+  /// The properties applied to the active day.
+  final DayStyle activeDayStyle;
+
+  /// The properties applied to the inactive days.
+  final DayStyle inactiveDayStyle;
+
+  /// The properties applied to the disabled days.
+  final DayStyle disabledDayStyle;
+
+  /// The properties applied to the current day.
+  final DayStyle todayStyle;
 
   /// The decoration applied to the active day. If null, it used default decoration.
   final BoxDecoration? activeDayDecoration;
