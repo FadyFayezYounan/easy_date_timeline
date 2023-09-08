@@ -1,3 +1,6 @@
+## 0.1.1
+
+* Resolved an issue concerning months that do not have 30 days. (thanks to @RobertoFMBarreto)
 ## 0.1.0
 
 * New Feature: `EasyDateTimeline` now includes support for disabled days. In addition, some variable names have been updated, and the old ones have been marked as deprecated

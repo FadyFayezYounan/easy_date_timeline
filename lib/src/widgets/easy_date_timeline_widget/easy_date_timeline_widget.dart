@@ -72,6 +72,7 @@ class EasyDateTimeLine extends StatefulWidget {
 
 class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
   late EasyMonth _easyMonth;
+  late int _initialDay;
 
   late ValueNotifier<DateTime?> _focusedDateListener;
 
@@ -84,6 +85,7 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
     // Get initial month
     _easyMonth =
         EasyDateUtils.convertDateToEasyMonth(widget.initialDate, widget.locale);
+    _initialDay = widget.initialDate.day;
     _focusedDateListener = ValueNotifier(initialDate);
   }
 
@@ -159,6 +161,7 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
           TimeLineWidget(
             initialDate: initialDate.copyWith(
               month: _easyMonth.vale,
+              day: _initialDay,
             ),
             inactiveDates: widget.disabledDates,
             focusedDate: focusedDate,
@@ -183,6 +186,7 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
 
   void _onMonthChange(month) {
     setState(() {
+      _initialDay = 1;
       _easyMonth = month!;
     });
   }

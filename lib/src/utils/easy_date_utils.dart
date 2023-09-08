@@ -19,11 +19,13 @@ abstract class EasyDateUtils {
   static List<EasyMonth> getYearMonths(DateTime date, String locale) {
     final List<EasyMonth> months = [];
     for (int month = 1; month <= 12; month++) {
-      months.add(EasyMonth(
-        name: EasyDateFormatter.shortMonthName(
-            DateTime(date.year, month), locale),
-        vale: month,
-      ));
+      months.add(
+        EasyMonth(
+          name: EasyDateFormatter.shortMonthName(
+              DateTime(date.year, month), locale),
+          vale: month,
+        ),
+      );
     }
     return months;
   }
