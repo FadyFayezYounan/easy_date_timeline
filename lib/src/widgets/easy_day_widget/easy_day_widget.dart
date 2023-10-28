@@ -16,6 +16,7 @@ class EasyDayWidget extends StatelessWidget {
     required this.onDayPressed,
     required this.activeTextColor,
     required this.activeDayColor,
+    this.margin,
   });
 
   /// Contains properties for configuring the appearance and behavior of the day widget.
@@ -41,6 +42,8 @@ class EasyDayWidget extends StatelessWidget {
 
   /// The background color of the selected day.
   final Color activeDayColor;
+
+  final EdgeInsetsGeometry? margin;
 
 // Get the inactive day properties from the EasyDayProps object.
   DayStyle get _inactiveDayStyle => easyDayProps.inactiveDayStyle;
@@ -84,7 +87,7 @@ class EasyDayWidget extends StatelessWidget {
         duration: const Duration(milliseconds: EasyConstants.animationDuration),
         width: width,
         height: height,
-        //decoration: isSelected ? _activeDayDecoration : _inactiveDayDecoration,
+        margin: margin,
         decoration: dayDecoration,
         child: _buildDayStructure(
           structure: easyDayProps.dayStructure,
@@ -156,6 +159,9 @@ class EasyDayWidget extends StatelessWidget {
       color: isSelected
           ? backgroundColor
           : (hasBackgroundHighlight ? todayHighlightColor : null),
+      // color: isSelected
+      //     ? backgroundColor
+      //     : (hasBackgroundHighlight ? todayHighlightColor : null),
       borderRadius: _dayBorderRadius(isToday),
 
       // Use the border color for the highlighted date or hide the border otherwise

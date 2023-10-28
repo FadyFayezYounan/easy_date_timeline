@@ -1,6 +1,6 @@
 name: easy_date_timeline
 description: The "easy_date_timeline" package is a customizable Flutter library that displays a timeline of dates in a horizontal view.
-version: 0.1.1
+version: 1.0.0
 homepage: https://github.com/FadyFayezYounan/easy_date_timeline.git
 
 topics:
@@ -11,7 +11,7 @@ topics:
   - date-time
 
 environment:
-  sdk: '>=3.0.2 <4.0.0'
+  sdk: ">=3.0.2 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
@@ -38,8 +38,7 @@ platforms:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
-flutter: 
-
+flutter:
 # To add assets to your package, add an assets section, like this:
 # assets:
 #   - images/a_dot_burr.jpeg

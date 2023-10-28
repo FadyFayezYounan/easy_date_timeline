@@ -1,10 +1,9 @@
 # EasyDateTimeline
+
 <a href="https://pub.dev/packages/easy_date_timeline"><img src="https://img.shields.io/pub/v/easy_date_timeline.svg" alt="Pub"></a>
- <a href="https://pub.dev/packages/easy_date_timeline/score"><img src="https://img.shields.io/pub/likes/easy_date_timeline?logo=flutter" alt="Pub likes"></a>
-  <a href="https://pub.dev/packages/easy_date_timeline/score"><img src="https://img.shields.io/pub/popularity/easy_date_timeline?logo=flutter" alt="Pub popularity"></a>
-  <a href="https://pub.dev/packages/easy_date_timeline/score"><img src="https://img.shields.io/pub/points/easy_date_timeline?logo=flutter" alt="Pub points"></a>
-
-
+<a href="https://pub.dev/packages/easy_date_timeline/score"><img src="https://img.shields.io/pub/likes/easy_date_timeline?logo=flutter" alt="Pub likes"></a>
+<a href="https://pub.dev/packages/easy_date_timeline/score"><img src="https://img.shields.io/pub/popularity/easy_date_timeline?logo=flutter" alt="Pub popularity"></a>
+<a href="https://pub.dev/packages/easy_date_timeline/score"><img src="https://img.shields.io/pub/points/easy_date_timeline?logo=flutter" alt="Pub points"></a>
 
 The "easy_date_timeline" package is a customizable Flutter library that displays a timeline of dates in a horizontal view.
 
@@ -15,13 +14,55 @@ The "easy_date_timeline" package is a customizable Flutter library that displays
  <img src="https://github.com/FadyFayezYounan/easy_date_timeline/blob/master/screenshots/example_1.jpg"/>
 </p> -->
 
-## How To Use
+# What's new?
+
+- Add new widget called: `EasyInfiniteDateTimeLine` , It allows you to define a range of dates with `firstDate` and `lastDate`, specify the initial focus with `focusedDate`, and offers a `controller` for programmatic interactions:
+
+`controller`: The Controller parameter is an optional controller that allows you to manage and interact with the InfiniteTimeLineWidget. You can use this controller to programmatically manipulate the widget's behavior. For example, you can scroll to specific dates, control animations, or perform other actions within the timeline. This controller is a powerful tool for integrating the widget with your app's logic.
+
+`firstDate`: This required parameter specifies the start date of the timeline. It defines the earliest date that will be displayed in the timeline view. You should set this date to the beginning of the time range you want to visualize.
+
+`lastDate`: This required parameter defines the end date of the timeline. It determines the latest date that will be visible within the timeline. Typically, this date should be set to represent the end of the time range you want to display.
+
+`focusedDate`: Another required parameter, the focusedDate determines which date is currently in focus within the timeline.
+
+## How To Use `EasyInfiniteDateTimeLine`
 
 Import the following package in your dart file
 
 ```dart
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 ```
+
+## Usage
+
+Use the `EasyInfiniteDateTimeLine` Widget
+
+```dart
+ final EasyInfiniteDateTimelineController _controller =
+      EasyInfiniteDateTimelineController();
+
+        EasyInfiniteDateTimeLine(
+          controller: _controller,
+          firstDate: DateTime(2023),
+          focusDate: _focusDate,
+          lastDate: DateTime(2023, 12, 31),
+          onDateChange: (selectedDate) {
+            setState(() {
+              _focusDate = selectedDate;
+            });
+          },
+        ),
+```
+
+## How To Use `EasyDateTimeLine`
+
+Import the following package in your dart file
+
+```dart
+import 'package:easy_date_timeline/easy_date_timeline.dart';
+```
+
 ## Usage
 
 Use the `EasyDateTimeLine` Widget
@@ -36,24 +77,27 @@ Use the `EasyDateTimeLine` Widget
 ```
 
 ## Features
-* `Dynamic Text Color` : The "easy_date_timeline" package automatically adjusts the text color of the active day based on the active color. If the active color is a dark color, the text color will be light, and if the active color is a light color, the text color will be dark. This ensures that the text is always easy to read and contrasts well with the background color.
-* `Customizable Item Builder` : The "easy_date_timeline" package provides an item builder that allows for full customization of the timeline items. With the item builder, developers can customize the appearance and behavior of each date item in the timeline, including the text, background color,etc..
-> **IMPORTANT NOTE:**
->
-> When utilizing the `itemBuilder`, it is essential to provide the width of each day for the date timeline widget.
->
-   For example:
+
+- `Dynamic Text Color` : The "easy_date_timeline" package automatically adjusts the text color of the active day based on the active color. If the active color is a dark color, the text color will be light, and if the active color is a light color, the text color will be dark. This ensures that the text is always easy to read and contrasts well with the background color.
+- `Customizable Item Builder` : The "easy_date_timeline" package provides an item builder that allows for full customization of the timeline items. With the item builder, developers can customize the appearance and behavior of each date item in the timeline, including the text, background color,etc..
+
+  > **IMPORTANT NOTE:**
+  >
+  > When utilizing the `itemBuilder`, it is essential to provide the width of each day for the date timeline widget.
+  >
+  > For example:
+
   ```dart
    dayProps: const EasyDayProps(
     // You must specify the width in this case.
     width: 124.0,
    ),
-   
-   ``` 
-> [See itemBuilder example](#itemBuilder-example)
 
-* `Locale Support` : The "easy_date_timeline" package supports locale, allowing developers to display the timeline in different languages and formats based on the user's device settings. This feature ensures that the package can be used in a variety of international contexts and provides a seamless user experience for users around the world.
+  ```
 
+  > [See itemBuilder example](#itemBuilder-example)
+
+- `Locale Support` : The "easy_date_timeline" package supports locale, allowing developers to display the timeline in different languages and formats based on the user's device settings. This feature ensures that the package can be used in a variety of international contexts and provides a seamless user experience for users around the world.
 
 ## Custom background
 
@@ -92,14 +136,16 @@ for the active day.
       ),
     )
 ```
+
 ## Change current day highlight color and style
 
 in the `dayProps` you can set `todayHighlightStyle` to :
-* `TodayHighlightStyle.withBackground` : Set a background color for the current day. 
-* `TodayHighlightStyle.withBorder` : Set just a colored border for the current day. 
-* `TodayHighlightStyle.none` : Remove the highlight from the current day.
-by default the highlight color equal to primary color with opacity of 20%.
-to change the highlight color you can use `todayHighlightColor` and set your own color.
+
+- `TodayHighlightStyle.withBackground` : Set a background color for the current day.
+- `TodayHighlightStyle.withBorder` : Set just a colored border for the current day.
+- `TodayHighlightStyle.none` : Remove the highlight from the current day.
+  by default the highlight color equal to primary color with opacity of 20%.
+  to change the highlight color you can use `todayHighlightColor` and set your own color.
 
 <p>
  <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/change_today_highlight_color_and_style.jpg"/>
@@ -118,20 +164,20 @@ to change the highlight color you can use `todayHighlightColor` and set your own
       ),
     )
 ```
-> **NOTE:**
-> When you provide an `inactiveDay.decoration` to the EasyDateTimeline widget, it will override the current day highlight feature. 
-> 
 
+> **NOTE:**
+> When you provide an `inactiveDay.decoration` to the EasyDateTimeline widget, it will override the current day highlight feature.
 
 ## Change day structure
 
 In the `dayProps` change the `dayStructure` to:
-* `DayStructure.dayNumDayStr` : show the current day number then current day name.
-* `DayStructure.dayStrDayNum` : show the current name then current day number.
-* `DayStructure.monthDayNumDayStr` : show current month name then the current day number finally current day name.
-* `DayStructure.dayNumberOnly` : show only current day number.
-* `DayStructure.dayNameOnly` : show only current day name.
-* `DayStructure.dayStrDayNumMonth` : show current day name then the current day number finally current moth name.
+
+- `DayStructure.dayNumDayStr` : show the current day number then current day name.
+- `DayStructure.dayStrDayNum` : show the current name then current day number.
+- `DayStructure.monthDayNumDayStr` : show current month name then the current day number finally current day name.
+- `DayStructure.dayNumberOnly` : show only current day number.
+- `DayStructure.dayNameOnly` : show only current day name.
+- `DayStructure.dayStrDayNumMonth` : show current day name then the current day number finally current moth name.
 
 <p>
  <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/change_day_structure_example.jpg"/>
@@ -166,9 +212,11 @@ In the `dayProps` change the `dayStructure` to:
       ),
     )
 ```
+
 ## Locale support
 
 With `easy_date_timeline`, you can display dates and timelines in your preferred language and format. Simply pass the locale parameter with the appropriate language code and region as a value. For example, if you want to display the dates in Arabic, you can set the locale parameter to "ar". The package's support for localization allows you to provide a better user experience for users around the world by displaying text and information in their preferred language and format.
+
 <p>
  <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/locale_support_example.jpg"/>
 </p>
@@ -183,10 +231,12 @@ With `easy_date_timeline`, you can display dates and timelines in your preferred
       locale: "ar",
     );
 ```
+
 ## Landscape view
 
 With `easy_date_timeline`, you can display dates and timelines in landscape view just set
 `landScapeMode` to `true` in `dayProps`.
+
 <p>
  <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/landscape_view_example_2.jpg"/>
 </p>
@@ -211,20 +261,20 @@ With `easy_date_timeline`, you can display dates and timelines in landscape view
     )
 ```
 
-
 ## Change header appearance
 
 In the `headerProps` change the `monthPickerType` to:
-* `MonthPickerType.switcher` : show the month and you can change month by clicking the arrow buttons.
-* `MonthPickerType.dropDown` : show the month and you can change month from a dropdown menu.
-also in the `headerProps` change the `selectedDateFormat` to:
-* `SelectedDateFormat.fullDateDMY` : show the data as:"11/06/2023"
-* `SelectedDateFormat.fullDateMDY` : show the data as:"06/11/2023"
-* `SelectedDateFormat.fullDateDayAsStrMY` : show the data as:"Sunday 6,2023"
-* `SelectedDateFormat.fullDateDMonthAsStrY` : show the data as:"11 June,2023"
-* `SelectedDateFormat.fullDateMonthAsStrDY` : show the data as:"June 11,2023"
-* `SelectedDateFormat.dayOnly` : show only the selected day as:"Sunday"
-* `SelectedDateFormat.monthOnly` : show only the selected month as:"June"
+
+- `MonthPickerType.switcher` : show the month and you can change month by clicking the arrow buttons.
+- `MonthPickerType.dropDown` : show the month and you can change month from a dropdown menu.
+  also in the `headerProps` change the `selectedDateFormat` to:
+- `SelectedDateFormat.fullDateDMY` : show the data as:"11/06/2023"
+- `SelectedDateFormat.fullDateMDY` : show the data as:"06/11/2023"
+- `SelectedDateFormat.fullDateDayAsStrMY` : show the data as:"Sunday 6,2023"
+- `SelectedDateFormat.fullDateDMonthAsStrY` : show the data as:"11 June,2023"
+- `SelectedDateFormat.fullDateMonthAsStrDY` : show the data as:"June 11,2023"
+- `SelectedDateFormat.dayOnly` : show only the selected day as:"Sunday"
+- `SelectedDateFormat.monthOnly` : show only the selected month as:"June"
 
 <p>
  <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/change_header_appearance_example.jpg"/>
@@ -255,29 +305,33 @@ also in the `headerProps` change the `selectedDateFormat` to:
       ),
     )
 ```
+
 <a id="itemBuilder-example"></a>
+
 ## Customize day appearance
+
 > **IMPORTANT NOTE:**
 >
 > When utilizing the `itemBuilder`, it is essential to provide the width of each day for the date timeline widget.
->
-* For example:
- ```dart
-   dayProps: const EasyDayProps(
-    // You must specify the width in this case.
-    width: 124.0,
-   ),
- ``` 
+
+- For example:
+
+```dart
+  dayProps: const EasyDayProps(
+   // You must specify the width in this case.
+   width: 124.0,
+  ),
+```
 
 You can use the `itemBuilder` to customize the appearance of the day widget.
 The `itemBuilder` provides the following:
-* `BuildContext context`.
-* `String dayNumber` : the day number ex: "11".
-* `String dayName` : the day name ex: "Sunday".
-* `String monthName` : the month name ex: "June".
-* `DateTime fullDate` : the full date of the day for fully customization.
-* `bool isSelected` : whether the day is selected or not.
 
+- `BuildContext context`.
+- `String dayNumber` : the day number ex: "11".
+- `String dayName` : the day name ex: "Sunday".
+- `String monthName` : the month name ex: "June".
+- `DateTime fullDate` : the full date of the day for fully customization.
+- `bool isSelected` : whether the day is selected or not.
 
 <p>
  <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/customize_day_appearance_example.jpg"/>
@@ -361,7 +415,6 @@ The `itemBuilder` provides the following:
   });
 ```
 
-Author
-------
+## Author
 
-* [Fady Fayez](https://github.com/FadyFayezYounan)
+- [Fady Fayez](https://github.com/FadyFayezYounan)
