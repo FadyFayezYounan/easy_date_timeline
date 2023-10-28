@@ -132,9 +132,10 @@ class _EasyInfiniteDateTimeLineState extends State<EasyInfiniteDateTimeLine> {
               ],
             ),
           ),
-        const SizedBox(
-          height: 12.0,
-        ),
+        if (widget.showTimelineHeader)
+          const SizedBox(
+            height: 12.0,
+          ),
         InfiniteTimeLineWidget(
           controller: widget.controller,
           firstDate: widget.firstDate,
