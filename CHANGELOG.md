@@ -1,3 +1,7 @@
+## 1.0.1
+
+- hide 12px gap when the showTimelineHeader is false in EasyInfiniteDateTimeLine widget.
+
 ## 1.0.0
 
 - Add new widget: `EasyInfiniteDateTimeLine` , It allows you to define a range of dates with `firstDate` and `lastDate`, specify the initial focus with `focusedDate`, and offers a `controller` for programmatic interactions. This widget is ideal for creating dynamic and interactive date-based interfaces in your Flutter app.

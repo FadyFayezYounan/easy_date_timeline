@@ -135,8 +135,9 @@ class _TimeLineWidgetState extends State<TimeLineWidget> {
             vertical: _timeLineProps.vPadding,
           ),
           itemBuilder: (context, index) {
-            final currentDate = DateTime(initialDate.year, initialDate.month, 1)
-                .add(Duration(days: index));
+            final currentDate =
+                DateTime(initialDate.year, initialDate.month, index + 1);
+
             final isSelected = widget.focusedDate != null
                 ? EasyDateUtils.isSameDay(widget.focusedDate!, currentDate)
                 : EasyDateUtils.isSameDay(widget.initialDate, currentDate);
