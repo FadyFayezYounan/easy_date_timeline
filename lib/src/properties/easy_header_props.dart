@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart' show TextStyle, EdgeInsets;
 
+import 'date_formatter.dart';
+
 final class EasyHeaderProps {
   const EasyHeaderProps({
     this.showHeader = true,
     this.showSelectedDate = true,
     this.showMonthPicker = true,
     this.centerHeader = false,
+    @Deprecated(
+      'Use `dateFormatter` instead. '
+      'This feature was deprecated after v1.0.2',
+    )
     this.selectedDateFormat = SelectedDateFormat.dayOnly,
     this.monthPickerType = MonthPickerType.dropDown,
     this.selectedDateStyle,
     this.monthStyle,
     this.padding,
+    this.dateFormatter,
   });
 
   /// Whether to show the header of the date timeline widget.
@@ -39,6 +46,8 @@ final class EasyHeaderProps {
 
   /// The padding applied to the date timeline widget headers.
   final EdgeInsets? padding;
+
+  final DateFormatter? dateFormatter;
 }
 
 enum SelectedDateFormat {

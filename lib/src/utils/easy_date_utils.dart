@@ -45,4 +45,10 @@ abstract class EasyDateUtils {
     DateTime now = DateTime.now();
     return isSameDay(now, date);
   }
+
+  /// Calculates the number of days between the [firstDate] and [lastDate] inclusive.
+  /// Returns the count of days.
+  static int calculateDaysCount(DateTime firstDate, DateTime lastDate) {
+    return lastDate.difference(firstDate).inDays + 1;
+  }
 }

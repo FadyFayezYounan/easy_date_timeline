@@ -101,7 +101,7 @@ class MyHomePage extends StatelessWidget {
       },
       headerProps: const EasyHeaderProps(
         monthPickerType: MonthPickerType.switcher,
-        selectedDateFormat: SelectedDateFormat.fullDateDMY,
+        dateFormatter: DateFormatter.fullDateDMY(),
       ),
       dayProps: const EasyDayProps(
         dayStructure: DayStructure.dayStrDayNum,
@@ -144,7 +144,7 @@ class MyHomePage extends StatelessWidget {
       },
       activeColor: const Color(0xffFFBF9B),
       headerProps: const EasyHeaderProps(
-        selectedDateFormat: SelectedDateFormat.monthOnly,
+        dateFormatter: DateFormatter.monthOnly(),
       ),
       dayProps: const EasyDayProps(
         height: 56.0,
@@ -192,7 +192,7 @@ class MyHomePage extends StatelessWidget {
         dayStructure: DayStructure.dayStrDayNum,
       ),
       headerProps: const EasyHeaderProps(
-        selectedDateFormat: SelectedDateFormat.fullDateDMonthAsStrY,
+        dateFormatter: DateFormatter.fullDateDMonthAsStrY(),
       ),
     );
   }
@@ -206,7 +206,7 @@ class MyHomePage extends StatelessWidget {
       activeColor: const Color(0xff37306B),
       headerProps: const EasyHeaderProps(
         monthPickerType: MonthPickerType.switcher,
-        selectedDateFormat: SelectedDateFormat.fullDateDayAsStrMY,
+        dateFormatter: DateFormatter.fullDateDayAsStrMY(),
       ),
       dayProps: const EasyDayProps(
         activeDayStyle: DayStyle(
@@ -235,7 +235,7 @@ class MyHomePage extends StatelessWidget {
         width: 124.0,
       ),
       headerProps: const EasyHeaderProps(
-        selectedDateFormat: SelectedDateFormat.fullDateMonthAsStrDY,
+        dateFormatter: DateFormatter.fullDateMonthAsStrDY(),
       ),
       itemBuilder: (BuildContext context, String dayNumber, dayName, monthName,
           fullDate, isSelected) {

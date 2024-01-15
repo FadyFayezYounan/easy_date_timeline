@@ -23,26 +23,41 @@ class SelectedDateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ///  This code conditionally displays the selected date in the header of the EasyDateTimeLineWidget
-    ///  based on the showSelectedDate property of the headerProps object
-    ///  and formats it according to the selected date format.
+    //  This code conditionally displays the selected date in the header of the EasyDateTimeLineWidget
+    //  based on the showSelectedDate property of the headerProps object
+    //  and formats it according to the selected date format.
     return Visibility(
       visible:
           (headerProps == null ? true : headerProps!.showSelectedDate == true),
       child: Text(
-        headerProps != null
-            ? EasyDateFormatter.customFormat(
-                headerProps!.selectedDateFormat.formatter,
-                date,
-                locale,
-              )
-            : EasyDateFormatter.fullDayName(
-                date,
-                locale,
-              ),
+        _getDateFormat(),
         style:
             headerProps?.selectedDateStyle ?? EasyTextStyles.selectedDateStyle,
       ),
     );
+  }
+
+  String _getDateFormat() {
+    if (headerProps == null) {
+      return EasyDateFormatter.fullDayName(
+        date,
+        locale,
+      );
+    } else {
+      if (headerProps!.dateFormatter != null) {
+        return EasyDateFormatter.customFormat(
+          headerProps!.dateFormatter!.format(),
+          date,
+          locale,
+        );
+      } else {
+        // TODO: Remove this deprecated code after v1.0.2
+        return EasyDateFormatter.customFormat(
+          headerProps!.selectedDateFormat.formatter,
+          date,
+          locale,
+        );
+      }
+    }
   }
 }

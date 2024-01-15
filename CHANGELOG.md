@@ -1,3 +1,11 @@
+## 1.0.3
+
+- add header builder to `EasyInfiniteDateTimeLine` widget and custom date format for the selected date to `EasyDateTimeLine` header widget.
+
+## 1.0.2
+
+- fix bug with the last day of the current month. (thanks to @Mustafa7Ibrahim and @applegold)
+
 ## 1.0.1
 
 - hide 12px gap when the showTimelineHeader is false in EasyInfiniteDateTimeLine widget.

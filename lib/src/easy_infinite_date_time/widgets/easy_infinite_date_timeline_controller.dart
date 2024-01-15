@@ -1,15 +1,22 @@
 part of 'infinite_time_line_widget.dart';
 
-/// Controller for managing the EasyInfiniteDateTimeline view.
-class EasyInfiniteDateTimelineController {
+/// Controller for the EasyInfiniteDateTimeline.
+/// This controller is responsible for managing the state and behavior of the timeline.
+final class EasyInfiniteDateTimelineController {
   _InfiniteTimeLineWidgetState? _infiniteTimeLineState;
 
-  /// Attach the controller to the EasyInfiniteDateTimeline view state.
+  /// Attaches the controller to the given EasyInfiniteDateTimeline state.
   void _attachEasyDateState(_InfiniteTimeLineWidgetState state) {
     _infiniteTimeLineState = state;
   }
 
-  /// Jump to the currently focused date on the timeline.
+  /// Detaches the controller from the EasyInfiniteDateTimeline state.
+  void _detachEasyDateState() {
+    _infiniteTimeLineState = null;
+  }
+
+  /// Jumps to the focus date on the timeline.
+  /// Throws an assertion error if the controller is not attached to any EasyInfiniteDateTimeline view.
   void jumpToFocusDate() {
     assert(
       _infiniteTimeLineState != null,
@@ -20,7 +27,8 @@ class EasyInfiniteDateTimelineController {
     _infiniteTimeLineState!._controller.jumpTo(offset);
   }
 
-  /// Animate to the currently focused date on the timeline.
+  /// Animates to the focus date on the timeline.
+  /// Throws an assertion error if the controller is not attached to any EasyInfiniteDateTimeline view.
   void animateToFocusDate({
     duration = const Duration(milliseconds: 300),
     curve = Curves.linear,
@@ -38,7 +46,8 @@ class EasyInfiniteDateTimelineController {
     );
   }
 
-  /// Animate the timeline to a specified date.
+  /// Animates to the specified date on the timeline.
+  /// Throws an assertion error if the controller is not attached to any EasyInfiniteDateTimeline view.
   void animateToDate(
     DateTime date, {
     duration = const Duration(milliseconds: 300),
@@ -56,7 +65,8 @@ class EasyInfiniteDateTimelineController {
     );
   }
 
-  /// Animate the timeline to a specified date.
+  /// Animates to the current date on the timeline.
+  /// Throws an assertion error if the controller is not attached to any EasyInfiniteDateTimeline view.
   void animateToCurrentData({
     duration = const Duration(milliseconds: 300),
     curve = Curves.linear,
@@ -73,7 +83,8 @@ class EasyInfiniteDateTimelineController {
     );
   }
 
-  /// Jump the timeline to a specified date.
+  /// Jumps to the specified date on the timeline.
+  /// Throws an assertion error if the controller is not attached to any EasyInfiniteDateTimeline view.
   void jumpToDate(
     DateTime date,
   ) {

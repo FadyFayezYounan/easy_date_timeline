@@ -45,16 +45,16 @@ class EasyDayWidget extends StatelessWidget {
 
   final EdgeInsetsGeometry? margin;
 
-// Get the inactive day properties from the EasyDayProps object.
+  // Get the inactive day properties from the EasyDayProps object.
   DayStyle get _inactiveDayStyle => easyDayProps.inactiveDayStyle;
 
-// Get the active day properties from the EasyDayProps object.
+  // Get the active day properties from the EasyDayProps object.
   DayStyle get _activeDayStyle => easyDayProps.activeDayStyle;
 
-// Get the disabled day properties from the EasyDayProps object.
+  // Get the disabled day properties from the EasyDayProps object.
   DayStyle get _disabledDayStyle => easyDayProps.disabledDayStyle;
 
-// Get the today properties from the EasyDayProps object.
+  // Get the today properties from the EasyDayProps object.
   DayStyle get _todayStyle => easyDayProps.todayStyle;
 
   @override

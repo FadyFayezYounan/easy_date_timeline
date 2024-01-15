@@ -1,10 +1,10 @@
 import 'package:easy_date_timeline/src/utils/easy_text_styles.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/easy_date_formatter.dart';
+import '../../utils/easy_date_formatter.dart';
 
-/// Represents a header widget for displaying the date as `01/01/2023`.
 class SelectedFullDateWidget extends StatelessWidget {
+  /// Represents a header widget for displaying the date as `01/01/2023`.
   const SelectedFullDateWidget({
     super.key,
     required this.date,

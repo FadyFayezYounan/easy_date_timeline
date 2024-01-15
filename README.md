@@ -116,7 +116,7 @@ for the active day.
       },
       headerProps: const EasyHeaderProps(
         monthPickerType: MonthPickerType.switcher,
-        selectedDateFormat: SelectedDateFormat.fullDateDMY,
+        dateFormatter: DateFormatter.fullDateDMY(),
       ),
       dayProps: const EasyDayProps(
         dayStructure: DayStructure.dayStrDayNum,
@@ -191,7 +191,7 @@ In the `dayProps` change the `dayStructure` to:
       },
       activeColor: const Color(0xffFFBF9B),
       headerProps: const EasyHeaderProps(
-        selectedDateFormat: SelectedDateFormat.monthOnly,
+        dateFormatter: DateFormatter.monthOnly(),
       ),
       dayProps: const EasyDayProps(
         height: 56.0,
@@ -256,7 +256,7 @@ With `easy_date_timeline`, you can display dates and timelines in landscape view
         dayStructure: DayStructure.dayStrDayNum,
       ),
       headerProps: const EasyHeaderProps(
-        selectedDateFormat: SelectedDateFormat.fullDateDMonthAsStrY,
+        dateFormatter: DateFormatter.fullDateDMonthAsStrY(),
       ),
     )
 ```
@@ -267,14 +267,15 @@ In the `headerProps` change the `monthPickerType` to:
 
 - `MonthPickerType.switcher` : show the month and you can change month by clicking the arrow buttons.
 - `MonthPickerType.dropDown` : show the month and you can change month from a dropdown menu.
-  also in the `headerProps` change the `selectedDateFormat` to:
-- `SelectedDateFormat.fullDateDMY` : show the data as:"11/06/2023"
-- `SelectedDateFormat.fullDateMDY` : show the data as:"06/11/2023"
-- `SelectedDateFormat.fullDateDayAsStrMY` : show the data as:"Sunday 6,2023"
-- `SelectedDateFormat.fullDateDMonthAsStrY` : show the data as:"11 June,2023"
-- `SelectedDateFormat.fullDateMonthAsStrDY` : show the data as:"June 11,2023"
-- `SelectedDateFormat.dayOnly` : show only the selected day as:"Sunday"
-- `SelectedDateFormat.monthOnly` : show only the selected month as:"June"
+- also in the `headerProps` change the `dateFormatter` to:
+- `DateFormatter.dayOnly()` : Formats the date with only the day of the week for example "Monday".
+- `DateFormatter.monthOnly()` : Formats the date with only the month for example "January".
+- `DateFormatter.fullDateDMY()` : Formats the date as "day/month/year" (e.g., "01/01/2022"), You can also specify a custom separator to use between the day, month, and year. default separator is "/".
+- `DateFormatter.fullDateMDY()` : Formats the date as "month/day/year" (e.g., "01/25/2022"), You can also specify a custom separator to use between the day, month, and year. default separator is "/".
+- `DateFormatter.fullDateDayAsStrMY()` : Formats the date as "day month, year" (e.g., "Monday 12, 2022"), You can also specify a custom separator. default separator is ", ".
+- `DateFormatter.fullDateDMonthAsStrY()` : Formats the date as "day month year" (e.g., "1 January, 2022"), You can also specify a custom separator. default separator is ", ".
+- `DateFormatter.fullDateMonthAsStrDY()` : Formats the date as "month day, year" (e.g., "January 1, 2022"), You can also specify a custom separator. default separator is ", ".
+- `DateFormatter.custom()` : Formats the date using a custom formatter.
 
 <p>
  <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/change_header_appearance_example.jpg"/>
@@ -289,7 +290,7 @@ In the `headerProps` change the `monthPickerType` to:
       activeColor: const Color(0xff37306B),
       headerProps: const EasyHeaderProps(
         monthPickerType: MonthPickerType.switcher,
-        selectedDateFormat: SelectedDateFormat.fullDateDayAsStrMY,
+        dateFormatter: DateFormatter.fullDateDayAsStrMY(),
       ),
       dayProps: const EasyDayProps(
         activeDayStyle: DayStyle(
@@ -349,7 +350,7 @@ The `itemBuilder` provides the following:
         width: 124.0,
       ),
       headerProps: const EasyHeaderProps(
-        selectedDateFormat: SelectedDateFormat.fullDateMonthAsStrDY,
+        dateFormatter: DateFormatter.fullDateMonthAsStrDY(),
       ),
       itemBuilder: (BuildContext context, String dayNumber, dayName, monthName,
           fullDate, isSelected) {
@@ -405,13 +406,33 @@ The `itemBuilder` provides the following:
   EasyDateTimeLine({
     super.key,
     required this.initialDate,
-    this.activeColor,
-    this.headerProps,
-    this.timeLineProps,
-    this.dayProps,
+    this.disabledDates,
+    this.headerProps = const EasyHeaderProps(),
+    this.timeLineProps = const EasyTimeLineProps(),
+    this.dayProps = const EasyDayProps(),
     this.onDateChange,
     this.itemBuilder,
+    this.activeColor,
     this.locale = "en_US",
+  });
+```
+
+```dart
+  EasyInfiniteDateTimeLine({
+    super.key,
+    this.disabledDates,
+    this.timeLineProps = const EasyTimeLineProps(),
+    this.dayProps = const EasyDayProps(),
+    this.onDateChange,
+    this.itemBuilder,
+    this.activeColor,
+    this.locale = "en_US",
+    required this.firstDate,
+    required this.focusDate,
+    required this.lastDate,
+    this.controller,
+    this.showTimelineHeader = true,
+    this.headerBuilder,
   });
 ```
 

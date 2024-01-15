@@ -1,13 +1,52 @@
-import 'package:easy_date_timeline/src/widgets/easy_date_timeline_widget/selected_date_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../easy_date_timeline.dart';
-import '../utils/easy_colors.dart';
-import '../utils/typed_ahead.dart';
-import 'infinite_time_line_widget.dart';
-import 'selected_full_date.dart';
+import '../properties/properties.dart';
+import '../utils/utils.dart';
+import 'widgets/easy_infinite_header.dart';
+import 'widgets/infinite_time_line_widget.dart';
 
 class EasyInfiniteDateTimeLine extends StatefulWidget {
+  /// A widget that displays an infinite date timeline.
+  ///
+  /// The timeline widget allows users to scroll through a range of dates and select a specific date.
+  /// It provides a visual representation of the dates, with each day displayed as a separate widget.
+  /// The timeline can be customized with various properties to control its appearance and behavior.
+  ///
+  /// The [EasyInfiniteDateTimeLine] widget requires the following parameters:
+  /// - [firstDate]: Represents the initial date for the timeline widget.
+  /// - [focusDate]: Represents the focus date for the timeline widget.
+  /// - [lastDate]: Represents the last date for the timeline widget.
+  ///
+  /// Optional parameters include:
+  /// - [disabledDates]: Represents a list of inactive dates for the timeline widget.
+  /// - [activeColor]: The color for the active day.
+  /// - [timeLineProps]: Contains properties for configuring the appearance and behavior of the timeline widget.
+  /// - [dayProps]: Contains properties for configuring the appearance and behavior of the day widgets in the timeline.
+  /// - [onDateChange]: Called when the selected date in the timeline changes.
+  /// - [itemBuilder]: A callback function that builds the custom day widgets for the timeline.
+  /// - [locale]: A `String` that represents the locale code to use for formatting the dates in the timeline.
+  /// - [controller]: The controller to manage the EasyInfiniteDateTimeline.
+  /// - [showTimelineHeader]: Represents whether the timeline header should be displayed or not.
+  /// - [headerBuilder]: The callback function used to build the header of the infinite date timeline.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// EasyInfiniteDateTimeLine(
+  ///   firstDate: DateTime(2022, 1, 1),
+  ///   focusDate: DateTime(2022, 1, 15),
+  ///   lastDate: DateTime(2022, 12, 31),
+  ///   disabledDates: [DateTime(2022, 1, 10), DateTime(2022, 1, 20)],
+  ///   activeColor: Colors.blue,
+  ///   timeLineProps: EasyTimeLineProps(),
+  ///   dayProps: EasyDayProps(),
+  ///   onDateChange: (DateTime selectedDate) {
+  ///     // Handle selected date change
+  ///   },
+  ///   locale: "en_US",
+  ///   controller: EasyInfiniteDateTimelineController(),
+  ///   showTimelineHeader: true,
+  /// )
+  /// ```
   const EasyInfiniteDateTimeLine({
     super.key,
     this.disabledDates,
@@ -22,6 +61,7 @@ class EasyInfiniteDateTimeLine extends StatefulWidget {
     required this.lastDate,
     this.controller,
     this.showTimelineHeader = true,
+    this.headerBuilder,
   });
 
   /// Represents the initial date for the timeline widget.
@@ -79,6 +119,15 @@ class EasyInfiniteDateTimeLine extends StatefulWidget {
   /// Represents whether the timeline header should be displayed or not.
   final bool showTimelineHeader;
 
+  /// The callback function used to build the header of the infinite date timeline.
+  ///
+  /// The [headerBuilder] function takes in a [BuildContext] and returns a widget
+  /// that represents the header of the timeline. It can be used to customize the
+  /// appearance and behavior of the header.
+  ///
+  /// If no [headerBuilder] is provided, a default header will be used.
+  final HeaderBuilderCallBack? headerBuilder;
+
   @override
   State<EasyInfiniteDateTimeLine> createState() =>
       _EasyInfiniteDateTimeLineState();
@@ -110,29 +159,14 @@ class _EasyInfiniteDateTimeLineState extends State<EasyInfiniteDateTimeLine> {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (widget.showTimelineHeader)
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: widget.timeLineProps.hPadding,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                FittedBox(
-                  child: SelectedDateWidget(
-                    date: widget.focusDate ?? widget.firstDate,
-                    locale: widget.locale,
-                  ),
-                ),
-                FittedBox(
-                  child: SelectedFullDateWidget(
-                    date: widget.focusDate ?? widget.firstDate,
-                    locale: widget.locale,
-                  ),
-                ),
-              ],
-            ),
+          EasyInfiniteHeaderWidget(
+            focusDate: widget.focusDate,
+            firstDate: widget.firstDate,
+            locale: widget.locale,
+            hPadding: widget.timeLineProps.hPadding,
+            headerBuilder: widget.headerBuilder,
           ),
-        if (widget.showTimelineHeader)
+        if (widget.showTimelineHeader && widget.headerBuilder == null)
           const SizedBox(
             height: 12.0,
           ),
@@ -149,7 +183,7 @@ class _EasyInfiniteDateTimeLineState extends State<EasyInfiniteDateTimeLine> {
           activeDayTextColor: activeDayTextColor,
           activeDayColor: activeDayColor,
           locale: widget.locale,
-        ),
+        )
       ],
     );
   }
