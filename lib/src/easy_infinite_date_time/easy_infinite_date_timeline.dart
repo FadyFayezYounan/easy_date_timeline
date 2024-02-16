@@ -28,6 +28,7 @@ class EasyInfiniteDateTimeLine extends StatefulWidget {
   /// - [controller]: The controller to manage the EasyInfiniteDateTimeline.
   /// - [showTimelineHeader]: Represents whether the timeline header should be displayed or not.
   /// - [headerBuilder]: The callback function used to build the header of the infinite date timeline.
+  /// - [autoCenter]: Automatically centers the selected day in the timeline.
   ///
   /// Example usage:
   /// ```dart
