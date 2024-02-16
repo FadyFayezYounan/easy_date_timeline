@@ -132,9 +132,16 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
     _attachEasyController();
     _daysCount =
         EasyDateUtils.calculateDaysCount(widget.firstDate, widget.lastDate);
-  // Calculate the initial scroll offset to center the focused date at startup if autoCenter is true.
-  double initialScrollOffset = _calculateInitialScrollOffset();
-  _controller = ScrollController(initialScrollOffset: initialScrollOffset);
+  _controller = ScrollController();
+    _initController();
+  }
+
+  void _initController() {
+    // _calculateInitialScrollOffset metodu içerisinde _controller'a erişmeden önce
+    // _controller'ın başlatıldığından emin olmalıyız. Bu yüzden bu işlemleri
+    // _controller başlatıldıktan sonra yapmalıyız.
+    double initialScrollOffset = _calculateInitialScrollOffset();
+    _controller.jumpTo(initialScrollOffset);
   }
 
   double _calculateInitialScrollOffset() {
