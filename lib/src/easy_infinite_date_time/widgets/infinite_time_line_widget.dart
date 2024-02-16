@@ -129,40 +129,33 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
   void initState() {
     super.initState();
     _initItemExtend();
-    _attachEasyController();
-    _daysCount =
-        EasyDateUtils.calculateDaysCount(widget.firstDate, widget.lastDate);
-  _controller = ScrollController();
-    _initController();
+    _daysCount = EasyDateUtils.calculateDaysCount(widget.firstDate, widget.lastDate);
+    _controller = ScrollController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _initController());
   }
 
   void _initController() {
-    // _calculateInitialScrollOffset metodu içerisinde _controller'a erişmeden önce
-    // _controller'ın başlatıldığından emin olmalıyız. Bu yüzden bu işlemleri
-    // _controller başlatıldıktan sonra yapmalıyız.
+    // Ensures the controller is attached to a scroll view before attempting to jump to an initial offset.
     double initialScrollOffset = _calculateInitialScrollOffset();
-    _controller.jumpTo(initialScrollOffset);
+    if (_controller.hasClients) {
+      _controller.jumpTo(initialScrollOffset);
+    }
   }
 
   double _calculateInitialScrollOffset() {
-  // Check if autoCenter is enabled and a focusedDate is provided.
-  if (widget.autoCenter && widget.focusedDate != null) {
-    // Calculate the offset to center the focusedDate.
-    return _calculateDateOffsetForCenter(widget.focusedDate!);
+    if (widget.autoCenter && widget.focusedDate != null) {
+      return _calculateDateOffsetForCenter(widget.focusedDate!);
+    }
+    return 0.0;
   }
-  // Return 0.0 if autoCenter is not enabled or no focusedDate is provided.
-  return 0.0;
-}
 
-double _calculateDateOffsetForCenter(DateTime date) {
-  // Calculate the difference in days between the firstDate and the focused date.
-  int daysDifference = date.difference(widget.firstDate).inDays;
-  // Calculate the initial scroll offset to center the focused date.
-  double centerOffset = (daysDifference * _itemExtend) - (_controller.position.viewportDimension / 2) + (_itemExtend / 2);
-  // Adjust the offset by the horizontal padding of the timeline.
-  double adjustedHPadding = _timeLineProps.hPadding > EasyConstants.timelinePadding ? _timeLineProps.hPadding - EasyConstants.timelinePadding : 0.0;
-  return centerOffset + adjustedHPadding;
-}
+  double _calculateDateOffsetForCenter(DateTime date) {
+    int daysDifference = date.difference(widget.firstDate).inDays;
+    double centerOffset = (daysDifference * _itemExtend) - (_controller.position.viewportDimension / 2) + (_itemExtend / 2);
+    double adjustedHPadding = _timeLineProps.hPadding > EasyConstants.timelinePadding ? _timeLineProps.hPadding - EasyConstants.timelinePadding : 0.0;
+    return centerOffset + adjustedHPadding;
+  }
+
 
   @override
   void didUpdateWidget(covariant InfiniteTimeLineWidget oldWidget) {
