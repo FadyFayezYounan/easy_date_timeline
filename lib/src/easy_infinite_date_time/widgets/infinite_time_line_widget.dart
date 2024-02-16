@@ -132,10 +132,30 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
     _attachEasyController();
     _daysCount =
         EasyDateUtils.calculateDaysCount(widget.firstDate, widget.lastDate);
-    // Automatically center the focused date at startup based on the autoCenter property
-  double initialScrollOffset = widget.autoCenter ? _calculateDateOffset() : 0.0;
+  // Calculate the initial scroll offset to center the focused date at startup if autoCenter is true.
+  double initialScrollOffset = _calculateInitialScrollOffset();
   _controller = ScrollController(initialScrollOffset: initialScrollOffset);
   }
+
+  double _calculateInitialScrollOffset() {
+  // Check if autoCenter is enabled and a focusedDate is provided.
+  if (widget.autoCenter && widget.focusedDate != null) {
+    // Calculate the offset to center the focusedDate.
+    return _calculateDateOffsetForCenter(widget.focusedDate!);
+  }
+  // Return 0.0 if autoCenter is not enabled or no focusedDate is provided.
+  return 0.0;
+}
+
+double _calculateDateOffsetForCenter(DateTime date) {
+  // Calculate the difference in days between the firstDate and the focused date.
+  int daysDifference = date.difference(widget.firstDate).inDays;
+  // Calculate the initial scroll offset to center the focused date.
+  double centerOffset = (daysDifference * _itemExtend) - (_controller.position.viewportDimension / 2) + (_itemExtend / 2);
+  // Adjust the offset by the horizontal padding of the timeline.
+  double adjustedHPadding = _timeLineProps.hPadding > EasyConstants.timelinePadding ? _timeLineProps.hPadding - EasyConstants.timelinePadding : 0.0;
+  return centerOffset + adjustedHPadding;
+}
 
   @override
   void didUpdateWidget(covariant InfiniteTimeLineWidget oldWidget) {
@@ -296,15 +316,6 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
         curve: Curves.decelerate,
       );
     }
-  }
-
-  double _calculateDateOffsetForCenter(DateTime date) {
-    int offset = date.difference(widget.firstDate).inDays;
-    // This calculation takes into account element widths, separator padding, and viewport size
-    double startOffset = (offset * _itemExtend) -
-        (_controller.position.viewportDimension / 2) +
-        (_itemExtend / 2);
-    return startOffset;
   }
 
   /// the method calculates the number of days between startDate and date using the difference() method
