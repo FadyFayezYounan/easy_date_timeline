@@ -132,9 +132,9 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
     _attachEasyController();
     _daysCount =
         EasyDateUtils.calculateDaysCount(widget.firstDate, widget.lastDate);
-    _controller = ScrollController(
-      initialScrollOffset: _calculateDateOffset(),
-    );
+    // Automatically center the focused date at startup based on the autoCenter property
+  double initialScrollOffset = widget.autoCenter ? _calculateDateOffset() : 0.0;
+  _controller = ScrollController(initialScrollOffset: initialScrollOffset);
   }
 
   @override
@@ -314,22 +314,27 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
   /// by multiplying the offset value by the width of a day widget
   /// (which is either the value of widget.easyDayProps.width or a default value of EasyConstants.dayWidgetWidth).
   /// It then adds to this value the product of offset and [EasyConstants.separatorPadding] (which represents the width of the space between each day widget)
-  double _calculateDateOffset() {
-    final initialDate = widget.firstDate;
-    final focusedDate = widget.focusedDate;
-    int offset = 0;
-    if (focusedDate != null) {
-      offset = focusedDate.difference(initialDate).inDays;
-    }
-    double adjustedHPadding =
-        _timeLineProps.hPadding > EasyConstants.timelinePadding
-            ? (_timeLineProps.hPadding - EasyConstants.timelinePadding)
-            : 0.0;
-    if (offset == 0) {
-      return 0.0;
-    }
-    return (offset * _dayOffsetConstrains) + adjustedHPadding;
+double _calculateDateOffset() {
+  if (!widget.autoCenter) {
+    // If autoCenter is false, return a default start offset
+    return 0.0;
   }
+  // Otherwise, calculate the scroll offset for the focused date
+  final initialDate = widget.firstDate;
+  // Use focusedDate if available, otherwise fall back to firstDate
+  final focusedDate = widget.focusedDate ?? widget.firstDate;
+  int offset = focusedDate.difference(initialDate).inDays;
+  double adjustedHPadding = _timeLineProps.hPadding > EasyConstants.timelinePadding
+      ? (_timeLineProps.hPadding - EasyConstants.timelinePadding)
+      : 0.0;
+
+  if (offset == 0) {
+    return 0.0;
+  }
+
+  // Calculate the scroll offset based on the day offset constraints and adjusted horizontal padding
+  return (offset * _dayOffsetConstrains) + adjustedHPadding;
+}
 
   /// Initializes the item extend value based on the current orientation and timeline properties.
   /// The item extend value is calculated by adding the day height or day width (depending on the landscape mode)
