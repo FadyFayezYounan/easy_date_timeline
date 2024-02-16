@@ -21,6 +21,7 @@ class InfiniteTimeLineWidget extends StatefulWidget {
     required this.activeDayColor,
     required this.lastDate,
     this.controller,
+    this.autoCenter = true,
   })  : assert(timeLineProps.hPadding > -1,
             "Can't set timeline hPadding less than zero."),
         assert(timeLineProps.separatorPadding > -1,
@@ -48,6 +49,11 @@ class InfiniteTimeLineWidget extends StatefulWidget {
 
   /// The background color of the selected day.
   final Color activeDayColor;
+
+  /// Automatically centers the selected day in the timeline.
+  /// If set to `true`, the timeline will automatically scroll to center the selected day.
+  /// If set to `false`, the timeline will not scroll when the selected day changes.
+  final bool autoCenter;
 
   /// Represents a list of inactive dates for the timeline widget.
   /// Note that all the dates defined in the inactiveDates list will be deactivated.
@@ -281,6 +287,24 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
   void _onDayChanged(bool isSelected, DateTime currentDate) {
     // A date is selected
     widget.onDateChange?.call(currentDate);
+
+    if (widget.autoCenter) {
+      double centerOffset = _calculateDateOffsetForCenter(currentDate);
+      _controller.animateTo(
+        centerOffset,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.decelerate,
+      );
+    }
+  }
+
+  double _calculateDateOffsetForCenter(DateTime date) {
+    int offset = date.difference(widget.firstDate).inDays;
+    // This calculation takes into account element widths, separator padding, and viewport size
+    double startOffset = (offset * _itemExtend) -
+        (_controller.position.viewportDimension / 2) +
+        (_itemExtend / 2);
+    return startOffset;
   }
 
   /// the method calculates the number of days between startDate and date using the difference() method
