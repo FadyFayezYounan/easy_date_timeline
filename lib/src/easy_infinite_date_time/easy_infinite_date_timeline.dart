@@ -62,7 +62,7 @@ class EasyInfiniteDateTimeLine extends StatefulWidget {
     this.controller,
     this.showTimelineHeader = true,
     this.headerBuilder,
-    this.autoCenter = false,
+    this.autoCenter = true,
   });
 
   /// Represents the initial date for the timeline widget.
