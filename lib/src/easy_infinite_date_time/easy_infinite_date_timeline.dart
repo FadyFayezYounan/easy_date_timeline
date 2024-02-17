@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import '../properties/properties.dart';
 import '../utils/utils.dart';
@@ -134,6 +135,12 @@ class EasyInfiniteDateTimeLine extends StatefulWidget {
 }
 
 class _EasyInfiniteDateTimeLineState extends State<EasyInfiniteDateTimeLine> {
+  @override
+  void initState() {
+    initializeDateFormatting(widget.locale, null);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     /// activeDayColor is initialized to the value of widget.activeColor if it is not null,

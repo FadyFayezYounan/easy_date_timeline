@@ -306,9 +306,9 @@ class _EasyInfiniteDateTimeLineExampleState
       children: [
         EasyInfiniteDateTimeLine(
           controller: _controller,
-          firstDate: DateTime(2023),
+          firstDate: DateTime(2024),
           focusDate: _focusDate,
-          lastDate: DateTime(2023, 12, 31),
+          lastDate: DateTime(2024, 12, 31),
           onDateChange: (selectedDate) {
             setState(() {
               _focusDate = selectedDate;
@@ -331,9 +331,9 @@ class _EasyInfiniteDateTimeLineExampleState
             ),
             ElevatedButton(
               onPressed: () {
-                _controller.animateToDate(DateTime(2023, 6, 5));
+                _controller.animateToDate(DateTime(2024, 6, 5));
               },
-              child: const Text('Animate To 2023-6-5 '),
+              child: const Text('Animate To 2024-6-5 '),
             ),
           ],
         ),

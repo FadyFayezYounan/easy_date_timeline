@@ -1,3 +1,4 @@
+import 'package:easy_date_timeline/src/easy_infinite_date_time/widgets/web_scroll_behavior.dart';
 import 'package:flutter/material.dart';
 
 import '../../properties/easy_day_props.dart';
@@ -127,54 +128,58 @@ class _TimeLineWidgetState extends State<TimeLineWidget> {
       child: ClipRRect(
         borderRadius:
             _timeLineProps.decoration?.borderRadius ?? BorderRadius.zero,
-        child: ListView.separated(
-          controller: _controller,
-          scrollDirection: Axis.horizontal,
-          padding: EdgeInsets.symmetric(
-            horizontal: _timeLineProps.hPadding,
-            vertical: _timeLineProps.vPadding,
-          ),
-          itemBuilder: (context, index) {
-            final currentDate =
-                DateTime(initialDate.year, initialDate.month, index + 1);
+        child: ScrollConfiguration(
+          behavior: EasyCustomScrollBehavior(),
+          child: ListView.separated(
+            controller: _controller,
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.symmetric(
+              horizontal: _timeLineProps.hPadding,
+              vertical: _timeLineProps.vPadding,
+            ),
+            itemBuilder: (context, index) {
+              final currentDate =
+                  DateTime(initialDate.year, initialDate.month, index + 1);
 
-            final isSelected = widget.focusedDate != null
-                ? EasyDateUtils.isSameDay(widget.focusedDate!, currentDate)
-                : EasyDateUtils.isSameDay(widget.initialDate, currentDate);
+              final isSelected = widget.focusedDate != null
+                  ? EasyDateUtils.isSameDay(widget.focusedDate!, currentDate)
+                  : EasyDateUtils.isSameDay(widget.initialDate, currentDate);
 
-            bool isDisabledDay = false;
-            // Check if this date should be deactivated only for the DeactivatedDates.
-            if (widget.inactiveDates != null) {
-              for (DateTime inactiveDate in widget.inactiveDates!) {
-                if (EasyDateUtils.isSameDay(currentDate, inactiveDate)) {
-                  isDisabledDay = true;
-                  break;
+              bool isDisabledDay = false;
+              // Check if this date should be deactivated only for the DeactivatedDates.
+              if (widget.inactiveDates != null) {
+                for (DateTime inactiveDate in widget.inactiveDates!) {
+                  if (EasyDateUtils.isSameDay(currentDate, inactiveDate)) {
+                    isDisabledDay = true;
+                    break;
+                  }
                 }
               }
-            }
-            return widget.itemBuilder != null
-                ? _dayItemBuilder(
-                    context,
-                    isSelected,
-                    currentDate,
-                  )
-                : EasyDayWidget(
-                    easyDayProps: _dayProps,
-                    date: currentDate,
-                    locale: widget.locale,
-                    isSelected: isSelected,
-                    isDisabled: isDisabledDay,
-                    onDayPressed: () => _onDayChanged(isSelected, currentDate),
-                    activeTextColor: widget.activeDayTextColor,
-                    activeDayColor: widget.activeDayColor,
-                  );
-          },
-          separatorBuilder: (context, index) {
-            return SizedBox(
-              width: _timeLineProps.separatorPadding,
-            );
-          },
-          itemCount: EasyDateUtils.getDaysInMonth(initialDate),
+              return widget.itemBuilder != null
+                  ? _dayItemBuilder(
+                      context,
+                      isSelected,
+                      currentDate,
+                    )
+                  : EasyDayWidget(
+                      easyDayProps: _dayProps,
+                      date: currentDate,
+                      locale: widget.locale,
+                      isSelected: isSelected,
+                      isDisabled: isDisabledDay,
+                      onDayPressed: () =>
+                          _onDayChanged(isSelected, currentDate),
+                      activeTextColor: widget.activeDayTextColor,
+                      activeDayColor: widget.activeDayColor,
+                    );
+            },
+            separatorBuilder: (context, index) {
+              return SizedBox(
+                width: _timeLineProps.separatorPadding,
+              );
+            },
+            itemCount: EasyDateUtils.getDaysInMonth(initialDate),
+          ),
         ),
       ),
     );

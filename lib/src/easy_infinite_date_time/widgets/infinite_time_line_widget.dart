@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../properties/properties.dart';
 import '../../utils/utils.dart';
 import '../../widgets/easy_day_widget/easy_day_widget.dart';
+import 'web_scroll_behavior.dart';
 
 part 'easy_infinite_date_timeline_controller.dart';
 
@@ -179,6 +180,7 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
             _timeLineProps.decoration?.borderRadius ?? BorderRadius.zero,
         child: CustomScrollView(
           scrollDirection: Axis.horizontal,
+          scrollBehavior: EasyCustomScrollBehavior(),
           controller: _controller,
           slivers: [
             SliverPadding(
