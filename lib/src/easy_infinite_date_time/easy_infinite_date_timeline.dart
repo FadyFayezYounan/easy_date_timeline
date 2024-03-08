@@ -29,6 +29,7 @@ class EasyInfiniteDateTimeLine extends StatefulWidget {
   /// - [controller]: The controller to manage the EasyInfiniteDateTimeline.
   /// - [showTimelineHeader]: Represents whether the timeline header should be displayed or not.
   /// - [headerBuilder]: The callback function used to build the header of the infinite date timeline.
+  /// - [autoCenter]: Automatically centers the selected day in the timeline.
   ///
   /// Example usage:
   /// ```dart
@@ -63,6 +64,7 @@ class EasyInfiniteDateTimeLine extends StatefulWidget {
     this.controller,
     this.showTimelineHeader = true,
     this.headerBuilder,
+    this.autoCenter = true,
   });
 
   /// Represents the initial date for the timeline widget.
@@ -129,6 +131,11 @@ class EasyInfiniteDateTimeLine extends StatefulWidget {
   /// If no [headerBuilder] is provided, a default header will be used.
   final HeaderBuilderCallBack? headerBuilder;
 
+  /// Automatically centers the selected day in the timeline.
+  /// If set to `true`, the timeline will automatically scroll to center the selected day.
+  /// If set to `false`, the timeline will not scroll when the selected day changes.
+  final bool autoCenter;
+
   @override
   State<EasyInfiniteDateTimeLine> createState() =>
       _EasyInfiniteDateTimeLineState();
@@ -190,6 +197,7 @@ class _EasyInfiniteDateTimeLineState extends State<EasyInfiniteDateTimeLine> {
           activeDayTextColor: activeDayTextColor,
           activeDayColor: activeDayColor,
           locale: widget.locale,
+          autoCenter: widget.autoCenter,
         )
       ],
     );

@@ -22,6 +22,7 @@ class InfiniteTimeLineWidget extends StatefulWidget {
     required this.activeDayColor,
     required this.lastDate,
     this.controller,
+    this.autoCenter = true,
   })  : assert(timeLineProps.hPadding > -1,
             "Can't set timeline hPadding less than zero."),
         assert(timeLineProps.separatorPadding > -1,
@@ -49,6 +50,11 @@ class InfiniteTimeLineWidget extends StatefulWidget {
 
   /// The background color of the selected day.
   final Color activeDayColor;
+
+  /// Automatically centers the selected day in the timeline.
+  /// If set to `true`, the timeline will automatically scroll to center the selected day.
+  /// If set to `false`, the timeline will not scroll when the selected day changes.
+  final bool autoCenter;
 
   /// Represents a list of inactive dates for the timeline widget.
   /// Note that all the dates defined in the inactiveDates list will be deactivated.
@@ -124,12 +130,48 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
   void initState() {
     super.initState();
     _initItemExtend();
-    _attachEasyController();
     _daysCount =
         EasyDateUtils.calculateDaysCount(widget.firstDate, widget.lastDate);
-    _controller = ScrollController(
-      initialScrollOffset: _calculateDateOffset(),
-    );
+    _controller = ScrollController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _initController());
+  }
+
+  /// Initializes the scroll controller for the timeline widget.
+  /// This method is responsible for initializing the scroll controller for the timeline widget.
+  void _initController() {
+    // Ensures the controller is attached to a scroll view before attempting to jump to an initial offset.
+    double initialScrollOffset = _calculateInitialScrollOffset();
+    if (_controller.hasClients) {
+      _controller.jumpTo(initialScrollOffset);
+    }
+  }
+
+  /// Calculates the initial scroll offset for the timeline widget.
+  /// The initial scroll offset is calculated based on the current date and the dimensions of the timeline.
+  double _calculateInitialScrollOffset() {
+    if (widget.autoCenter && widget.focusedDate != null) {
+      return _calculateDateOffsetForCenter(widget.focusedDate!);
+    }
+    return 0.0;
+  }
+
+  /// Calculates the date offset for centering the timeline on a specific date.
+  /// The date offset is calculated based on the difference between the specified date and the first date in the timeline.
+  /// The center offset is then adjusted based on the viewport dimension and the horizontal padding of the timeline.
+  /// The adjusted horizontal padding is calculated by subtracting the timeline padding from the specified horizontal padding.
+  /// The final center offset is returned.
+  /// The [date] parameter represents the date to center the timeline on.
+  /// Returns a double value representing the date offset for centering the timeline.
+  double _calculateDateOffsetForCenter(DateTime date) {
+    int daysDifference = date.difference(widget.firstDate).inDays;
+    double centerOffset = (daysDifference * _itemExtend) -
+        (_controller.position.viewportDimension / 2) +
+        (_itemExtend / 2);
+    double adjustedHPadding =
+        _timeLineProps.hPadding > EasyConstants.timelinePadding
+            ? _timeLineProps.hPadding - EasyConstants.timelinePadding
+            : 0.0;
+    return centerOffset + adjustedHPadding;
   }
 
   @override
@@ -283,30 +325,15 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
   void _onDayChanged(bool isSelected, DateTime currentDate) {
     // A date is selected
     widget.onDateChange?.call(currentDate);
-  }
 
-  /// the method calculates the number of days between startDate and date using the difference() method
-  /// of the Duration class. This value is stored in the offset variable.
-  /// If offset is equal to 0, the method returns 0.0.
-  /// Otherwise, the method calculates the horizontal offset of the day
-  /// by multiplying the offset value by the width of a day widget
-  /// (which is either the value of widget.easyDayProps.width or a default value of EasyConstants.dayWidgetWidth).
-  /// It then adds to this value the product of offset and [EasyConstants.separatorPadding] (which represents the width of the space between each day widget)
-  double _calculateDateOffset() {
-    final initialDate = widget.firstDate;
-    final focusedDate = widget.focusedDate;
-    int offset = 0;
-    if (focusedDate != null) {
-      offset = focusedDate.difference(initialDate).inDays;
+    if (widget.autoCenter) {
+      double centerOffset = _calculateDateOffsetForCenter(currentDate);
+      _controller.animateTo(
+        centerOffset,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.decelerate,
+      );
     }
-    double adjustedHPadding =
-        _timeLineProps.hPadding > EasyConstants.timelinePadding
-            ? (_timeLineProps.hPadding - EasyConstants.timelinePadding)
-            : 0.0;
-    if (offset == 0) {
-      return 0.0;
-    }
-    return (offset * _dayOffsetConstrains) + adjustedHPadding;
   }
 
   /// Initializes the item extend value based on the current orientation and timeline properties.
