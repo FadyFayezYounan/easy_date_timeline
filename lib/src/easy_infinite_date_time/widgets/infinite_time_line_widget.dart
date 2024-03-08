@@ -22,7 +22,7 @@ class InfiniteTimeLineWidget extends StatefulWidget {
     required this.activeDayColor,
     required this.lastDate,
     this.controller,
-    this.autoCenter = true,
+    required this.selectionMode,
   })  : assert(timeLineProps.hPadding > -1,
             "Can't set timeline hPadding less than zero."),
         assert(timeLineProps.separatorPadding > -1,
@@ -51,11 +51,6 @@ class InfiniteTimeLineWidget extends StatefulWidget {
   /// The background color of the selected day.
   final Color activeDayColor;
 
-  /// Automatically centers the selected day in the timeline.
-  /// If set to `true`, the timeline will automatically scroll to center the selected day.
-  /// If set to `false`, the timeline will not scroll when the selected day changes.
-  final bool autoCenter;
-
   /// Represents a list of inactive dates for the timeline widget.
   /// Note that all the dates defined in the inactiveDates list will be deactivated.
   final List<DateTime>? inactiveDates;
@@ -81,6 +76,20 @@ class InfiniteTimeLineWidget extends StatefulWidget {
   /// A `String` that represents the locale code to use for formatting the dates in the timeline.
   final String locale;
 
+  /// Determines the selection mode of the infinite date timeline.
+  ///
+  /// The [selectionMode] specifies how the timeline should behave when the selected date changes.
+  /// It can be set to one of the following values:
+  /// - [SelectionMode.none]: The timeline does not animate the selection.
+  /// - [SelectionMode.autoCenter]: The timeline automatically centers the selected date.
+  /// - [SelectionMode.alwaysFirst]: The timeline always positions the selected date at the first visible day of the timeline.
+  ///
+  /// By default, the selection mode is set to [SelectionMode.autoCenter].
+  ///
+  /// This property is used to customize the behavior of the timeline when the selected date changes.
+  /// For example, if you set it to `SelectionMode.alwaysFirst()`, the timeline will always position the selected date at the first visible day of the timeline.
+  final SelectionMode selectionMode;
+
   /// The controller to manage the EasyInfiniteDateTimeline. Allows programmatic control over the timeline,
   /// such as scrolling to a specific date or scrolling to the focus date.
   final EasyInfiniteDateTimelineController? controller;
@@ -105,14 +114,6 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
   /// Returns the height of a single day in the timeline.
   double get _dayHeight => _dayProps.height;
 
-  /// Returns the offset constraints for a single day in the timeline.
-  /// The offset constraints are calculated based on the orientation of the timeline
-  /// (landscape or portrait) and the dimensions of the day (height or width).
-  /// The separator padding is also taken into account.
-  double get _dayOffsetConstrains =>
-      (_isLandscapeMode ? _dayHeight : _dayWidth) +
-      _timeLineProps.separatorPadding;
-
   /// The number of days in the timeline.
   late int _daysCount;
 
@@ -130,48 +131,18 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
   void initState() {
     super.initState();
     _initItemExtend();
+    _attachEasyController();
     _daysCount =
         EasyDateUtils.calculateDaysCount(widget.firstDate, widget.lastDate);
     _controller = ScrollController();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _initController());
+    WidgetsBinding.instance.addPostFrameCallback((_) => _jumpToInitialOffset());
   }
 
-  /// Initializes the scroll controller for the timeline widget.
-  /// This method is responsible for initializing the scroll controller for the timeline widget.
-  void _initController() {
-    // Ensures the controller is attached to a scroll view before attempting to jump to an initial offset.
-    double initialScrollOffset = _calculateInitialScrollOffset();
+  void _jumpToInitialOffset() {
+    final initialScrollOffset = _getScrollOffset();
     if (_controller.hasClients) {
       _controller.jumpTo(initialScrollOffset);
     }
-  }
-
-  /// Calculates the initial scroll offset for the timeline widget.
-  /// The initial scroll offset is calculated based on the current date and the dimensions of the timeline.
-  double _calculateInitialScrollOffset() {
-    if (widget.autoCenter && widget.focusedDate != null) {
-      return _calculateDateOffsetForCenter(widget.focusedDate!);
-    }
-    return 0.0;
-  }
-
-  /// Calculates the date offset for centering the timeline on a specific date.
-  /// The date offset is calculated based on the difference between the specified date and the first date in the timeline.
-  /// The center offset is then adjusted based on the viewport dimension and the horizontal padding of the timeline.
-  /// The adjusted horizontal padding is calculated by subtracting the timeline padding from the specified horizontal padding.
-  /// The final center offset is returned.
-  /// The [date] parameter represents the date to center the timeline on.
-  /// Returns a double value representing the date offset for centering the timeline.
-  double _calculateDateOffsetForCenter(DateTime date) {
-    int daysDifference = date.difference(widget.firstDate).inDays;
-    double centerOffset = (daysDifference * _itemExtend) -
-        (_controller.position.viewportDimension / 2) +
-        (_itemExtend / 2);
-    double adjustedHPadding =
-        _timeLineProps.hPadding > EasyConstants.timelinePadding
-            ? _timeLineProps.hPadding - EasyConstants.timelinePadding
-            : 0.0;
-    return centerOffset + adjustedHPadding;
   }
 
   @override
@@ -182,6 +153,8 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
     } else if (widget.timeLineProps != oldWidget.timeLineProps ||
         widget.dayProps != oldWidget.dayProps) {
       _initItemExtend();
+    } else if (widget.selectionMode != oldWidget.selectionMode) {
+      _jumpToInitialOffset();
     }
   }
 
@@ -258,7 +231,6 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
                       }
                     }
                   }
-
                   return Padding(
                     key: ValueKey<DateTime>(currentDate),
                     padding: EdgeInsetsDirectional.only(
@@ -325,14 +297,56 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
   void _onDayChanged(bool isSelected, DateTime currentDate) {
     // A date is selected
     widget.onDateChange?.call(currentDate);
-
-    if (widget.autoCenter) {
-      double centerOffset = _calculateDateOffsetForCenter(currentDate);
+    final selectionMode = widget.selectionMode;
+    if (selectionMode.isAutoCenter || selectionMode.isAlwaysFirst) {
+      final offset = _getScrollOffset(currentDate);
       _controller.animateTo(
-        centerOffset,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.decelerate,
+        offset,
+        duration: selectionMode.duration ??
+            EasyConstants.selectionModeAnimationDuration,
+        curve: selectionMode.curve ?? Curves.linear,
       );
+    }
+  }
+
+  /// Calculates the scroll offset for the specified [lastDate].
+  ///
+  /// If [lastDate] is not provided, it falls back to [widget.focusedDate].
+  ///
+  /// Returns the calculated scroll offset.
+  double _getScrollOffset([DateTime? lastDate]) {
+    // Get the last date to use, defaulting to widget.focusedDate if not provided
+    final effectiveLastDate = lastDate ?? widget.focusedDate;
+    // Check if a date is provided
+    if (effectiveLastDate != null) {
+      // Use a switch expression to determine the scroll offset based on the selection mode
+      return switch (widget.selectionMode) {
+        // If the selection mode is none or always first
+        SelectionModeNone() ||
+        SelectionModeAlwaysFirst() =>
+          // Calculate the scroll offset between the first date and the last date
+          calculateDateOffsetBetweenDates(
+            firstDate: widget.firstDate, // Use the widget's first date
+            lastDate: effectiveLastDate, // Use the effective last date
+            dayWidth: _itemExtend, // Use the item extend calculated earlier
+            hPadding: _timeLineProps
+                .hPadding, // Use the timeline's horizontal padding
+          ),
+        // If the selection mode is auto center
+        SelectionModeAutoCenter() =>
+          // Calculate the scroll offset for center mode
+          calculateDateOffsetForCenter(
+            firstDate: widget.firstDate, // Use the widget's first date
+            lastDate: effectiveLastDate, // Use the effective last date
+            dayWidth: _itemExtend, // Use the item extend calculated earlier
+            hPadding: _timeLineProps
+                .hPadding, // Use the timeline's horizontal padding
+            controller: _controller, // Use the scroll controller
+          ),
+      };
+    } else {
+      // If no date is provided, return 0.0 as the scroll offset
+      return 0.0;
     }
   }
 

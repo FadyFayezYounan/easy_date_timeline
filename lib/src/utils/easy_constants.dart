@@ -4,6 +4,10 @@ import 'package:flutter/material.dart' show BorderRadius, Radius;
 class EasyConstants {
   EasyConstants._();
 
+  static const Duration animationDuration = Duration(milliseconds: 300);
+  static const Duration selectionModeAnimationDuration =
+      Duration(milliseconds: 400);
+
   // Day widget constants
   static const double dayWidgetBorderRadius = 12.0;
   static const BorderRadius daySplashBorder =
@@ -12,7 +16,6 @@ class EasyConstants {
   static const double dayWidgetHeight = 112.0;
   static const double dayAsNumFontSize = 20.0;
   static const double dayAsStrFontSize = 12.0;
-  static const int animationDuration = 300;
   static const double landscapeDayPadding = 4.0;
 
   // Timeline list constants

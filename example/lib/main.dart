@@ -305,6 +305,7 @@ class _EasyInfiniteDateTimeLineExampleState
     return Column(
       children: [
         EasyInfiniteDateTimeLine(
+          selectionMode: const SelectionMode.autoCenter(),
           controller: _controller,
           firstDate: DateTime(2024),
           focusDate: _focusDate,
@@ -314,6 +315,9 @@ class _EasyInfiniteDateTimeLineExampleState
               _focusDate = selectedDate;
             });
           },
+        ),
+        const SizedBox(
+          height: 16,
         ),
         Column(
           children: [

@@ -84,7 +84,7 @@ class EasyDayWidget extends StatelessWidget {
       //borderRadius: _dayBorderRadius(isToday),
       borderRadius: _daySplashBorderRadius(isToday),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: EasyConstants.animationDuration),
+        duration: EasyConstants.animationDuration,
         width: width,
         height: height,
         margin: margin,

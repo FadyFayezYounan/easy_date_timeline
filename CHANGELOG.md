@@ -1,3 +1,12 @@
+## 1.0.5
+
+- Add `SelectionMode` to `EasyInfiniteDateTimeLine` widget.
+- The `selectionMode` specifies how the timeline should behave when the selected date changes.
+  It can be set to one of the following values:
+  - `SelectionMode.none()`: The timeline does not animate the selection.
+  - `SelectionMode.autoCenter()`: The timeline automatically centers the selected date.
+  - `SelectionMode.alwaysFirst()`: The timeline always positions the selected date at the first visible day of the timeline.
+
 ## 1.0.4
 
 - update intl package to 0.19.0.

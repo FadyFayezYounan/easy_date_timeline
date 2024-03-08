@@ -64,7 +64,7 @@ class EasyInfiniteDateTimeLine extends StatefulWidget {
     this.controller,
     this.showTimelineHeader = true,
     this.headerBuilder,
-    this.autoCenter = true,
+    this.selectionMode = const SelectionMode.autoCenter(),
   });
 
   /// Represents the initial date for the timeline widget.
@@ -131,10 +131,19 @@ class EasyInfiniteDateTimeLine extends StatefulWidget {
   /// If no [headerBuilder] is provided, a default header will be used.
   final HeaderBuilderCallBack? headerBuilder;
 
-  /// Automatically centers the selected day in the timeline.
-  /// If set to `true`, the timeline will automatically scroll to center the selected day.
-  /// If set to `false`, the timeline will not scroll when the selected day changes.
-  final bool autoCenter;
+  /// Determines the selection mode of the infinite date timeline.
+  ///
+  /// The [selectionMode] specifies how the timeline should behave when the selected date changes.
+  /// It can be set to one of the following values:
+  /// - [SelectionMode.none]: The timeline does not animate the selection.
+  /// - [SelectionMode.autoCenter]: The timeline automatically centers the selected date.
+  /// - [SelectionMode.alwaysFirst]: The timeline always positions the selected date at the first visible day of the timeline.
+  ///
+  /// By default, the selection mode is set to [SelectionMode.autoCenter].
+  ///
+  /// This property is used to customize the behavior of the timeline when the selected date changes.
+  /// For example, if you set it to `SelectionMode.alwaysFirst()`, the timeline will always position the selected date at the first visible day of the timeline.
+  final SelectionMode selectionMode;
 
   @override
   State<EasyInfiniteDateTimeLine> createState() =>
@@ -197,7 +206,7 @@ class _EasyInfiniteDateTimeLineState extends State<EasyInfiniteDateTimeLine> {
           activeDayTextColor: activeDayTextColor,
           activeDayColor: activeDayColor,
           locale: widget.locale,
-          autoCenter: widget.autoCenter,
+          selectionMode: widget.selectionMode,
         )
       ],
     );

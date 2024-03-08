@@ -1,3 +1,4 @@
+import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:easy_date_timeline/src/easy_infinite_date_time/widgets/infinite_time_line_widget.dart';
 import 'package:easy_date_timeline/src/utils/easy_constants.dart';
 import 'package:easy_date_timeline/src/widgets/easy_day_widget/easy_day_widget.dart';
@@ -18,6 +19,7 @@ void main() {
             focusedDate: DateTime(2022, 1, 3),
             activeDayTextColor: Colors.black,
             activeDayColor: Colors.blue,
+            selectionMode: const SelectionMode.autoCenter(),
           ),
         ),
       );
@@ -62,6 +64,7 @@ void main() {
             onDateChange: (date) {
               selectedDate = date;
             },
+            selectionMode: const SelectionMode.autoCenter(),
           ),
         ),
       );
@@ -100,6 +103,7 @@ void main() {
                 ),
               );
             },
+            selectionMode: const SelectionMode.autoCenter(),
           ),
         ),
       );
