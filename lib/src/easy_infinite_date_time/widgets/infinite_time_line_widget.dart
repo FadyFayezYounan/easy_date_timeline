@@ -16,12 +16,13 @@ class InfiniteTimeLineWidget extends StatefulWidget {
     this.timeLineProps = const EasyTimeLineProps(),
     this.onDateChange,
     this.itemBuilder,
+    this.physics,
+    this.controller,
     required this.firstDate,
     required this.focusedDate,
     required this.activeDayTextColor,
     required this.activeDayColor,
     required this.lastDate,
-    this.controller,
     required this.selectionMode,
   })  : assert(timeLineProps.hPadding > -1,
             "Can't set timeline hPadding less than zero."),
@@ -93,6 +94,8 @@ class InfiniteTimeLineWidget extends StatefulWidget {
   /// The controller to manage the EasyInfiniteDateTimeline. Allows programmatic control over the timeline,
   /// such as scrolling to a specific date or scrolling to the focus date.
   final EasyInfiniteDateTimelineController? controller;
+
+  final ScrollPhysics? physics;
 
   @override
   State<InfiniteTimeLineWidget> createState() => _InfiniteTimeLineWidgetState();
@@ -197,6 +200,7 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
           scrollDirection: Axis.horizontal,
           scrollBehavior: EasyCustomScrollBehavior(),
           controller: _controller,
+          physics: widget.physics,
           slivers: [
             SliverPadding(
               padding: EdgeInsets.symmetric(

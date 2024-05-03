@@ -58,13 +58,14 @@ class EasyInfiniteDateTimeLine extends StatefulWidget {
     this.itemBuilder,
     this.activeColor,
     this.locale = "en_US",
-    required this.firstDate,
-    required this.focusDate,
-    required this.lastDate,
     this.controller,
     this.showTimelineHeader = true,
     this.headerBuilder,
     this.selectionMode = const SelectionMode.autoCenter(),
+    this.physics,
+    required this.firstDate,
+    required this.focusDate,
+    required this.lastDate,
   });
 
   /// Represents the initial date for the timeline widget.
@@ -145,6 +146,8 @@ class EasyInfiniteDateTimeLine extends StatefulWidget {
   /// For example, if you set it to `SelectionMode.alwaysFirst()`, the timeline will always position the selected date at the first visible day of the timeline.
   final SelectionMode selectionMode;
 
+  final ScrollPhysics? physics;
+
   @override
   State<EasyInfiniteDateTimeLine> createState() =>
       _EasyInfiniteDateTimeLineState();
@@ -207,6 +210,7 @@ class _EasyInfiniteDateTimeLineState extends State<EasyInfiniteDateTimeLine> {
           activeDayColor: activeDayColor,
           locale: widget.locale,
           selectionMode: widget.selectionMode,
+          physics: widget.physics,
         )
       ],
     );
