@@ -1,66 +1,87 @@
 import 'package:flutter/material.dart' show ScrollController;
 
-import 'utils.dart';
-
 /// Calculates the horizontal offset between two dates on a timeline.
 ///
-/// This function calculates the horizontal offset between two dates on a timeline,
-/// taking into account the width of each day, horizontal padding, and the difference
-/// in days between the two dates.
+/// Parameters:
+/// - [firstDate]: The start date.
+/// - [lastDate]: The end date.
+/// - [dayWidth]: The width of each day on the timeline.
+/// - [controller]: The scroll controller of the timeline.
 ///
-/// [firstDate] The first date.
-/// [lastDate] The last date.
-/// [dayWidth] The width of each day on the timeline.
-/// [hPadding] The horizontal padding.
-///
-/// Returns the horizontal offset between the two dates.
+/// Returns: The horizontal offset between the two dates, or the maximum scroll extent if it exceeds it.
 double calculateDateOffsetBetweenDates({
-  required DateTime firstDate,
-  required DateTime lastDate,
-  required double dayWidth,
-  required double hPadding,
+  required DateTime firstDate, // The start date.
+  required DateTime lastDate, // The end date.
+  required double dayWidth, // The width of each day on the timeline.
+  required ScrollController
+      controller, // The scroll controller of the timeline.
 }) {
-  int offset = lastDate.difference(firstDate).inDays;
-  double adjustedHPadding = hPadding > EasyConstants.timelinePadding
-      ? (hPadding - EasyConstants.timelinePadding)
-      : 0.0;
-  if (offset == 0) {
-    return 0.0;
-  }
-  return (offset * dayWidth) + adjustedHPadding;
+  // Calculate the number of days between the first and last dates
+  final dayIndex = lastDate.difference(firstDate).inDays;
+
+  // Get the maximum scroll extent of the scroll controller
+  final maxScrollExtent = controller.position.maxScrollExtent;
+
+  // Calculate the total width of all day widgets
+  final targetScrollPosition = dayIndex * dayWidth;
+
+  // Check if the target scroll position is within the maximum scroll extent
+  final canApplyAutoFirst = targetScrollPosition <= maxScrollExtent;
+
+  // Return the target scroll position if it is within the maximum scroll extent, otherwise return the maximum scroll extent
+  return canApplyAutoFirst ? targetScrollPosition : maxScrollExtent;
 }
 
-/// Calculates the date offset for centering the timeline on a specific date.
-/// The date offset is calculated based on the difference between the specified date and the first date in the timeline.
-/// The center offset is then adjusted based on the viewport dimension and the horizontal padding of the timeline.
-/// The adjusted horizontal padding is calculated by subtracting the timeline padding from the specified horizontal padding.
-/// The final center offset is returned.
+/// Calculates the horizontal offset to center a date on a timeline.
 ///
-/// This function calculates the horizontal offset needed to center a specific date
-/// on a timeline, taking into account the width of each day, horizontal padding,
-/// and the difference in days between the first and last dates. It also considers
-/// the viewport dimension and the current position of the scroll controller.
+/// This function calculates the horizontal offset needed to center a date on a timeline.
+/// It takes into account the width of each day, horizontal padding, the number of days
+/// between the first and last dates, and the size of the screen.
 ///
-/// [firstDate] The first date on the timeline.
-/// [lastDate] The last date on the timeline.
-/// [dayWidth] The width of each day on the timeline.
-/// [hPadding] The horizontal padding.
-/// [controller] The scroll controller for the timeline.
+/// Parameters:
+/// - [firstDate]: The first date.
+/// - [lastDate]: The last date.
+/// - [dayWidth]: The width of each day on the timeline.
+/// - [controller]: The scroll controller of the timeline.
 ///
-/// Returns the horizontal offset needed to center the date on the timeline.
+/// Returns:
+/// The horizontal offset needed to center the date on the timeline.
 double calculateDateOffsetForCenter({
   required DateTime firstDate,
   required DateTime lastDate,
   required double dayWidth,
-  required double hPadding,
   required ScrollController controller,
 }) {
-  int daysDifference = lastDate.difference(firstDate).inDays;
-  double centerOffset = (daysDifference * dayWidth) -
-      (controller.position.viewportDimension / 2) +
-      (dayWidth / 2);
-  double adjustedHPadding = hPadding > EasyConstants.timelinePadding
-      ? hPadding - EasyConstants.timelinePadding
-      : 0.0;
-  return centerOffset + adjustedHPadding;
+  // Calculate the number of days between the first and last dates
+  final dayIndex = lastDate.difference(firstDate).inDays;
+
+  // Get the width of the screen
+  final screenWidth = controller.position.viewportDimension;
+
+  // Get the maximum scroll extent of the scroll controller
+  final maxScrollExtent = controller.position.maxScrollExtent;
+
+  // Calculate the half of the screen width
+  final halfScreenWidth = screenWidth / 2;
+
+  // Calculate the half of the width of a day widget
+  final halfItemWidth = dayWidth / 2;
+
+  // Calculate the total width of all day widgets
+  final totalDaysWidth = dayIndex * dayWidth;
+
+  // Calculate the target scroll position to center the date
+  final targetScrollPosition = totalDaysWidth - halfScreenWidth + halfItemWidth;
+
+  // Check if the target scroll position is within the valid range
+  final canApplyAutoCenter =
+      targetScrollPosition >= 0 && targetScrollPosition <= maxScrollExtent;
+
+  // Calculate and return the horizontal offset to center the date
+  if (canApplyAutoCenter) {
+    return targetScrollPosition;
+  } else {
+    // If the target scroll position is out of range, return the maximum or minimum scroll extent
+    return targetScrollPosition <= 0.0 ? 0.0 : maxScrollExtent;
+  }
 }

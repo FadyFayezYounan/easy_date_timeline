@@ -1,5 +1,6 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(const MyApp());
@@ -305,7 +306,7 @@ class _EasyInfiniteDateTimeLineExampleState
     return Column(
       children: [
         EasyInfiniteDateTimeLine(
-          selectionMode: const SelectionMode.autoCenter(),
+          selectionMode: const SelectionMode.alwaysFirst(),
           controller: _controller,
           firstDate: DateTime(2024),
           focusDate: _focusDate,

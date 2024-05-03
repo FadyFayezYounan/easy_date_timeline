@@ -11,6 +11,15 @@ The "easy_date_timeline" package is a customizable Flutter library that displays
 | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | <img width="300" src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/easy_date_timeline.jpg"/> | <img width="300" src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/easy_date_timeline.gif"/> |
 
+
+## 📦 Other Packages
+
+- [easy_infinite_pagination](https://pub.dev/packages/easy_infinite_pagination) : The Easy Infinite Pagination package provides a simple and customizable way to implement infinite pagination in your Flutter applications.
+
+- [flutter_easy_validator](https://pub.dev/packages/flutter_easy_validator): package designed to simplify the process of validating strings in your applications.
+
+- [easy_radio](https://pub.dev/packages/easy_radio): EasyRadio is a customizable radio button widget for Flutter that offers consistent animation, easy customization of sizes, shape, inner dot shape.
+
 # What's new?
 
 - Add new widget called: `EasyInfiniteDateTimeLine` , It allows you to define a range of dates with `firstDate` and `lastDate`, specify the initial focus with `focusedDate`, and offers a `controller` for programmatic interactions:

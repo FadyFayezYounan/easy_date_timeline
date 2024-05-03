@@ -1,3 +1,9 @@
+## 1.0.7
+
+- Enhance `EasyInfiniteDateTimeLine` `autoCenter` and `alwaysFirst` mode scroll behavior.
+
+- Add `physics` property to `EasyInfiniteDateTimeLine` widget.
+
 ## 1.0.6
 
 - Add `SelectionMode` to `EasyInfiniteDateTimeLine` widget.

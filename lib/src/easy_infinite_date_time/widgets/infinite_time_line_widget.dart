@@ -333,8 +333,7 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
             firstDate: widget.firstDate, // Use the widget's first date
             lastDate: effectiveLastDate, // Use the effective last date
             dayWidth: _itemExtend, // Use the item extend calculated earlier
-            hPadding: _timeLineProps
-                .hPadding, // Use the timeline's horizontal padding
+            controller: _controller, // Use the scroll controller
           ),
         // If the selection mode is auto center
         SelectionModeAutoCenter() =>
@@ -343,8 +342,6 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
             firstDate: widget.firstDate, // Use the widget's first date
             lastDate: effectiveLastDate, // Use the effective last date
             dayWidth: _itemExtend, // Use the item extend calculated earlier
-            hPadding: _timeLineProps
-                .hPadding, // Use the timeline's horizontal padding
             controller: _controller, // Use the scroll controller
           ),
       };
