@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Update readme file.
+
 ## 1.1.0
 
 - Update `EasyInfiniteDateTimeLine` itemBuilder.
