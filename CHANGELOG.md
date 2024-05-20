@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Update `EasyInfiniteDateTimeLine` itemBuilder.
+
 ## 1.0.7
 
 - Enhance `EasyInfiniteDateTimeLine` `autoCenter` and `alwaysFirst` mode scroll behavior.

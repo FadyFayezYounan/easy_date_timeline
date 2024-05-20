@@ -72,7 +72,7 @@ class InfiniteTimeLineWidget extends StatefulWidget {
 
   /// Called for each day in the timeline, allowing the developer to customize the appearance and behavior of each day widget.
   /// This function takes a `BuildContext` and a `DateTime` object as its parameters, and should return a `Widget` that represents the day.
-  final ItemBuilderCallBack? itemBuilder;
+  final InfiniteItemBuilderCallBack? itemBuilder;
 
   /// A `String` that represents the locale code to use for formatting the dates in the timeline.
   final String locale;
@@ -186,16 +186,19 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final effectiveTimeLineHeight = _isLandscapeMode ? _dayWidth : _dayHeight;
+    final effectiveTimeLineBackgroundColor = _timeLineProps.decoration == null
+        ? _timeLineProps.backgroundColor
+        : null;
+    final effectiveTimeLineBorderRadius =
+        _timeLineProps.decoration?.borderRadius ?? BorderRadius.zero;
     return Container(
-      height: _isLandscapeMode ? _dayWidth : _dayHeight,
+      height: effectiveTimeLineHeight,
       margin: _timeLineProps.margin,
-      color: _timeLineProps.decoration == null
-          ? _timeLineProps.backgroundColor
-          : null,
+      color: effectiveTimeLineBackgroundColor,
       decoration: _timeLineProps.decoration,
       child: ClipRRect(
-        borderRadius:
-            _timeLineProps.decoration?.borderRadius ?? BorderRadius.zero,
+        borderRadius: effectiveTimeLineBorderRadius,
         child: CustomScrollView(
           scrollDirection: Axis.horizontal,
           scrollBehavior: EasyCustomScrollBehavior(),
@@ -218,7 +221,7 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
                       widget.firstDate.add(Duration(days: index));
 
                   /// Checks if the [_focusDate] is the same day as [currentDate].
-                  bool isSelected =
+                  final isSelected =
                       EasyDateUtils.isSameDay(_focusDate, currentDate);
 
                   /// Flag indicating whether the day is disabled or not.
@@ -252,8 +255,7 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
                             locale: widget.locale,
                             isSelected: isSelected,
                             isDisabled: isDisabledDay,
-                            onDayPressed: () =>
-                                _onDayChanged(isSelected, currentDate),
+                            onDayPressed: () => _onDayTapped(currentDate),
                             activeTextColor: widget.activeDayTextColor,
                             activeDayColor: widget.activeDayColor,
                           ),
@@ -268,38 +270,26 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
     );
   }
 
-  /// Builds an [InkWell] widget for a day item in the infinite timeline.
-  ///
   /// The [context] is the build context.
   /// The [isSelected] indicates whether the day item is selected.
   /// The [date] is the date associated with the day item.
-  ///
-  /// Returns an [InkWell] widget with the specified properties.
-  InkWell _dayItemBuilder(
+  Widget _dayItemBuilder(
     BuildContext context,
     bool isSelected,
     DateTime date,
   ) {
-    return InkWell(
-      onTap: () => _onDayChanged(isSelected, date),
-      borderRadius: BorderRadius.circular(_dayProps.activeBorderRadius),
-      child: widget.itemBuilder!(
-        context,
-        date.day.toString(),
-        EasyDateFormatter.shortDayName(date, widget.locale).toUpperCase(),
-        EasyDateFormatter.shortMonthName(date, widget.locale).toUpperCase(),
-        date,
-        isSelected,
-      ),
+    return widget.itemBuilder!(
+      context,
+      date,
+      isSelected,
+      () => _onDayTapped(date),
     );
   }
 
-  /// Callback function that is called when a day is changed.
+  /// Callback function that is called when a day is tapped.
   ///
-  /// The [isSelected] parameter indicates whether the day is selected or not.
   /// The [currentDate] parameter represents the current selected date.
-  void _onDayChanged(bool isSelected, DateTime currentDate) {
-    // A date is selected
+  void _onDayTapped(DateTime currentDate) {
     widget.onDateChange?.call(currentDate);
     final selectionMode = widget.selectionMode;
     if (selectionMode.isAutoCenter || selectionMode.isAlwaysFirst) {

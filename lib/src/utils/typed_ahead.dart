@@ -18,6 +18,12 @@ typedef ItemBuilderCallBack = Widget Function(
   DateTime fullDate,
   bool isSelected,
 );
+typedef InfiniteItemBuilderCallBack = Widget Function(
+  BuildContext context,
+  DateTime date,
+  bool isSelected,
+  VoidCallback onTap,
+);
 
 /// A function type that takes an `EasyMonth` object representing the selected month as a parameter and returns no result.
 ///

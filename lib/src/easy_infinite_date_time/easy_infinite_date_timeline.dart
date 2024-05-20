@@ -111,7 +111,7 @@ class EasyInfiniteDateTimeLine extends StatefulWidget {
   /// )
   /// ```
 
-  final ItemBuilderCallBack? itemBuilder;
+  final InfiniteItemBuilderCallBack? itemBuilder;
 
   /// A `String` that represents the locale code to use for formatting the dates in the timeline.
   final String locale;

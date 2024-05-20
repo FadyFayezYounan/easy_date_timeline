@@ -11,7 +11,6 @@ The "easy_date_timeline" package is a customizable Flutter library that displays
 | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | <img width="300" src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/easy_date_timeline.jpg"/> | <img width="300" src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/easy_date_timeline.gif"/> |
 
-
 ## 📦 Other Packages
 
 - [easy_infinite_pagination](https://pub.dev/packages/easy_infinite_pagination) : The Easy Infinite Pagination package provides a simple and customizable way to implement infinite pagination in your Flutter applications.
@@ -101,9 +100,80 @@ Use the `EasyDateTimeLine` Widget
 
   ```
 
-  > [See itemBuilder example](#itemBuilder-example)
-
 - `Locale Support` : The "easy_date_timeline" package supports locale, allowing developers to display the timeline in different languages and formats based on the user's device settings. This feature ensures that the package can be used in a variety of international contexts and provides a seamless user experience for users around the world.
+
+## `EasyInfiniteDateTimeLine` itemBuilder example:
+
+You can use the `itemBuilder` to customize the appearance of the day widget.
+The `itemBuilder` provides the following:
+
+- `BuildContext context`: The context of the widget.
+- `DateTime date`: The date of the day widget.
+- `bool isSelected`: Whether the day widget is selected or not.
+- `VoidCallback onTap`: The callback that triggers when the day widget is tapped.
+
+```dart
+    return EasyInfiniteDateTimeLine(
+      selectionMode: const SelectionMode.autoCenter(),
+      firstDate: DateTime(2024),
+      focusDate: _focusDate,
+      lastDate: DateTime(2024, 12, 31),
+      onDateChange: (selectedDate) {
+        setState(() {
+          _focusDate = selectedDate;
+        });
+      },
+      dayProps: const EasyDayProps(
+        // You must specify the width in this case.
+        width: 64.0,
+        // The height is not required in this case.
+        height: 64.0,
+      ),
+      itemBuilder: (
+        BuildContext context,
+        DateTime date,
+        bool isSelected,
+        VoidCallback onTap,
+      ) {
+        return InkResponse(
+          // You can use `InkResponse` to make your widget clickable.
+          // The `onTap` callback responsible for triggering the `onDateChange`
+          // callback and animating to the selected date if the `selectionMode` is
+          // SelectionMode.autoCenter() or SelectionMode.alwaysFirst().
+          onTap: onTap,
+          child: CircleAvatar(
+            // use `isSelected` to specify whether the widget is selected or not.
+            backgroundColor:
+                isSelected ? fillColor : fillColor.withOpacity(0.1),
+            radius: 32.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Text(
+                    date.day.toString(),
+                    style: TextStyle(
+                      color: isSelected ? Colors.white : null,
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: Text(
+                    EasyDateFormatter.shortDayName(date, "en_US"),
+                    style: TextStyle(
+                      color: isSelected ? Colors.white : null,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    )
+```
+
+> [See also itemBuilder example for `EasyDateTimeLine`](#itemBuilder-example)
 
 ## Custom background
 
@@ -442,6 +512,10 @@ The `itemBuilder` provides the following:
   });
 ```
 
-## Author
+## Additional information
 
-- [Fady Fayez](https://github.com/FadyFayezYounan)
+- **Contributing**: Contributions to the Easy Date Timeline package are welcome! [GitHub repository](https://github.com/FadyFayezYounan/easy_date_timeline/pulls).
+- **Filing issues**: If you encounter any issues with the Easy Date Timeline package, please file an issue on the [GitHub repository](https://github.com/FadyFayezYounan/easy_date_timeline/issues).
+- **Support**: If you have any questions or need help using the Easy Date Timeline package, please feel free to reach out to the package authors on [GitHub](https://github.com/FadyFayezYounan).
+
+We hope you find the Easy Infinite Pagination package helpful!

@@ -86,16 +86,20 @@ void main() {
             focusedDate: DateTime(2022, 1, 3),
             activeDayTextColor: Colors.black,
             activeDayColor: Colors.blue,
-            itemBuilder:
-                (context, day, shortDayName, shortMonthName, date, isSelected) {
+            itemBuilder: (
+              context,
+              date,
+              isSelected,
+              onTap,
+            ) {
               return Container(
-                key: ValueKey('Container $day'),
+                key: ValueKey('Container ${date.day}'),
                 width: 50,
                 height: 50,
                 color: isSelected ? Colors.blue : Colors.transparent,
                 child: Center(
                   child: Text(
-                    day,
+                    date.day.toString(),
                     style: TextStyle(
                       color: isSelected ? Colors.white : Colors.black,
                     ),

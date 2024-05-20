@@ -2,7 +2,7 @@ part of 'infinite_time_line_widget.dart';
 
 /// Controller for the EasyInfiniteDateTimeline.
 /// This controller is responsible for managing the state and behavior of the timeline.
-final class EasyInfiniteDateTimelineController {
+class EasyInfiniteDateTimelineController {
   _InfiniteTimeLineWidgetState? _infiniteTimeLineState;
 
   /// Attaches the controller to the given EasyInfiniteDateTimeline state.
@@ -15,17 +15,19 @@ final class EasyInfiniteDateTimelineController {
     _infiniteTimeLineState = null;
   }
 
-  /// Jumps to the focus date on the timeline.
-  /// Throws an assertion error if the controller is not attached to any EasyInfiniteDateTimeline view.
-  void jumpToFocusDate() {
+  _InfiniteTimeLineWidgetState get _state {
     assert(
       _infiniteTimeLineState != null,
       'EasyInfiniteDateTimelineController is not attached to any EasyInfiniteDateTimeline View.',
     );
+    return _infiniteTimeLineState!;
+  }
 
-    final offset = _infiniteTimeLineState!
-        ._getScrollOffset(_infiniteTimeLineState!._focusDate);
-    _infiniteTimeLineState!._controller.jumpTo(offset);
+  /// Jumps to the focus date on the timeline.
+  /// Throws an assertion error if the controller is not attached to any EasyInfiniteDateTimeline view.
+  void jumpToFocusDate() {
+    final offset = _state._getScrollOffset(_state._focusDate);
+    _state._controller.jumpTo(offset);
   }
 
   /// Animates to the focus date on the timeline.
@@ -34,14 +36,8 @@ final class EasyInfiniteDateTimelineController {
     duration = const Duration(milliseconds: 300),
     curve = Curves.linear,
   }) {
-    assert(
-      _infiniteTimeLineState != null,
-      'EasyInfiniteDateTimelineController is not attached to any EasyInfiniteDateTimeline View.',
-    );
-
-    final offset = _infiniteTimeLineState!
-        ._getScrollOffset(_infiniteTimeLineState!._focusDate);
-    _infiniteTimeLineState!._controller.animateTo(
+    final offset = _state._getScrollOffset(_state._focusDate);
+    _state._controller.animateTo(
       offset,
       duration: duration,
       curve: curve,
@@ -55,12 +51,8 @@ final class EasyInfiniteDateTimelineController {
     duration = const Duration(milliseconds: 300),
     curve = Curves.linear,
   }) {
-    assert(
-      _infiniteTimeLineState != null,
-      'EasyInfiniteDateTimelineController is not attached to any EasyInfiniteDateTimeline View.',
-    );
-    final offset = _infiniteTimeLineState!._getScrollOffset(date);
-    _infiniteTimeLineState!._controller.animateTo(
+    final offset = _state._getScrollOffset(date);
+    _state._controller.animateTo(
       offset,
       duration: duration,
       curve: curve,
@@ -73,12 +65,8 @@ final class EasyInfiniteDateTimelineController {
     duration = const Duration(milliseconds: 300),
     curve = Curves.linear,
   }) {
-    assert(
-      _infiniteTimeLineState != null,
-      'EasyInfiniteDateTimelineController is not attached to any EasyInfiniteDateTimeline View.',
-    );
-    final offset = _infiniteTimeLineState!._getScrollOffset(DateTime.now());
-    _infiniteTimeLineState!._controller.animateTo(
+    final offset = _state._getScrollOffset(DateTime.now());
+    _state._controller.animateTo(
       offset,
       duration: duration,
       curve: curve,
@@ -87,16 +75,8 @@ final class EasyInfiniteDateTimelineController {
 
   /// Jumps to the specified date on the timeline.
   /// Throws an assertion error if the controller is not attached to any EasyInfiniteDateTimeline view.
-  void jumpToDate(
-    DateTime date,
-  ) {
-    assert(
-      _infiniteTimeLineState != null,
-      'EasyInfiniteDateTimelineController is not attached to any EasyInfiniteDateTimeline View.',
-    );
-    final offset = _infiniteTimeLineState!._getScrollOffset(date);
-    _infiniteTimeLineState!._controller.jumpTo(
-      offset,
-    );
+  void jumpToDate(DateTime date) {
+    final offset = _state._getScrollOffset(date);
+    _state._controller.jumpTo(offset);
   }
 }
