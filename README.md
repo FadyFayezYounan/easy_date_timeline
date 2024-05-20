@@ -112,6 +112,10 @@ The `itemBuilder` provides the following:
 - `bool isSelected`: Whether the day widget is selected or not.
 - `VoidCallback onTap`: The callback that triggers when the day widget is tapped.
 
+<p>
+ <img src="https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/infinite_item_builder_example.jpg"/>
+</p>
+
 ```dart
     return EasyInfiniteDateTimeLine(
       selectionMode: const SelectionMode.autoCenter(),
