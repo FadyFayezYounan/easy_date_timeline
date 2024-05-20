@@ -522,4 +522,4 @@ The `itemBuilder` provides the following:
 - **Filing issues**: If you encounter any issues with the Easy Date Timeline package, please file an issue on the [GitHub repository](https://github.com/FadyFayezYounan/easy_date_timeline/issues).
 - **Support**: If you have any questions or need help using the Easy Date Timeline package, please feel free to reach out to the package authors on [GitHub](https://github.com/FadyFayezYounan).
 
-We hope you find the Easy Infinite Pagination package helpful!
+We hope you find the Easy Date Timeline package helpful!
