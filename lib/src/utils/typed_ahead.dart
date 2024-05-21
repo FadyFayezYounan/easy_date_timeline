@@ -10,15 +10,15 @@ typedef OnDateChangeCallBack = void Function(DateTime selectedDate);
 /// A function type that takes the necessary information for building an item in the date-time line as parameters and returns a `Widget` object.
 ///
 /// Used by `EasyDateTimeLine` for setting the item builder.
+// typedef ItemBuilderCallBack = Widget Function(
+//   BuildContext context,
+//   String dayNumber,
+//   String dayName,
+//   String monthName,
+//   DateTime fullDate,
+//   bool isSelected,
+// );
 typedef ItemBuilderCallBack = Widget Function(
-  BuildContext context,
-  String dayNumber,
-  String dayName,
-  String monthName,
-  DateTime fullDate,
-  bool isSelected,
-);
-typedef InfiniteItemBuilderCallBack = Widget Function(
   BuildContext context,
   DateTime date,
   bool isSelected,

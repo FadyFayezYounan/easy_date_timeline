@@ -56,9 +56,6 @@ class _EasyInfiniteDateTimeLineExampleState
             ElevatedButton(
               onPressed: () {
                 _controller.animateToDate(DateTime(2024, 6, 5));
-                setState(() {
-                  _focusDate = DateTime(2024, 6, 5);
-                });
               },
               child: const Text('Animate To 2024-6-5 '),
             ),

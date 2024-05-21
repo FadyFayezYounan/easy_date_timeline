@@ -117,17 +117,20 @@ class _TimeLineWidgetState extends State<TimeLineWidget> {
   @override
   Widget build(BuildContext context) {
     final initialDate = widget.initialDate;
+    final effectiveTimeLineHeight = _isLandscapeMode ? _dayWidth : _dayHeight;
+    final effectiveTimeLineBackgroundColor = _timeLineProps.decoration == null
+        ? _timeLineProps.backgroundColor
+        : null;
+    final effectiveTimeLineBorderRadius =
+        _timeLineProps.decoration?.borderRadius ?? BorderRadius.zero;
 
     return Container(
-      height: _isLandscapeMode ? _dayWidth : _dayHeight,
+      height: effectiveTimeLineHeight,
       margin: _timeLineProps.margin,
-      color: _timeLineProps.decoration == null
-          ? _timeLineProps.backgroundColor
-          : null,
+      color: effectiveTimeLineBackgroundColor,
       decoration: _timeLineProps.decoration,
       child: ClipRRect(
-        borderRadius:
-            _timeLineProps.decoration?.borderRadius ?? BorderRadius.zero,
+        borderRadius: effectiveTimeLineBorderRadius,
         child: ScrollConfiguration(
           behavior: EasyCustomScrollBehavior(),
           child: ListView.separated(
@@ -141,9 +144,8 @@ class _TimeLineWidgetState extends State<TimeLineWidget> {
               final currentDate =
                   DateTime(initialDate.year, initialDate.month, index + 1);
 
-              final isSelected = widget.focusedDate != null
-                  ? EasyDateUtils.isSameDay(widget.focusedDate!, currentDate)
-                  : EasyDateUtils.isSameDay(widget.initialDate, currentDate);
+              final isSelected = EasyDateUtils.isSameDay(
+                  widget.focusedDate ?? initialDate, currentDate);
 
               bool isDisabledDay = false;
               // Check if this date should be deactivated only for the DeactivatedDates.
@@ -167,8 +169,7 @@ class _TimeLineWidgetState extends State<TimeLineWidget> {
                       locale: widget.locale,
                       isSelected: isSelected,
                       isDisabled: isDisabledDay,
-                      onDayPressed: () =>
-                          _onDayChanged(isSelected, currentDate),
+                      onDayPressed: () => _onDayChanged(currentDate),
                       activeTextColor: widget.activeDayTextColor,
                       activeDayColor: widget.activeDayColor,
                     );
@@ -185,26 +186,20 @@ class _TimeLineWidgetState extends State<TimeLineWidget> {
     );
   }
 
-  InkWell _dayItemBuilder(
+  Widget _dayItemBuilder(
     BuildContext context,
     bool isSelected,
     DateTime date,
   ) {
-    return InkWell(
-      onTap: () => _onDayChanged(isSelected, date),
-      borderRadius: BorderRadius.circular(_dayProps.activeBorderRadius),
-      child: widget.itemBuilder!(
-        context,
-        date.day.toString(),
-        EasyDateFormatter.shortDayName(date, widget.locale).toUpperCase(),
-        EasyDateFormatter.shortMonthName(date, widget.locale).toUpperCase(),
-        date,
-        isSelected,
-      ),
+    return widget.itemBuilder!(
+      context,
+      date,
+      isSelected,
+      () => _onDayChanged(date),
     );
   }
 
-  void _onDayChanged(bool isSelected, DateTime currentDate) {
+  void _onDayChanged(DateTime currentDate) {
     // A date is selected
     widget.onDateChange?.call(currentDate);
   }

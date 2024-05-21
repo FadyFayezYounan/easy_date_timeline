@@ -72,7 +72,7 @@ class InfiniteTimeLineWidget extends StatefulWidget {
 
   /// Called for each day in the timeline, allowing the developer to customize the appearance and behavior of each day widget.
   /// This function takes a `BuildContext` and a `DateTime` object as its parameters, and should return a `Widget` that represents the day.
-  final InfiniteItemBuilderCallBack? itemBuilder;
+  final ItemBuilderCallBack? itemBuilder;
 
   /// A `String` that represents the locale code to use for formatting the dates in the timeline.
   final String locale;
@@ -240,8 +240,8 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
                   }
                   return Padding(
                     key: ValueKey<DateTime>(currentDate),
-                    padding: EdgeInsetsDirectional.only(
-                      end: _timeLineProps.separatorPadding,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: _timeLineProps.separatorPadding / 2,
                     ),
                     child: widget.itemBuilder != null
                         ? _dayItemBuilder(
@@ -311,29 +311,25 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
   double _getScrollOffset([DateTime? lastDate]) {
     // Get the last date to use, defaulting to widget.focusedDate if not provided
     final effectiveLastDate = lastDate ?? widget.focusedDate;
+
     // Check if a date is provided
     if (effectiveLastDate != null) {
+      final scrollHelper = InfiniteTimelineScrollHelper(
+        firstDate: widget.firstDate,
+        lastDate: effectiveLastDate,
+        dayWidth: _itemExtend,
+        maxScrollExtent: _controller.position.maxScrollExtent,
+        screenWidth: _controller.position.viewportDimension,
+      );
       // Use a switch expression to determine the scroll offset based on the selection mode
       return switch (widget.selectionMode) {
         // If the selection mode is none or always first
         SelectionModeNone() ||
         SelectionModeAlwaysFirst() =>
-          // Calculate the scroll offset between the first date and the last date
-          calculateDateOffsetBetweenDates(
-            firstDate: widget.firstDate, // Use the widget's first date
-            lastDate: effectiveLastDate, // Use the effective last date
-            dayWidth: _itemExtend, // Use the item extend calculated earlier
-            controller: _controller, // Use the scroll controller
-          ),
+          scrollHelper.getScrollPositionForFirstDate(),
         // If the selection mode is auto center
         SelectionModeAutoCenter() =>
-          // Calculate the scroll offset for center mode
-          calculateDateOffsetForCenter(
-            firstDate: widget.firstDate, // Use the widget's first date
-            lastDate: effectiveLastDate, // Use the effective last date
-            dayWidth: _itemExtend, // Use the item extend calculated earlier
-            controller: _controller, // Use the scroll controller
-          ),
+          scrollHelper.getScrollPositionForCenterDate(),
       };
     } else {
       // If no date is provided, return 0.0 as the scroll offset
