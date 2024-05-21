@@ -432,48 +432,54 @@ The `itemBuilder` provides the following:
       headerProps: const EasyHeaderProps(
         dateFormatter: DateFormatter.fullDateMonthAsStrDY(),
       ),
-      itemBuilder: (BuildContext context, String dayNumber, dayName, monthName,
-          fullDate, isSelected) {
-        return Container(
-          //the same width that provided previously.
-          width: 124.0,
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          decoration: BoxDecoration(
-            color: isSelected ? const Color(0xffFF6D60) : null,
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                monthName,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: isSelected ? Colors.white : const Color(0xff6D5D6E),
+      itemBuilder: (context, date, isSelected, onTap) {
+        return InkWell(
+          // You can use `InkResponse` to make your widget clickable.
+          // The `onTap` callback responsible for triggering the `onDateChange`
+          // callback.
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16.0),
+          child: Container(
+            //the same width that provided previously.
+            width: 124.0,
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            decoration: BoxDecoration(
+              color: isSelected ? const Color(0xffFF6D60) : null,
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  EasyDateFormatter.shortMonthName(date, "en_US"),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: isSelected ? Colors.white : const Color(0xff6D5D6E),
+                  ),
                 ),
-              ),
-              const SizedBox(
-                width: 8.0,
-              ),
-              Text(
-                dayNumber,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: isSelected ? Colors.white : const Color(0xff393646),
+                const SizedBox(
+                  width: 8.0,
                 ),
-              ),
-              const SizedBox(
-                width: 8.0,
-              ),
-              Text(
-                dayName,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: isSelected ? Colors.white : const Color(0xff6D5D6E),
+                Text(
+                  date.day.toString(),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: isSelected ? Colors.white : const Color(0xff393646),
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  width: 8.0,
+                ),
+                Text(
+                  EasyDateFormatter.shortDayName(date, "en_US"),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: isSelected ? Colors.white : const Color(0xff6D5D6E),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

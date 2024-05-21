@@ -1,3 +1,7 @@
+## 1.1.3
+
+- Update readme file.
+
 ## 1.1.2
 
 - Update `EasyDateTimeLine` itemBuilder.
