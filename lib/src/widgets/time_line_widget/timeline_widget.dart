@@ -20,6 +20,8 @@ class TimeLineWidget extends StatefulWidget {
     this.timeLineProps = const EasyTimeLineProps(),
     this.onDateChange,
     this.itemBuilder,
+    this.startDate,
+    this.endDate,
   })  : assert(timeLineProps.hPadding > -1,
             "Can't set timeline hPadding less than zero."),
         assert(timeLineProps.separatorPadding > -1,
@@ -30,6 +32,12 @@ class TimeLineWidget extends StatefulWidget {
   /// Represents the initial date for the timeline widget.
   /// This is the date that will be displayed as the first day in the timeline.
   final DateTime initialDate;
+
+  /// Represents the start date for the timeline widget.
+  final DateTime? startDate;
+
+  /// Represents the end date for the timeline widget.
+  final DateTime? endDate;
 
   /// The currently focused date in the timeline.
   final DateTime? focusedDate;
@@ -71,13 +79,19 @@ class TimeLineWidget extends StatefulWidget {
 
 class _TimeLineWidgetState extends State<TimeLineWidget> {
   EasyDayProps get _dayProps => widget.dayProps;
+
   EasyTimeLineProps get _timeLineProps => widget.timeLineProps;
+
   bool get _isLandscapeMode => _dayProps.landScapeMode;
+
   double get _dayWidth => _dayProps.width;
+
   double get _dayHeight => _dayProps.height;
+
   double get _dayOffsetConstrains => _isLandscapeMode ? _dayHeight : _dayWidth;
 
   late ScrollController _controller;
+
   @override
   void initState() {
     super.initState();
