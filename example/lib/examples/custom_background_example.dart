@@ -8,6 +8,8 @@ class CustomBackgroundExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return EasyDateTimeLine(
       initialDate: DateTime.now(),
+      startDate: DateTime.now().add(Duration(days: 30 * 3)),
+      endDate: DateTime.now().add(Duration(days: 30 * 5)),
       onDateChange: (selectedDate) {
         //`selectedDate` the new date selected.
       },

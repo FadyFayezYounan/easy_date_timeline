@@ -25,7 +25,7 @@ class _EasyInfiniteDateTimeLineExampleState
     return Column(
       children: [
         EasyInfiniteDateTimeLine(
-          selectionMode: const SelectionMode.autoCenter(),
+          selectionMode: const SelectionMode.alwaysFirst(),
           controller: _controller,
           firstDate: DateTime(2024),
           focusDate: _focusDate,
