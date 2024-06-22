@@ -1,6 +1,6 @@
 import 'package:easy_date_timeline/src/utils/utils.dart';
 import 'package:flutter/material.dart'
-    show BoxDecoration, TextStyle, BorderRadius;
+    show BoxDecoration, TextStyle, BorderRadius, Color;
 
 class DayStyle {
   const DayStyle({
@@ -10,6 +10,7 @@ class DayStyle {
     this.dayStrStyle,
     this.monthStrStyle,
     this.splashBorder = EasyConstants.daySplashBorder,
+    this.backgroundColor,
   });
 
   /// The decoration applied to the day. If null, it used default decoration.
@@ -29,4 +30,7 @@ class DayStyle {
 
   /// The border radius applied to the day when it's touched (splashed).
   final BorderRadius splashBorder;
+
+  /// The special background color for changing only background color in default decoration
+  final Color? backgroundColor;
 }
