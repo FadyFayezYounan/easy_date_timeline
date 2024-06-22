@@ -16,7 +16,6 @@ void main() {
               isSelected: false,
               isDisabled: false,
               onDayPressed: () {},
-              activeTextColor: Colors.black,
               activeDayColor: Colors.blue,
             ),
           ),
@@ -46,7 +45,6 @@ void main() {
               onDayPressed: () {
                 callbackCalled = true;
               },
-              activeTextColor: Colors.black,
               activeDayColor: Colors.blue,
             ),
           ),
@@ -73,7 +71,6 @@ void main() {
               isSelected: true,
               isDisabled: false,
               onDayPressed: () {},
-              activeTextColor: Colors.black,
               activeDayColor: Colors.blue,
             ),
           ),
@@ -101,7 +98,6 @@ void main() {
               isSelected: false,
               isDisabled: true,
               onDayPressed: () {},
-              activeTextColor: Colors.black,
               activeDayColor: Colors.blue,
             ),
           ),

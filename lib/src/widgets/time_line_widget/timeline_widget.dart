@@ -12,7 +12,6 @@ class TimeLineWidget extends StatefulWidget {
     super.key,
     required this.initialDate,
     required this.focusedDate,
-    required this.activeDayTextColor,
     required this.activeDayColor,
     this.inactiveDates,
     this.dayProps = const EasyDayProps(),
@@ -33,9 +32,6 @@ class TimeLineWidget extends StatefulWidget {
 
   /// The currently focused date in the timeline.
   final DateTime? focusedDate;
-
-  /// The color of the text for the selected day.
-  final Color activeDayTextColor;
 
   /// The background color of the selected day.
   final Color activeDayColor;
@@ -170,7 +166,6 @@ class _TimeLineWidgetState extends State<TimeLineWidget> {
                       isSelected: isSelected,
                       isDisabled: isDisabledDay,
                       onDayPressed: () => _onDayChanged(currentDate),
-                      activeTextColor: widget.activeDayTextColor,
                       activeDayColor: widget.activeDayColor,
                     );
             },

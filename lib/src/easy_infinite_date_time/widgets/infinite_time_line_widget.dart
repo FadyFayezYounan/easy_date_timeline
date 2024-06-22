@@ -11,6 +11,7 @@ class InfiniteTimeLineWidget extends StatefulWidget {
   InfiniteTimeLineWidget({
     super.key,
     this.inactiveDates,
+    this.markedDatesList,
     this.dayProps = const EasyDayProps(),
     this.locale = "en_US",
     this.timeLineProps = const EasyTimeLineProps(),
@@ -20,7 +21,6 @@ class InfiniteTimeLineWidget extends StatefulWidget {
     this.controller,
     required this.firstDate,
     required this.focusedDate,
-    required this.activeDayTextColor,
     required this.activeDayColor,
     required this.lastDate,
     required this.selectionMode,
@@ -46,15 +46,19 @@ class InfiniteTimeLineWidget extends StatefulWidget {
   /// The currently focused date in the timeline.
   final DateTime? focusedDate;
 
-  /// The color of the text for the selected day.
-  final Color activeDayTextColor;
-
   /// The background color of the selected day.
   final Color activeDayColor;
 
   /// Represents a list of inactive dates for the timeline widget.
   /// Note that all the dates defined in the inactiveDates list will be deactivated.
   final List<DateTime>? inactiveDates;
+
+  /// Represents a list of special marked dates with different styles for the timeline widget.
+  /// 
+  /// Lower priority compared to `today`, `disabled` and `selected` day styles.
+  /// 
+  /// If a date occurs in multiple lists, the first encountered style is applied.
+  final List<MarkedDaysProps>? markedDatesList;
 
   /// Contains properties for configuring the appearance and behavior of the timeline widget.
   /// This object includes properties such as the height of the timeline, the color of the selected day,
@@ -238,6 +242,19 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
                       }
                     }
                   }
+
+                  /// Check whether current day is included in at least one marked dates list
+                  DayStyle? markedStyle;
+                  if(widget.markedDatesList != null){
+                    for(final MarkedDaysProps props in widget.markedDatesList!){
+                      if (props.dates.any((DateTime markedDate) =>
+                          EasyDateUtils.isSameDay(markedDate, currentDate))) {
+                        markedStyle = props.style;
+                        break;
+                      }
+                    }
+                  }
+
                   return Padding(
                     key: ValueKey<DateTime>(currentDate),
                     padding: EdgeInsets.symmetric(
@@ -251,12 +268,12 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
                           )
                         : EasyDayWidget(
                             easyDayProps: _dayProps,
+                            markedStyle: markedStyle,
                             date: currentDate,
                             locale: widget.locale,
                             isSelected: isSelected,
                             isDisabled: isDisabledDay,
                             onDayPressed: () => _onDayTapped(currentDate),
-                            activeTextColor: widget.activeDayTextColor,
                             activeDayColor: widget.activeDayColor,
                           ),
                   );

@@ -1,4 +1,5 @@
 import 'package:example/examples/examples.dart';
+import 'package:example/examples/infinite_date_time_line_marked_example.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -59,6 +60,8 @@ class MyHomePage extends StatelessWidget {
             ChangeHeaderAppearanceExample(),
             SizedBox(height: 32.0),
             EasyDateTimeLineItemBuilderExample(),
+            SizedBox(height: 32.0),
+            EasyInfiniteDateTimeLineMarkedExample(),
             SizedBox(height: 32.0),
           ],
         ),

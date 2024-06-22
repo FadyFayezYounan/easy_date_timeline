@@ -52,6 +52,7 @@ class EasyInfiniteDateTimeLine extends StatefulWidget {
   const EasyInfiniteDateTimeLine({
     super.key,
     this.disabledDates,
+    this.markedDatesList,
     this.timeLineProps = const EasyTimeLineProps(),
     this.dayProps = const EasyDayProps(),
     this.onDateChange,
@@ -83,6 +84,13 @@ class EasyInfiniteDateTimeLine extends StatefulWidget {
   /// Represents a list of inactive dates for the timeline widget.
   /// Note that all the dates defined in the `disabledDates` list will be deactivated.
   final List<DateTime>? disabledDates;
+
+  /// Represents a list of special marked dates with different styles for the timeline widget.
+  /// 
+  /// Lower priority compared to `today`, `disabled` and `selected` day styles.
+  /// 
+  /// If a date occurs in multiple lists, the first encountered style is applied.
+  final List<MarkedDaysProps>? markedDatesList;
 
   /// The color for the active day.
   final Color? activeColor;
@@ -166,21 +174,6 @@ class _EasyInfiniteDateTimeLineState extends State<EasyInfiniteDateTimeLine> {
     /// or to the primary color of the current theme if widget.activeColor is null.
     /// This provides a fallback color if no active color is explicitly provided.
     final activeDayColor = widget.activeColor ?? Theme.of(context).primaryColor;
-
-    /// brightness is initialized to the brightness of the active color or the fallback color,
-    /// using the ThemeData.estimateBrightnessForColor method.
-    /// This method returns Brightness.dark if the color is closer to black,
-    ///  and Brightness.light if the color is closer to white.
-    final brightness = ThemeData.estimateBrightnessForColor(
-      widget.activeColor ?? activeDayColor,
-    );
-
-    /// activeDayTextColor is initialized to EasyColors.dayAsNumColor if the brightness is Brightness.light,
-    ///  indicating that the active color is light, or to Colors.white if the brightness is Brightness.dark,
-    /// indicating that the active color is dark.
-    final activeDayTextColor = brightness == Brightness.light
-        ? EasyColors.dayAsNumColor
-        : Colors.white;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -202,11 +195,11 @@ class _EasyInfiniteDateTimeLineState extends State<EasyInfiniteDateTimeLine> {
           lastDate: widget.lastDate,
           focusedDate: widget.focusDate,
           inactiveDates: widget.disabledDates,
+          markedDatesList: widget.markedDatesList,
           onDateChange: widget.onDateChange,
           timeLineProps: widget.timeLineProps,
           dayProps: widget.dayProps,
           itemBuilder: widget.itemBuilder,
-          activeDayTextColor: activeDayTextColor,
           activeDayColor: activeDayColor,
           locale: widget.locale,
           selectionMode: widget.selectionMode,
