@@ -21,7 +21,6 @@ class InfiniteTimeLineWidget extends StatefulWidget {
     this.controller,
     required this.firstDate,
     required this.focusedDate,
-    required this.activeDayTextColor,
     required this.activeDayColor,
     required this.lastDate,
     required this.selectionMode,
@@ -46,9 +45,6 @@ class InfiniteTimeLineWidget extends StatefulWidget {
 
   /// The currently focused date in the timeline.
   final DateTime? focusedDate;
-
-  /// The color of the text for the selected day.
-  final Color activeDayTextColor;
 
   /// The background color of the selected day.
   final Color activeDayColor;
@@ -278,7 +274,6 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
                             isSelected: isSelected,
                             isDisabled: isDisabledDay,
                             onDayPressed: () => _onDayTapped(currentDate),
-                            activeTextColor: widget.activeDayTextColor,
                             activeDayColor: widget.activeDayColor,
                           ),
                   );

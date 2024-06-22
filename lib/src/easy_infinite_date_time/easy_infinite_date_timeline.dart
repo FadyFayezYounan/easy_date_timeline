@@ -174,21 +174,6 @@ class _EasyInfiniteDateTimeLineState extends State<EasyInfiniteDateTimeLine> {
     /// or to the primary color of the current theme if widget.activeColor is null.
     /// This provides a fallback color if no active color is explicitly provided.
     final activeDayColor = widget.activeColor ?? Theme.of(context).primaryColor;
-
-    /// brightness is initialized to the brightness of the active color or the fallback color,
-    /// using the ThemeData.estimateBrightnessForColor method.
-    /// This method returns Brightness.dark if the color is closer to black,
-    ///  and Brightness.light if the color is closer to white.
-    final brightness = ThemeData.estimateBrightnessForColor(
-      widget.activeColor ?? activeDayColor,
-    );
-
-    /// activeDayTextColor is initialized to EasyColors.dayAsNumColor if the brightness is Brightness.light,
-    ///  indicating that the active color is light, or to Colors.white if the brightness is Brightness.dark,
-    /// indicating that the active color is dark.
-    final activeDayTextColor = brightness == Brightness.light
-        ? EasyColors.dayAsNumColor
-        : Colors.white;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -215,7 +200,6 @@ class _EasyInfiniteDateTimeLineState extends State<EasyInfiniteDateTimeLine> {
           timeLineProps: widget.timeLineProps,
           dayProps: widget.dayProps,
           itemBuilder: widget.itemBuilder,
-          activeDayTextColor: activeDayTextColor,
           activeDayColor: activeDayColor,
           locale: widget.locale,
           selectionMode: widget.selectionMode,

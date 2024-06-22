@@ -15,7 +15,6 @@ class EasyDayWidget extends StatelessWidget {
     required this.isDisabled,
     this.isSelected = false,
     required this.onDayPressed,
-    required this.activeTextColor,
     required this.activeDayColor,
     this.margin,
   });
@@ -42,9 +41,6 @@ class EasyDayWidget extends StatelessWidget {
 
   /// A callback function that is called when the day widget is pressed.
   final VoidCallback onDayPressed;
-
-  /// The color of the text for the selected day.
-  final Color activeTextColor;
 
   /// The background color of the selected day.
   final Color activeDayColor;
@@ -89,6 +85,14 @@ class EasyDayWidget extends StatelessWidget {
       dayDecoration = _markedDecoration;
     }
 
+    /// Get the brightness for final background color
+    /// activeDayColor is initialized to the value of widget.activeColor if it is not null,
+    /// or to the primary color of the current theme if widget.activeColor is null.
+    /// This provides a fallback color if no active color is explicitly provided.
+    final brightness = ThemeData.estimateBrightnessForColor(
+      dayDecoration.color ?? activeDayColor,
+    );
+
     return InkWell(
       // if the day is disabled then make it not clickable.
       onTap: isDisabled ? null : onDayPressed,
@@ -101,6 +105,7 @@ class EasyDayWidget extends StatelessWidget {
         margin: margin,
         decoration: dayDecoration,
         child: _buildDayStructure(
+          brightness: brightness,
           structure: easyDayProps.dayStructure,
           isLandScape: isLandScapeMode,
           isToday: isToday,
@@ -248,15 +253,19 @@ class EasyDayWidget extends StatelessWidget {
   ///
   /// This method returns a `DayInfoText` widget that displays the short name of the month of the current date, in uppercase.
   /// The `textStyle` property of the widget is determined based on the `isSelected` boolean value and the `easyDayProps` object.
-  DayInfoText _buildMonth({required bool isToday, required bool isMarked}) {
+  DayInfoText _buildMonth({
+    required Color defaultTextColor,
+    required bool isToday,
+    required bool isMarked,
+  }) {        
     //TODO: remove `easyDayProps.activeMothStrStyle` because it is deprecated.
     final activeMothStrStyle = _activeDayStyle.monthStrStyle ??
         easyDayProps.activeMothStrStyle ??
         EasyTextStyles.monthStrStyle.copyWith(
-          color: activeTextColor,
+          color: defaultTextColor,
         );
     //TODO: remove `easyDayProps.inactiveMothStrStyle` because it is deprecated.
-    final inactiveMothStrStyle = _inactiveDayStyle.monthStrStyle ??
+    final inactiveMonthStrStyle = _inactiveDayStyle.monthStrStyle ??
         easyDayProps.inactiveMothStrStyle ??
         EasyTextStyles.monthStrStyle;
     //TODO: remove `easyDayProps.todayMonthStrStyle` because it is deprecated.
@@ -268,7 +277,7 @@ class EasyDayWidget extends StatelessWidget {
         EasyTextStyles.monthStrStyle.copyWith(
           color: EasyColors.disabledDayColor,
         );
-    TextStyle monthStyle = inactiveMothStrStyle;
+    TextStyle monthStyle = inactiveMonthStrStyle;
     if (isSelected) {
       monthStyle = activeMothStrStyle;
     } else if (isDisabled) {
@@ -278,8 +287,8 @@ class EasyDayWidget extends StatelessWidget {
     } else if (isMarked) {
       monthStyle = markedStyle?.monthStrStyle ??
         easyDayProps.todayMonthStrStyle ??
-        EasyTextStyles.dayStrStyle.copyWith(
-          color: activeTextColor,
+        EasyTextStyles.monthStrStyle.copyWith(
+          color: defaultTextColor,
         );
     }
     return DayInfoText(
@@ -292,12 +301,16 @@ class EasyDayWidget extends StatelessWidget {
   ///
   /// This method returns a `DayInfoText` widget that displays the day number of the current date.
   /// The `textStyle` property of the widget is determined based on the `isSelected` boolean value and the `easyDayProps` object.
-  DayInfoText _buildDayNumber({required bool isToday, required bool isMarked}) {
+  DayInfoText _buildDayNumber({
+    required Color defaultTextColor,
+    required bool isToday,
+    required bool isMarked,
+  }) {
     //TODO: remove `easyDayProps.activeDayNumStyle` because it is deprecated.
     final activeDayNumStyle = _activeDayStyle.dayNumStyle ??
         easyDayProps.activeDayNumStyle ??
         EasyTextStyles.dayNumStyle.copyWith(
-          color: activeTextColor,
+          color: defaultTextColor,
         );
     //TODO: remove `easyDayProps.inactiveDayNumStyle` because it is deprecated.
     final inactiveDayNumStyle = _inactiveDayStyle.dayNumStyle ??
@@ -321,8 +334,8 @@ class EasyDayWidget extends StatelessWidget {
     } else if (isMarked) {
       dayNumStyle = markedStyle?.dayNumStyle ??
         easyDayProps.todayNumStyle ??
-        EasyTextStyles.dayStrStyle.copyWith(
-          color: activeTextColor,
+        EasyTextStyles.dayNumStyle.copyWith(
+          color: defaultTextColor,
         );
     }
     return DayInfoText(
@@ -336,12 +349,16 @@ class EasyDayWidget extends StatelessWidget {
   /// This method returns a `DayInfoText` widget that displays the day number of the current date.
   /// The `textStyle` property of the widget is determined based on the `isSelected` boolean value and the `easyDayProps` object.
 
-  DayInfoText _buildDayString({required bool isToday, required bool isMarked}) {
+  DayInfoText _buildDayString({
+    required Color defaultTextColor,
+    required bool isToday,
+    required bool isMarked,
+  }) {
     //TODO: remove `easyDayProps.activeDayStrStyle` because it is deprecated.
     final activeDayStrStyle = _activeDayStyle.dayStrStyle ??
         easyDayProps.activeDayStrStyle ??
         EasyTextStyles.dayStrStyle.copyWith(
-          color: activeTextColor,
+          color: defaultTextColor,
         );
     //TODO: remove `easyDayProps.inactiveDayStrStyle` because it is deprecated.
     final inactiveDayStrStyle = _inactiveDayStyle.dayStrStyle ??
@@ -366,7 +383,7 @@ class EasyDayWidget extends StatelessWidget {
       dayStrStyle = markedStyle?.dayStrStyle ??
         easyDayProps.todayStrStyle ??
         EasyTextStyles.dayStrStyle.copyWith(
-          color: activeTextColor,
+          color: defaultTextColor,
         );
     }
     return DayInfoText(
@@ -380,53 +397,61 @@ class EasyDayWidget extends StatelessWidget {
   /// `structure` is an enum value that represents the structure to use for the day widget.
   /// This method returns a `Column` widget that contains the appropriate widgets for the `DayStructure`.
   Widget _buildDayStructure({
+    required Brightness brightness,
     required DayStructure structure,
     bool isLandScape = false,
     required bool isToday,
     required bool isMarked,
   }) {
+    /// defaultTextColor is initialized to EasyColors.dayAsNumColor if the brightness is Brightness.light,
+    ///  indicating that the active color is light, or to Colors.white if the brightness is Brightness.dark,
+    /// indicating that the active color is dark.
+    final defaultTextColor = brightness == Brightness.light
+        ? EasyColors.dayAsNumColor
+        : Colors.white;
+
     List<Widget> items = [];
     switch (structure) {
       case DayStructure.dayNumberOnly:
         items = [
-          _buildDayNumber(isToday: isToday, isMarked: isMarked),
+          _buildDayNumber(defaultTextColor: defaultTextColor, isToday: isToday, isMarked: isMarked),
         ];
         break;
       case DayStructure.dayNameOnly:
         items = [
-          _buildDayString(isToday: isToday, isMarked: isMarked),
+          _buildDayString(defaultTextColor: defaultTextColor, isToday: isToday, isMarked: isMarked),
         ];
         break;
       case DayStructure.dayNumDayStr:
         items = [
-          _buildDayNumber(isToday: isToday, isMarked: isMarked),
+          _buildDayNumber(defaultTextColor: defaultTextColor, isToday: isToday, isMarked: isMarked),
           const SizedBox(
             width: EasyConstants.landscapeDayPadding,
           ),
-          _buildDayString(isToday: isToday, isMarked: isMarked),
+          _buildDayString(defaultTextColor: defaultTextColor, isToday: isToday, isMarked: isMarked),
         ];
         break;
       case DayStructure.dayStrDayNum:
         items = [
-          _buildDayString(isToday: isToday, isMarked: isMarked),
+          _buildDayString(defaultTextColor: defaultTextColor, isToday: isToday, isMarked: isMarked),
           const SizedBox(
             width: EasyConstants.landscapeDayPadding,
           ),
-          _buildDayNumber(isToday: isToday, isMarked: isMarked),
+          _buildDayNumber(defaultTextColor: defaultTextColor, isToday: isToday, isMarked: isMarked),
         ];
         break;
       case DayStructure.dayStrDayNumMonth:
         items = [
-          _buildDayString(isToday: isToday, isMarked: isMarked),
-          _buildDayNumber(isToday: isToday, isMarked: isMarked),
-          _buildMonth(isToday: isToday, isMarked: isMarked),
+          _buildDayString(defaultTextColor: defaultTextColor, isToday: isToday, isMarked: isMarked),
+          _buildDayNumber(defaultTextColor: defaultTextColor, isToday: isToday, isMarked: isMarked),
+          _buildMonth(defaultTextColor: defaultTextColor, isToday: isToday, isMarked: isMarked),
         ];
         break;
       default:
         items = [
-          _buildMonth(isToday: isToday, isMarked: isMarked),
-          _buildDayNumber(isToday: isToday, isMarked: isMarked),
-          _buildDayString(isToday: isToday, isMarked: isMarked),
+          _buildMonth(defaultTextColor: defaultTextColor, isToday: isToday, isMarked: isMarked),
+          _buildDayNumber(defaultTextColor: defaultTextColor, isToday: isToday, isMarked: isMarked),
+          _buildDayString(defaultTextColor: defaultTextColor, isToday: isToday, isMarked: isMarked),
         ];
     }
 

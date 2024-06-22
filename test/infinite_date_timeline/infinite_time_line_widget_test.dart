@@ -17,7 +17,6 @@ void main() {
             firstDate: DateTime(2022, 1, 1),
             lastDate: DateTime(2022, 1, 7),
             focusedDate: DateTime(2022, 1, 3),
-            activeDayTextColor: Colors.black,
             activeDayColor: Colors.blue,
             selectionMode: const SelectionMode.autoCenter(),
           ),
@@ -59,7 +58,6 @@ void main() {
             firstDate: DateTime(2022, 1, 1),
             lastDate: DateTime(2022, 1, 7),
             focusedDate: DateTime(2022, 1, 3),
-            activeDayTextColor: Colors.black,
             activeDayColor: Colors.blue,
             onDateChange: (date) {
               selectedDate = date;
@@ -84,7 +82,6 @@ void main() {
             firstDate: DateTime(2022, 1, 1),
             lastDate: DateTime(2022, 1, 7),
             focusedDate: DateTime(2022, 1, 3),
-            activeDayTextColor: Colors.black,
             activeDayColor: Colors.blue,
             itemBuilder: (
               context,
