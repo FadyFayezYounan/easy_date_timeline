@@ -278,7 +278,9 @@ class EasyDayWidget extends StatelessWidget {
     } else if (isMarked) {
       monthStyle = markedStyle?.monthStrStyle ??
         easyDayProps.todayMonthStrStyle ??
-        EasyTextStyles.monthStrStyle;
+        EasyTextStyles.dayStrStyle.copyWith(
+          color: activeTextColor,
+        );
     }
     return DayInfoText(
       text: EasyDateFormatter.shortMonthName(date, locale).toUpperCase(),
@@ -319,7 +321,9 @@ class EasyDayWidget extends StatelessWidget {
     } else if (isMarked) {
       dayNumStyle = markedStyle?.dayNumStyle ??
         easyDayProps.todayNumStyle ??
-        EasyTextStyles.dayNumStyle;
+        EasyTextStyles.dayStrStyle.copyWith(
+          color: activeTextColor,
+        );
     }
     return DayInfoText(
       text: date.day.toString(),
@@ -361,7 +365,9 @@ class EasyDayWidget extends StatelessWidget {
     } else if (isMarked) {
       dayStrStyle = markedStyle?.dayStrStyle ??
         easyDayProps.todayStrStyle ??
-        EasyTextStyles.dayStrStyle;
+        EasyTextStyles.dayStrStyle.copyWith(
+          color: activeTextColor,
+        );
     }
     return DayInfoText(
       text: EasyDateFormatter.shortDayName(date, locale).toUpperCase(),
