@@ -21,8 +21,8 @@ abstract class EasyDateUtils {
     for (int month = 1; month <= 12; month++) {
       months.add(
         EasyMonth(
-          name: EasyDateFormatter.shortMonthName(
-              DateTime(date.year, month), locale),
+          name:
+              EasyDateFormat.shortMonthName(DateTime(date.year, month), locale),
           vale: month,
         ),
       );
@@ -33,7 +33,7 @@ abstract class EasyDateUtils {
   /// Converts the given date to an `EasyMonth` object in the specified locale.
   static EasyMonth convertDateToEasyMonth(DateTime date, String locale) {
     return EasyMonth(
-      name: EasyDateFormatter.shortMonthName(
+      name: EasyDateFormat.shortMonthName(
           DateTime(date.year, date.month), locale),
       vale: date.month,
     );
@@ -50,5 +50,11 @@ abstract class EasyDateUtils {
   /// Returns the count of days.
   static int calculateDaysCount(DateTime firstDate, DateTime lastDate) {
     return lastDate.difference(firstDate).inDays + 1;
+  }
+
+  /// Calculates the number of days between the [firstDate] and [lastDate] inclusive.
+  /// Returns the count of days.
+  static int getDaysBetween(DateTime firstDate, DateTime lastDate) {
+    return lastDate.toDateOnly().difference(firstDate.toDateOnly()).inDays + 1;
   }
 }

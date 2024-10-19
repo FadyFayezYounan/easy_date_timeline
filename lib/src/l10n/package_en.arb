@@ -1,0 +1,11 @@
+{
+  "@@locale": "en",
+  "okButtonLabel": "OK",
+  "@okButtonLabel": {
+    "description": "Label for the OK button."
+  },
+  "cancelButtonLabel": "Cancel",
+  "@cancelButtonLabel": {
+    "description": "Label for the Cancel button."
+  }
+}

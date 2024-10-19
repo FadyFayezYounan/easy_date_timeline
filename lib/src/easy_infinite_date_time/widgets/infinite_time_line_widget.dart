@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../easy_date_time_line_picker/sealed_classes/sealed_classes.exports.dart';
+import '../../easy_date_time_line_picker/utils/typed_ahead.dart';
 import '../../properties/properties.dart';
 import '../../utils/utils.dart';
 import '../../widgets/easy_day_widget/easy_day_widget.dart';

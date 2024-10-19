@@ -9,8 +9,8 @@ sealed class SelectionMode {
   /// [duration] The duration of the selection animation.
   /// [curve] The curve of the selection animation.
   const SelectionMode({
-    required this.duration,
-    required this.curve,
+    @Deprecated('duration and curve are deprecated.') required this.duration,
+    @Deprecated('duration and curve are deprecated.') required this.curve,
   });
 
   /// The duration of the selection animation.
@@ -24,15 +24,15 @@ sealed class SelectionMode {
 
   /// Represents a SelectionMode where auto-centering animation is applied.
   const factory SelectionMode.autoCenter({
-    Duration? duration,
-    Curve? curve,
+    @Deprecated('duration and curve are deprecated.') Duration? duration,
+    @Deprecated('duration and curve are deprecated.') Curve? curve,
   }) = SelectionModeAutoCenter;
 
   /// Represents a SelectionMode where the selected date is always the first
   /// visible day of the timeline.
   const factory SelectionMode.alwaysFirst({
-    Duration? duration,
-    Curve? curve,
+    @Deprecated('duration and curve are deprecated.') Duration? duration,
+    @Deprecated('duration and curve are deprecated.') Curve? curve,
   }) = SelectionModeAlwaysFirst;
 
   @override
@@ -141,4 +141,10 @@ extension SelectionModeExtension on SelectionMode {
   ///
   /// It returns `false` otherwise.
   bool get isAlwaysFirst => this is SelectionModeAlwaysFirst;
+
+  /// Returns `true` if this [SelectionMode] is of type [SelectionModeAutoCenter] or
+  /// [SelectionModeAlwaysFirst].
+  ///
+  /// It returns `false` otherwise.
+  bool get isCenterOrFirst => isAutoCenter || isAlwaysFirst;
 }

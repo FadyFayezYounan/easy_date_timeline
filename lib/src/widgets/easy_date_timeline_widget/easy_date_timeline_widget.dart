@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
+import '../../easy_date_time_line_picker/utils/typed_ahead.dart';
 import '../../models/models.dart';
 import '../../properties/properties.dart';
 import '../../utils/utils.dart';

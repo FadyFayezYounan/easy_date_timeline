@@ -1,5 +1,8 @@
+import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:example/examples/examples.dart';
 import 'package:flutter/material.dart';
+
+import 'new_examples/simple_use_date_picker.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,9 +17,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Easy Date Timeline',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor: Colors.white,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+        datePickerTheme: const DatePickerThemeData(
+          backgroundColor: Colors.white,
+          surfaceTintColor: Colors.white,
+        ),
         useMaterial3: true,
       ),
+      localizationsDelegates: const [
+        EasyDateTimelineLocalizations.delegate,
+      ],
       home: const MyHomePage(title: 'Easy Date Timeline 😊'),
     );
   }
@@ -35,31 +46,12 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(title),
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(height: 32.0),
-            EasyInfiniteDateTimeLineExample(),
-            Divider(height: 32),
-            SizedBox(height: 32.0),
-            InfiniteItemBuilderExample(),
-            BasicExample(),
-            SizedBox(height: 32.0),
-            CustomBackgroundExample(),
-            SizedBox(height: 32.0),
-            ChangeTodyHighlightColorExample(),
-            SizedBox(height: 32.0),
-            ChangeDayStructureExample(),
-            SizedBox(height: 32.0),
-            LandscapeViewExample(),
-            SizedBox(height: 32.0),
-            LocalSupportExample(),
-            SizedBox(height: 32.0),
-            ChangeHeaderAppearanceExample(),
-            SizedBox(height: 32.0),
-            EasyDateTimeLineItemBuilderExample(),
-            SizedBox(height: 32.0),
+            SimpleUseExample(),
           ],
         ),
       ),

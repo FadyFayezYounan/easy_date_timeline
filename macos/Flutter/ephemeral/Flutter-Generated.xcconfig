@@ -1,10 +1,10 @@
 // This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=C:\src\flutter
-FLUTTER_APPLICATION_PATH=D:\flutter\easy_date_timeline
+FLUTTER_APPLICATION_PATH=E:\flutter\[my_packages]\easy_date_timeline_versions\7.final_realse\easy_date_timeline
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_BUILD_DIR=build
-FLUTTER_BUILD_NAME=1.0.2
-FLUTTER_BUILD_NUMBER=1.0.2
+FLUTTER_BUILD_NAME=1.1.3
+FLUTTER_BUILD_NUMBER=1.1.3
 DART_OBFUSCATION=false
 TRACK_WIDGET_CREATION=true
 TREE_SHAKE_ICONS=false

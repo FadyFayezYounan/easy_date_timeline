@@ -1,0 +1,6 @@
+arb-dir: lib/src/l10n
+template-arb-file: package_en.arb
+output-localization-file: easy_date_timeline_localizations.dart
+output-class: EasyDateTimelineLocalizations
+output-dir: lib/src/l10n/generated
+synthetic-package: false

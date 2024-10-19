@@ -17,6 +17,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   intl: ^0.19.0
 
 dev_dependencies:
@@ -33,3 +35,4 @@ platforms:
   windows:
 
 flutter:
+  generate: true
