@@ -10,6 +10,8 @@
 
 `EasyDateTimeLinePicker` is a customizable date and time picker widget for Flutter applications. It provides a horizontal timeline interface for selecting dates, with various customization options for appearance and behavior.
 
+![Easy Date Timeline Picker](https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/easy_date_timeline_picker.png)
+
 # EasyDateTimeline
 
 <a href="https://pub.dev/packages/easy_date_timeline"><img src="https://img.shields.io/pub/v/easy_date_timeline.svg" alt="Pub"></a>
