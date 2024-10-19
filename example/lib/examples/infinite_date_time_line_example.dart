@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 
@@ -27,10 +29,13 @@ class _EasyInfiniteDateTimeLineExampleState
         EasyInfiniteDateTimeLine(
           selectionMode: const SelectionMode.autoCenter(),
           controller: _controller,
-          firstDate: DateTime(2024),
+          firstDate: DateTime(2024, 3, 18),
+          lastDate: DateTime(2030, 3, 18),
+          // firstDate: DateTime(2024),
           focusDate: _focusDate,
-          lastDate: DateTime(2024, 12, 31),
+          //lastDate: DateTime(2024, 12, 31),
           onDateChange: (selectedDate) {
+            log("day index = ${selectedDate.difference(DateTime(2024, 3, 18)).inDays}");
             setState(() {
               _focusDate = selectedDate;
             });

@@ -1,6 +1,6 @@
-import 'package:easy_date_timeline/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 
+import '../../easy_date_time_line_picker/utils/typed_ahead.dart';
 import '../../widgets/easy_date_timeline_widget/selected_date_widget.dart';
 import 'selected_full_date.dart';
 

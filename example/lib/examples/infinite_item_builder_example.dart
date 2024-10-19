@@ -64,7 +64,7 @@ class _InfiniteItemBuilderExampleState
                 ),
                 Flexible(
                   child: Text(
-                    EasyDateFormatter.shortDayName(date, "en_US"),
+                    EasyDateFormat.shortDayName(date, "en_US"),
                     style: TextStyle(
                       color: isSelected ? Colors.white : null,
                     ),

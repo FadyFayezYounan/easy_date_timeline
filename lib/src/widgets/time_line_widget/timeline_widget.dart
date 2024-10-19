@@ -1,6 +1,7 @@
 import 'package:easy_date_timeline/src/easy_infinite_date_time/widgets/web_scroll_behavior.dart';
 import 'package:flutter/material.dart';
 
+import '../../easy_date_time_line_picker/utils/typed_ahead.dart';
 import '../../properties/easy_day_props.dart';
 import '../../properties/time_line_props.dart';
 import '../../utils/utils.dart';

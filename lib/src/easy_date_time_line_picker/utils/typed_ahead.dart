@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 
-import '../models/models.dart';
+import '../../models/models.dart';
 
 /// A function type that takes a `DateTime` object representing the selected date as a parameter and returns no result.
 ///
 /// Used by `EasyDateTimeLine` for detecting changes in the selected date.
-typedef OnDateChangeCallBack = void Function(DateTime selectedDate);
+typedef OnDateChangeCallBack = void Function(DateTime date);
 
-/// A function type that takes the necessary information for building an item in the date-time line as parameters and returns a `Widget` object.
-///
-/// Used by `EasyDateTimeLine` for setting the item builder.
-// typedef ItemBuilderCallBack = Widget Function(
-//   BuildContext context,
-//   String dayNumber,
-//   String dayName,
-//   String monthName,
-//   DateTime fullDate,
-//   bool isSelected,
-// );
+typedef ItemBuilderPickerCallBack = Widget Function(
+  BuildContext context,
+  DateTime date,
+  bool isSelected,
+  VoidCallback onTap,
+);
+
+typedef EasyPickerHeaderBuilderCallBack = Widget Function(
+  BuildContext context,
+  DateTime date,
+  VoidCallback onTap,
+);
+
 typedef ItemBuilderCallBack = Widget Function(
   BuildContext context,
   DateTime date,
