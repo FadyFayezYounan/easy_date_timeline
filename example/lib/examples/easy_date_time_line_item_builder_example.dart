@@ -38,7 +38,7 @@ class EasyDateTimeLineItemBuilderExample extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  EasyDateFormat.shortMonthName(date, "en_US"),
+                  EasyDateFormatter.shortMonthName(date, "en_US"),
                   style: TextStyle(
                     fontSize: 12,
                     color: isSelected ? Colors.white : const Color(0xff6D5D6E),
@@ -59,7 +59,7 @@ class EasyDateTimeLineItemBuilderExample extends StatelessWidget {
                   width: 8.0,
                 ),
                 Text(
-                  EasyDateFormat.shortDayName(date, "en_US"),
+                  EasyDateFormatter.shortDayName(date, "en_US"),
                   style: TextStyle(
                     fontSize: 12,
                     color: isSelected ? Colors.white : const Color(0xff6D5D6E),

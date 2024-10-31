@@ -20,7 +20,7 @@ class SelectedFullDateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      EasyDateFormat.fullDateDMY(
+      EasyDateFormatter.fullDateDMY(
         date,
         locale,
       ),

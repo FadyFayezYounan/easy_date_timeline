@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart' show DateFormat;
 
 /// A utility class that provides easy access to commonly used date formatting functions in the `EasyDateTimeLine` widget.
-abstract final class EasyDateFormat {
+abstract final class EasyDateFormatter {
   /// Returns the short name of the day of the given date in the specified locale.
   static String shortDayName(DateTime date, String locale) {
     return DateFormat("E", locale).format(date);

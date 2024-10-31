@@ -12,6 +12,25 @@
 
 ![Easy Date Timeline Picker](https://raw.githubusercontent.com/FadyFayezYounan/easy_date_timeline/master/screenshots/easy_date_timeline_picker.png)
 
+## Contents
+
+- [Getting Started](#getting-started)
+- [Basic Usage](#basic-usage)
+
+## Getting Started
+
+Add the `easy_date_timeline` package to `pubspec.yaml`:
+
+`flutter pub add easy_date_timeline`
+
+Import the package to use it:
+
+```dart
+import 'package:easy_date_timeline/easy_date_timeline.dart';
+```
+
+## Basic Usage
+
 # EasyDateTimeline
 
 <a href="https://pub.dev/packages/easy_date_timeline"><img src="https://img.shields.io/pub/v/easy_date_timeline.svg" alt="Pub"></a>

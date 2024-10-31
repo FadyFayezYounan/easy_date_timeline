@@ -21,8 +21,8 @@ abstract class EasyDateUtils {
     for (int month = 1; month <= 12; month++) {
       months.add(
         EasyMonth(
-          name:
-              EasyDateFormat.shortMonthName(DateTime(date.year, month), locale),
+          name: EasyDateFormatter.shortMonthName(
+              DateTime(date.year, month), locale),
           vale: month,
         ),
       );
@@ -33,7 +33,7 @@ abstract class EasyDateUtils {
   /// Converts the given date to an `EasyMonth` object in the specified locale.
   static EasyMonth convertDateToEasyMonth(DateTime date, String locale) {
     return EasyMonth(
-      name: EasyDateFormat.shortMonthName(
+      name: EasyDateFormatter.shortMonthName(
           DateTime(date.year, date.month), locale),
       vale: date.month,
     );

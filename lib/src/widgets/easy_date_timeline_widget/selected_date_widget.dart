@@ -39,20 +39,20 @@ class SelectedDateWidget extends StatelessWidget {
 
   String _getDateFormat() {
     if (headerProps == null) {
-      return EasyDateFormat.fullDayName(
+      return EasyDateFormatter.fullDayName(
         date,
         locale,
       );
     } else {
       if (headerProps!.dateFormatter != null) {
-        return EasyDateFormat.customFormat(
+        return EasyDateFormatter.customFormat(
           headerProps!.dateFormatter!.format(),
           date,
           locale,
         );
       } else {
         // TODO: Remove this deprecated code after v1.0.2
-        return EasyDateFormat.customFormat(
+        return EasyDateFormatter.customFormat(
           headerProps!.selectedDateFormat.formatter,
           date,
           locale,
