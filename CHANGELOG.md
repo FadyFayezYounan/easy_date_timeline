@@ -1,3 +1,23 @@
+## 2.0.0
+
+# What's New in Easy Date Timeline
+
+The package has been completely redesigned with a new modern API and enhanced features:
+
+- **New Core Widget**: Introducing `EasyDateTimeLinePicker` - a more intuitive and flexible date picker widget
+
+- **Enhanced Theming**: New `EasyTheme` system for comprehensive styling customization
+
+- **Improved Selection Modes**: Better control over date selection behavior with `SelectionMode`
+
+- **Flexible Disable Strategies**: New composable system for disabling dates
+
+- **Better Header Control**: Multiple header types and customization options
+
+- **Controller Support**: New `EasyDatePickerController` for programmatic control
+
+The legacy documentation has been preserved but moved to a collapsible section at the bottom of the file for reference.
+
 ## 1.1.3
 
 - Update readme file.

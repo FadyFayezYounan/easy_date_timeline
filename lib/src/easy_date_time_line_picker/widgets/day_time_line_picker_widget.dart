@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -10,7 +8,6 @@ import '../controllers/infinite_time_line_scroll_mixin.dart';
 import '../disable_strategy/strategies.dart';
 import '../enums/enums.exports.dart';
 import '../options/options.exports.dart';
-import '../options/timeline_options.dart';
 import '../sealed_classes/sealed_classes.exports.dart';
 import '../utils/utils.exports.dart';
 import 'day_widget/day_widget.dart';
