@@ -1,3 +1,7 @@
+## 2.0.1
+
+format localization files
+
 ## 2.0.0
 
 # What's New in Easy Date Timeline
