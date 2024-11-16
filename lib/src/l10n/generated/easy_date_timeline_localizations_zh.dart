@@ -14,8 +14,9 @@ class EasyDateTimelineLocalizationsZh extends EasyDateTimelineLocalizations {
 }
 
 /// The translations for Chinese, as used in Hong Kong (`zh_HK`).
-class EasyDateTimelineLocalizationsZhHk extends EasyDateTimelineLocalizationsZh {
-  EasyDateTimelineLocalizationsZhHk(): super('zh_HK');
+class EasyDateTimelineLocalizationsZhHk
+    extends EasyDateTimelineLocalizationsZh {
+  EasyDateTimelineLocalizationsZhHk() : super('zh_HK');
 
   @override
   String get okButtonLabel => '確定';
@@ -25,8 +26,9 @@ class EasyDateTimelineLocalizationsZhHk extends EasyDateTimelineLocalizationsZh 
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
-class EasyDateTimelineLocalizationsZhTw extends EasyDateTimelineLocalizationsZh {
-  EasyDateTimelineLocalizationsZhTw(): super('zh_TW');
+class EasyDateTimelineLocalizationsZhTw
+    extends EasyDateTimelineLocalizationsZh {
+  EasyDateTimelineLocalizationsZhTw() : super('zh_TW');
 
   @override
   String get okButtonLabel => '確定';
