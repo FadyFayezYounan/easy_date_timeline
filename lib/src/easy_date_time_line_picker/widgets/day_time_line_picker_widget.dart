@@ -90,7 +90,7 @@ class DayTimeLinePickerWidget extends StatefulWidget {
   final DisableStrategy disableStrategy;
 
   /// {@macro day_parts_order}
-  final List<DayParts> dayPartsOrder;
+  final List<DayElement> dayPartsOrder;
 
   /// {@macro ignore_user_interaction_on_animating}
   final bool ignoreUserInteractionOnAnimating;

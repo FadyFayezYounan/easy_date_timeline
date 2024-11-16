@@ -1,2 +1,2 @@
-export 'day_parts.dart';
+export 'day_element.dart';
 export 'selection_mode.dart';

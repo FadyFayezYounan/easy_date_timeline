@@ -35,10 +35,10 @@ class EasyDateTimeLinePicker extends StatelessWidget {
     this.locale,
     this.physics,
     this.disableStrategy = const DisableStrategy.none(),
-    List<DayParts> dayPartsOrder = const [
-      DayParts.top(),
-      DayParts.middle(),
-      DayParts.bottom(),
+    List<DayElement> dayElementsOrder = const [
+      DayElement.top(),
+      DayElement.middle(),
+      DayElement.bottom(),
     ],
     this.ignoreUserInteractionOnAnimating,
     this.timelineOptions,
@@ -49,9 +49,9 @@ class EasyDateTimeLinePicker extends StatelessWidget {
         lastDate = lastDate.toDateOnly(),
         focusedDate = focusedDate?.toDateOnly(),
         currentDate = DateUtils.dateOnly(currentDate ?? DateTime.now()),
-        _dayPartsOrder = dayPartsOrder,
+        _dayElementsOrder = dayElementsOrder,
         assert(
-          dayPartsOrder.isNotEmpty,
+          dayElementsOrder.isNotEmpty,
           'dayPartsOrder must not be empty.',
         ),
         assert(
@@ -86,7 +86,7 @@ class EasyDateTimeLinePicker extends StatelessWidget {
     this.monthYearPickerOptions = const MonthYearPickerOptions(),
     this.headerOptions = const HeaderOptions(),
   })  : _itemBuilder = itemBuilder,
-        _dayPartsOrder = const [],
+        _dayElementsOrder = const [],
         firstDate = firstDate.toDateOnly(),
         lastDate = lastDate.toDateOnly(),
         focusedDate = focusedDate?.toDateOnly(),
@@ -277,13 +277,13 @@ class EasyDateTimeLinePicker extends StatelessWidget {
   /// ```dart
   /// EasyDateTimeLinePicker(
   ///   ...
-  ///   dayPartsOrder: const [DayParts.top(), DayParts.middle()],
+  ///   dayElementsOrder: const [DayElement.top(), DayElement.middle()],
   /// )
   /// ```
   /// in the example above, the top part will be displayed first and the middle part second.
-  /// The default order is [DayParts.top(), DayParts.middle(), DayParts.bottom()].
+  /// The default order is [DayElement.top(), DayElement.middle(), DayElement.bottom()].
   /// {@endtemplate}
-  final List<DayParts> _dayPartsOrder;
+  final List<DayElement> _dayElementsOrder;
 
   /// {@template ignore_user_interaction_on_animating}
   /// Whether to ignore user interaction while the picker is animating default is true.
@@ -411,7 +411,7 @@ class EasyDateTimeLinePicker extends StatelessWidget {
       itemExtent: itemExtent,
       physics: physics,
       disableStrategy: disableStrategy,
-      dayPartsOrder: _dayPartsOrder,
+      dayPartsOrder: _dayElementsOrder,
       ignoreUserInteractionOnAnimating:
           effectiveIgnoreUserInteractionOnAnimating,
       timelineOptions: effectiveTimelineOptions,

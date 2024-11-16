@@ -1,4 +1,3 @@
-import 'package:easy_date_timeline/src/easy_date_time_line_picker/utils/utils.exports.dart';
 import 'package:flutter/material.dart';
 
 import '../../disable_strategy/strategies.dart';
@@ -79,10 +78,6 @@ class _YearWidgetState extends State<YearWidget> {
     _statesController.dispose();
     super.dispose();
   }
-
-  // bool _isDisabled(DateTime date) {
-  //   return generateYearDays(date).every(widget.disableStrategy.isDisabled);
-  // }
 
   @override
   Widget build(BuildContext context) {

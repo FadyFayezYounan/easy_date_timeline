@@ -1,5 +1,4 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
-import 'package:example/examples/examples.dart';
 import 'package:flutter/material.dart';
 
 import 'new_examples/simple_use_date_picker.dart';
@@ -47,7 +46,7 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(title),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,

@@ -125,7 +125,7 @@ class _EasyYearPickerState extends State<EasyYearPicker> {
         Expanded(
           child: GridView.builder(
             controller: _scrollController,
-            // dragStartBehavior: widget.dragStartBehavior,
+            dragStartBehavior: widget.dragStartBehavior,
             gridDelegate: _yearPickerGridDelegate,
             itemBuilder: (context, index) {
               return YearWidget(

@@ -41,7 +41,7 @@ class DayWidget extends StatefulWidget {
   final FocusNode? focusNode;
 
   /// The order in which different parts of the day (e.g., day number, weekday) should be displayed.
-  final List<DayParts> dayPartsOrder;
+  final List<DayElement> dayPartsOrder;
 
   /// The locale used for formatting date strings.
   final String locale;
@@ -154,9 +154,9 @@ class _DayWidgetState extends State<DayWidget> {
                   format: dayPart.format,
                   locale: widget.locale,
                   style: switch (dayPart) {
-                    TopDayPart() => dayTopPartStyle,
-                    MiddleDayPart() => dayMiddlePartStyle,
-                    BottomDayPart() => dayBottomPartStyle,
+                    TopDayElement() => dayTopPartStyle,
+                    MiddleDayElement() => dayMiddlePartStyle,
+                    BottomDayElement() => dayBottomPartStyle,
                   }
                       ?.apply(color: dayForegroundColor),
                 ),

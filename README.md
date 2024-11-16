@@ -26,7 +26,7 @@
     - [Selection Modes](#selection-modes)
     - [Localization](#localization)
     - [Disable Strategy](#disable-strategy)
-    - [Day Parts Customization](#day-parts-customization)
+    - [Day Elements Customization](#day-elements-customization)
     - [Header Options](#header-options)
     - [Timeline Options](#timeline-options)
     - [MonthYearPicker Options](#monthyearpicker-options)
@@ -225,22 +225,22 @@ The available disable strategies are:
 > }
 > ```
 
-### Day Parts Customization
+### Day Elements Customization
 
-The `dayPartsOrder` property allows you to customize the order of day parts in the picker.
+The `dayElementsOrder` property allows you to customize the order of day elements in the picker.
 
 ```dart
 EasyDateTimeLinePicker(
   // ... other properties
-  dayPartsOrder: const [DayParts.top(), DayParts.middle()],
+  dayElementsOrder: const [DayElement.top(), DayElement.middle()],
 );
 ```
 
 The available day parts are:
 
-- `DayParts.top()`: The top part of the day item.
-- `DayParts.middle()`: The middle part of the day item.
-- `DayParts.bottom()`: The bottom part of the day item.
+- `DayElement.top()`: The top part of the day item.
+- `DayElement.middle()`: The middle part of the day item.
+- `DayElement.bottom()`: The bottom part of the day item.
 
 > **Note that:**
 > You can change the format of the day part by passing the format to the `DayParts` constructor.
