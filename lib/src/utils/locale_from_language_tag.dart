@@ -20,17 +20,3 @@ Locale localeFromLanguageTag(String languageTag) {
     );
   }
 }
-
-// Locale languageTagToLocale(String languageTag) {
-//   try {
-//     final parts = languageTag.split('-');
-//     return Locale.fromSubtags(
-//       languageCode: parts[0],
-//       countryCode: parts.length > 1 ? parts[1] : null,
-//       scriptCode: parts.length > 2 ? parts[2] : null,
-//     );
-//   } catch (e) {
-//     print('Error parsing language tag: $e');
-//     return const Locale('en'); // Default fallback
-//   }
-//}

@@ -3,6 +3,7 @@ import 'package:example/examples/examples.dart';
 import 'package:flutter/material.dart';
 
 import 'new_examples/simple_use_date_picker.dart';
+import 'new_examples/theming_example.dart';
 
 void main() {
   runApp(const MyApp());
@@ -52,6 +53,7 @@ class MyHomePage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             SimpleUseExample(),
+            ThemingExample(),
           ],
         ),
       ),

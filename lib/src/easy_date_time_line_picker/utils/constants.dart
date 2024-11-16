@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+const double defaultDayPadding = 6.0;
 const double defaultDayItemExtent = 68.0;
 const double defaultDaySeparatorPadding = 8.0;
 const double defaultTimelineHeight = 112.0;

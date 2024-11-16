@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'disable_strategy/strategies.dart';
-import 'enums/enums.exports.dart';
 import 'options/options.exports.dart';
 import 'sealed_classes/sealed_classes.exports.dart';
 import 'theme/theme.exports.dart';
@@ -30,7 +29,6 @@ class EasyDateTimeLinePicker extends StatelessWidget {
     required DateTime? focusedDate,
     required this.onDateChange,
     DateTime? currentDate,
-    this.headerBuilder,
     this.itemExtent = defaultDayItemExtent,
     this.daySeparatorPadding = defaultDaySeparatorPadding,
     this.selectionMode,
@@ -44,7 +42,8 @@ class EasyDateTimeLinePicker extends StatelessWidget {
     ],
     this.ignoreUserInteractionOnAnimating,
     this.timelineOptions,
-    this.headerType = HeaderType.picker,
+    this.headerOptions = const HeaderOptions(),
+    this.monthYearPickerOptions = const MonthYearPickerOptions(),
   })  : _itemBuilder = null,
         firstDate = firstDate.toDateOnly(),
         lastDate = lastDate.toDateOnly(),
@@ -76,7 +75,6 @@ class EasyDateTimeLinePicker extends StatelessWidget {
     DateTime? currentDate,
     required this.itemExtent,
     required ItemBuilderPickerCallBack itemBuilder,
-    this.headerBuilder,
     this.daySeparatorPadding = defaultDaySeparatorPadding,
     required this.onDateChange,
     this.selectionMode = const SelectionMode.autoCenter(),
@@ -85,7 +83,8 @@ class EasyDateTimeLinePicker extends StatelessWidget {
     this.disableStrategy = const DisableStrategy.none(),
     this.ignoreUserInteractionOnAnimating = true,
     this.timelineOptions = const TimelineOptions(),
-    this.headerType = HeaderType.picker,
+    this.monthYearPickerOptions = const MonthYearPickerOptions(),
+    this.headerOptions = const HeaderOptions(),
   })  : _itemBuilder = itemBuilder,
         _dayPartsOrder = const [],
         firstDate = firstDate.toDateOnly(),
@@ -193,22 +192,6 @@ class EasyDateTimeLinePicker extends StatelessWidget {
   /// {@endtemplate}
 
   final ItemBuilderPickerCallBack? _itemBuilder;
-
-  /// {@template header_builder}
-  /// Custom builder for the header of the picker.
-  /// ```dart
-  /// EasyDateTimeLinePicker(
-  ///  ...
-  /// headerBuilder: (context, date, onTap) {
-  ///  return InkWell(
-  ///   onTap: onTap,
-  ///  child: Text(
-  ///   DateFormat.yMMMM().format(date),
-  /// ),
-  /// );
-  /// ```
-  /// {@endtemplate}
-  final EasyPickerHeaderBuilderCallBack? headerBuilder;
 
   /// {@template on_date_change}
   /// Callback that is called when the selected date changes.
@@ -327,26 +310,80 @@ class EasyDateTimeLinePicker extends StatelessWidget {
   /// {@endtemplate}
   final TimelineOptions? timelineOptions;
 
-  /// {@template header_type}
-  /// An enumeration representing the different types of header behaviors
-  /// that can be applied in the date timeline picker.
+  /// {@template month_year_picker_options}
+  /// Defines the options for the MonthYearPicker widget.
   ///
-  /// This enum is used to define how the header of the date timeline picker
-  /// should behave or be displayed. Each value in this enum corresponds to
-  /// a specific behavior or display type for the header.
+  /// The [MonthYearPickerOptions] class allows customization of various aspects
+  /// of the MonthYearPicker widget, including initial calendar mode, button texts
+  /// and styles, barrier properties, and more.
+  ///
+  /// The following properties can be customized:
+  ///
+  /// * [initialCalendarMode]: The initial mode of the calendar (month or year).
+  /// * [cancelText]: The text for the cancel button.
+  /// * [confirmText]: The text for the confirm button.
+  /// * [cancelTextStyle]: The text style for the cancel button.
+  /// * [confirmTextStyle]: The text style for the confirm button.
+  /// * [cancelButtonBuilder]: A custom builder for the cancel button.
+  /// * [confirmButtonBuilder]: A custom builder for the confirm button.
+  /// * [barrierDismissible]: Whether the picker can be dismissed by tapping outside.
+  /// * [barrierColor]: The color of the modal barrier.
+  /// * [barrierLabel]: The semantic label for the modal barrier.
+  /// * [useRootNavigator]: Whether to use the root navigator.
+  /// * [routeSettings]: The settings for the route.
+  /// * [textDirection]: The text direction for the picker.
+  /// * [builder]: A custom builder for the picker.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// EasyDateTimeLinePicker(
+  ///  ...
+  /// monthYearPickerOptions: MonthYearPickerOptions(
+  ///  initialCalendarMode: EasyDatePickerMode.year,
+  ///  cancelText: 'Cancel',
+  ///  confirmText: 'Confirm',
+  ///  cancelTextStyle: TextStyle(color: Colors.red),
+  ///  confirmTextStyle: TextStyle(color: Colors.green),
+  ///  ...
+  ///   ),
+  /// );
+  /// ```
+  /// {@endtemplate}
+  final MonthYearPickerOptions monthYearPickerOptions;
+
+  /// {@template header_options}
+  /// Defines the options for customizing the header of the date picker.
+  ///
+  /// The [HeaderOptions] class allows you to customize the header appearance and behavior,
+  /// including the header type and custom header builder.
+  ///
+  /// The following properties can be customized:
+  /// * [headerType]: The type of header to display (normal or picker or to hide)
+  /// * [headerBuilder]: A custom builder for creating a completely custom header
+  ///
+  /// Example usage:
   /// ```dart
   /// EasyDateTimeLinePicker(
   ///   ...
-  ///   headerType: HeaderType.picker,
+  ///   headerOptions: HeaderOptions(
+  ///     headerBuilder:  (context, date, onTap){
+  ///       return InkWell(
+  ///         onTap: onTap,
+  ///         child: Container(
+  ///           padding: EdgeInsets.all(16),
+  ///           child: Text(
+  ///             'Selected: ${date.toString()}',
+  ///             style: TextStyle(fontSize: 18),
+  ///           ),
+  ///         ),
+  ///       );
+  ///     },
+  ///   ),
   /// )
-  ///   ```
-  /// The available header types are:
-  ///
-  /// - `viewOnly`: A header that is used for display purposes only.
-  /// - `picker`: A header that allows the user to pick a date.
-  /// - `none`: No header is displayed.
+  /// ```
   /// {@endtemplate}
-  final HeaderType headerType;
+
+  final HeaderOptions headerOptions;
 
   @override
   Widget build(BuildContext context) {
@@ -368,7 +405,7 @@ class EasyDateTimeLinePicker extends StatelessWidget {
       separatorPadding: daySeparatorPadding,
       onDateChange: onDateChange,
       itemBuilder: _itemBuilder,
-      headerBuilder: headerBuilder,
+      headerBuilder: headerOptions.headerBuilder,
       selectionMode: effectiveSelectionMode,
       locale: effectiveLocale,
       itemExtent: itemExtent,
@@ -378,7 +415,8 @@ class EasyDateTimeLinePicker extends StatelessWidget {
       ignoreUserInteractionOnAnimating:
           effectiveIgnoreUserInteractionOnAnimating,
       timelineOptions: effectiveTimelineOptions,
-      headerType: headerType,
+      headerType: headerOptions.headerType,
+      monthYearPickerOptions: monthYearPickerOptions,
     );
   }
 }

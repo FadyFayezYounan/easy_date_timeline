@@ -11,6 +11,8 @@ typedef ItemBuilderPickerCallBack = Widget Function(
   BuildContext context,
   DateTime date,
   bool isSelected,
+  bool isDisabled,
+  bool isToday,
   VoidCallback onTap,
 );
 
@@ -39,4 +41,22 @@ typedef OnMonthChangeCallBack = void Function(EasyMonth? month);
 typedef HeaderBuilderCallBack = Widget Function(
   BuildContext context,
   DateTime date,
+);
+
+typedef MonthYearPickerCancelButtonBuilder = Widget Function(
+  BuildContext context,
+  void Function() handleCancel,
+  String cancelText,
+);
+
+/// A typedef for a function that builds a Confirm button for a month-year picker.
+///
+/// The function takes a [BuildContext] and a callback function [handleOk]
+/// which is called when the Confirm button is pressed.
+///
+/// Returns a [Widget] that represents the Confirm button.
+typedef MonthYearPickerConfirmButtonBuilder = Widget Function(
+  BuildContext context,
+  void Function() handleConfirm,
+  String confirmText,
 );

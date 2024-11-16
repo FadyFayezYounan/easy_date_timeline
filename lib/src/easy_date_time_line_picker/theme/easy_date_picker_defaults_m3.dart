@@ -77,7 +77,6 @@ final class EasyDatePickerDefaultsM3 extends EasyThemeData {
 
   @override
   WidgetStateProperty<Color?>? get dayBackgroundColor {
-    log("primaryColor form defaults:${_colors.primary}");
     return WidgetStateProperty.resolveWith((Set<WidgetState> states) {
       if (states.contains(WidgetState.selected)) {
         return _colors.primary;
@@ -130,12 +129,15 @@ final class EasyDatePickerDefaultsM3 extends EasyThemeData {
 
   @override
   WidgetStateProperty<BorderSide?>? get currentDayBorder =>
-      WidgetStatePropertyAll<BorderSide>(BorderSide(color: _colors.primary));
+      WidgetStatePropertyAll<BorderSide>(
+        BorderSide(color: _colors.primary),
+      );
 
   @override
   WidgetStateProperty<BorderSide?>? get dayBorder =>
       WidgetStatePropertyAll<BorderSide>(
-          BorderSide(color: _colors.onSurface.withOpacity(0.08)));
+        BorderSide(color: _colors.onSurface.withOpacity(0.08)),
+      );
 
   @override
   Locale? get locale => defaultLocale;

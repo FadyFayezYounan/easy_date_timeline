@@ -9,6 +9,7 @@ import '../../utils/utils.dart';
 import '../controllers/infinite_time_line_scroll_mixin.dart';
 import '../disable_strategy/strategies.dart';
 import '../enums/enums.exports.dart';
+import '../options/options.exports.dart';
 import '../options/timeline_options.dart';
 import '../sealed_classes/sealed_classes.exports.dart';
 import '../utils/utils.exports.dart';
@@ -43,6 +44,7 @@ class DayTimeLinePickerWidget extends StatefulWidget {
     required this.timelineOptions,
     required this.dayPartsOrder,
     required this.headerType,
+    required this.monthYearPickerOptions,
   });
 
   ///{@macro controller}
@@ -98,6 +100,9 @@ class DayTimeLinePickerWidget extends StatefulWidget {
 
   /// {@macro header_type}
   final HeaderType headerType;
+
+  /// {@macro month_year_picker_options}
+  final MonthYearPickerOptions monthYearPickerOptions;
 
   @override
   State<DayTimeLinePickerWidget> createState() =>
@@ -184,7 +189,7 @@ class _DayTimeLinePickerWidgetState extends State<DayTimeLinePickerWidget> {
   }
 
   Future<void> _showMonthYearPicker(BuildContext context) async {
-    final pickedDate = await showMonthYearPicker(
+    final pickedDate = await showMonthYearPickerFromOptions(
       context: context,
       focusDate: widget.focusedDate,
       currentDate: widget.currentDate,
@@ -192,6 +197,7 @@ class _DayTimeLinePickerWidgetState extends State<DayTimeLinePickerWidget> {
       lastDate: widget.lastDate,
       locale: localeFromLanguageTag(widget.locale),
       disableStrategy: widget.disableStrategy,
+      options: widget.monthYearPickerOptions,
     );
     if (pickedDate != null) {
       _controller.jumpToDate(pickedDate);
@@ -201,8 +207,6 @@ class _DayTimeLinePickerWidgetState extends State<DayTimeLinePickerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final appTheme = Theme.of(context);
-    log('appTheme inside${appTheme.colorScheme.primary}');
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -272,6 +276,8 @@ class _DayTimeLinePickerWidgetState extends State<DayTimeLinePickerWidget> {
                                 context,
                                 date,
                                 isSelected,
+                                isDisabledDay,
+                                isToday,
                                 () => _onDateChanged(date),
                               )
                             : DayWidget(

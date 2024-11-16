@@ -6,6 +6,7 @@ import 'package:intl/intl.dart' hide TextDirection;
 import '../../l10n/generated/easy_date_timeline_localizations.dart';
 import '../disable_strategy/strategies.dart';
 import '../enums/enums.exports.dart';
+import '../options/options.exports.dart';
 import '../utils/utils.exports.dart';
 import 'easy_date_picker_mode_toggle_button.dart';
 import 'month_picker/easy_month_picker_view.dart';
@@ -16,6 +17,41 @@ const Size _calendarPortraitDialogSizeM3 = Size(328.0, 512.0);
 const Size _calendarLandscapeDialogSize = Size(496.0, 346.0);
 const Duration _dialogSizeAnimationDuration = Duration(milliseconds: 200);
 const double _kMaxTextScaleFactor = 1.3;
+
+@protected
+Future<DateTime?> showMonthYearPickerFromOptions({
+  required BuildContext context,
+  DateTime? focusDate,
+  required DateTime firstDate,
+  required DateTime lastDate,
+  DateTime? currentDate,
+  required MonthYearPickerOptions options,
+  Locale? locale,
+  required DisableStrategy disableStrategy,
+}) =>
+    showMonthYearPicker(
+      context: context,
+      focusDate: focusDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+      currentDate: currentDate,
+      initialCalendarMode: options.initialCalendarMode,
+      cancelText: options.cancelText,
+      confirmText: options.confirmText,
+      cancelTextStyle: options.cancelTextStyle,
+      confirmTextStyle: options.confirmTextStyle,
+      cancelButtonBuilder: options.cancelButtonBuilder,
+      confirmButtonBuilder: options.confirmButtonBuilder,
+      locale: locale,
+      barrierDismissible: options.barrierDismissible,
+      barrierColor: options.barrierColor,
+      barrierLabel: options.barrierLabel,
+      useRootNavigator: options.useRootNavigator,
+      routeSettings: options.routeSettings,
+      textDirection: options.textDirection,
+      builder: options.builder,
+      disableStrategy: disableStrategy,
+    );
 
 /// Displays a dialog that allows the user to pick a month and year.
 ///
@@ -35,7 +71,7 @@ const double _kMaxTextScaleFactor = 1.3;
 /// The [routeSettings] parameter specifies the settings for the route.
 /// The [textDirection] parameter specifies the text direction for the dialog.
 /// The [builder] parameter allows customization of the dialog widget.
-/// The [onDatePickerModeChange] parameter is a callback that is called when the date picker mode changes.
+///// The [onDatePickerModeChange] parameter is a callback that is called when the date picker mode changes.
 /// The [disableStrategy] parameter specifies the strategy to use for disabling dates.
 ///
 /// Returns a [Future] that resolves to the selected [DateTime], or null if the dialog was canceled.
@@ -49,6 +85,10 @@ Future<DateTime?> showMonthYearPicker({
   EasyDatePickerMode initialCalendarMode = EasyDatePickerMode.month,
   String? cancelText,
   String? confirmText,
+  TextStyle? cancelTextStyle,
+  TextStyle? confirmTextStyle,
+  MonthYearPickerCancelButtonBuilder? cancelButtonBuilder,
+  MonthYearPickerConfirmButtonBuilder? confirmButtonBuilder,
   Locale? locale,
   bool barrierDismissible = true,
   Color? barrierColor,
@@ -57,7 +97,7 @@ Future<DateTime?> showMonthYearPicker({
   RouteSettings? routeSettings,
   TextDirection? textDirection,
   TransitionBuilder? builder,
-  final ValueChanged<EasyDatePickerMode>? onDatePickerModeChange,
+  // final ValueChanged<EasyDatePickerMode>? onDatePickerModeChange,
   required DisableStrategy disableStrategy,
 }) async {
   focusDate = focusDate == null ? null : DateUtils.dateOnly(focusDate);
@@ -86,6 +126,10 @@ Future<DateTime?> showMonthYearPicker({
     cancelText: cancelText,
     confirmText: confirmText,
     initialCalendarMode: initialCalendarMode,
+    cancelButtonBuilder: cancelButtonBuilder,
+    confirmButtonBuilder: confirmButtonBuilder,
+    cancelTextStyle: cancelTextStyle,
+    confirmTextStyle: confirmTextStyle,
   );
 
   if (textDirection != null) {
@@ -165,6 +209,10 @@ class MonthYearPicker extends StatefulWidget {
     this.cancelText,
     this.confirmText,
     this.initialCalendarMode = EasyDatePickerMode.month,
+    this.cancelButtonBuilder,
+    this.confirmButtonBuilder,
+    this.cancelTextStyle,
+    this.confirmTextStyle,
   })  : focusDate = focusDate == null ? null : DateUtils.dateOnly(focusDate),
         firstDate = DateUtils.dateOnly(firstDate),
         lastDate = DateUtils.dateOnly(lastDate),
@@ -214,6 +262,18 @@ class MonthYearPicker extends StatefulWidget {
   /// The initial calendar mode (month or year view) when the picker is displayed
   final EasyDatePickerMode initialCalendarMode;
 
+  /// The builder for the cancel button
+  final MonthYearPickerCancelButtonBuilder? cancelButtonBuilder;
+
+  /// The builder for the confirm button
+  final MonthYearPickerConfirmButtonBuilder? confirmButtonBuilder;
+
+  /// The text style for the cancel button
+  final TextStyle? cancelTextStyle;
+
+  /// The text style for the confirm button
+  final TextStyle? confirmTextStyle;
+
   @override
   State<MonthYearPicker> createState() => _MonthYearPickerState();
 }
@@ -221,6 +281,7 @@ class MonthYearPicker extends StatefulWidget {
 class _MonthYearPickerState extends State<MonthYearPicker> {
   late EasyDatePickerMode _mode;
   late DateTime _selectedDate;
+  late DateTime _selectedYear;
   final GlobalKey _monthPickerKey = GlobalKey();
   final GlobalKey _yearPickerKey = GlobalKey();
 
@@ -229,6 +290,7 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
     super.initState();
     _mode = widget.initialCalendarMode;
     _selectedDate = widget.focusDate ?? widget.firstDate;
+    _selectedYear = _selectedDate;
   }
 
   /// Handles the OK button press, returning the selected date
@@ -278,6 +340,7 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
   void _handleDateChanged(DateTime date) {
     setState(() {
       _selectedDate = date;
+      _selectedYear = date;
     });
   }
 
@@ -295,27 +358,108 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
   ///
   /// Parameters:
   /// - `date`: The new date with the selected year.
+  ///
   void _handleYearChanged(DateTime date) {
     _vibrate();
     _mode = EasyDatePickerMode.month;
-    DateTime newDate = DateTime(date.year, _selectedDate.month, 1);
-    if (newDate.isBefore(widget.firstDate)) {
-      newDate =
-          DateTime(date.year, widget.firstDate.month, widget.firstDate.day);
-    } else if (newDate.isAfter(widget.lastDate)) {
-      newDate = DateTime(date.year, widget.lastDate.month, 1);
-      if (newDate.isAfter(widget.lastDate)) {
-        newDate =
-            DateTime(date.year - 1, widget.lastDate.month, widget.lastDate.day);
+    if (widget.disableStrategy.isDisabled(date)) {
+      final activeMonth = _findFirstActiveMonth(date);
+      if (activeMonth != null) {
+        date = activeMonth;
+      } else {
+        setState(() {
+          _selectedYear = DateTime(date.year, date.month, date.day);
+        });
+        return;
       }
     }
+    // Update the selected date
+    _handleDateChanged(date);
+  }
 
-    // Ensure the day is valid for the new month
-    final lastDayOfMonth = DateTime(newDate.year, newDate.month + 1, 0).day;
-    if (newDate.day > lastDayOfMonth) {
-      newDate = DateTime(newDate.year, newDate.month, lastDayOfMonth);
+  /// Finds the first active month starting from the given date.
+  ///
+  /// This method first checks if there are any active days in the given month.
+  /// If an active day is found, it returns that day. If no active days are found
+  /// in the month, it then searches for the first active day in the year.
+  ///
+  /// Returns a [DateTime] object representing the first active day in the month
+  /// or year, or `null` if no active days are found.
+  ///
+  /// - Parameter date: The starting date to search for the first active month.
+  /// - Returns: A [DateTime] object of the first active day, or `null` if none found.
+  DateTime? _findFirstActiveMonth(DateTime date) {
+    // Check if all days in the month are disabled
+    final firstActiveDay = _findFirstActiveDayInMonth(date);
+    if (firstActiveDay != null) {
+      return firstActiveDay;
     }
-    _handleDateChanged(newDate);
+
+    return _findFirstActiveDayInYear(date);
+  }
+
+  /// Finds the first active day in the given year.
+  ///
+  /// Iterates through each month of the specified year and calls
+  /// `_findFirstActiveDayInMonth` to find the first active day in that month.
+  /// Returns the first active day found, or `null` if no active days are found
+  /// in the entire year.
+  ///
+  /// [date] The date representing the year to search within.
+  ///
+  /// Returns a [DateTime] object representing the first active day in the year,
+  /// or `null` if no active days are found.
+  DateTime? _findFirstActiveDayInYear(DateTime date) {
+    for (int month = 1; month <= 12; month++) {
+      final activeDay = _findFirstActiveDayInMonth(DateTime(date.year, month));
+      if (activeDay != null) {
+        return activeDay;
+      }
+    }
+    return null;
+  }
+
+  /// Finds the first active day in the given month.
+  ///
+  /// This method generates all the days in the specified month and returns the
+  /// first day that is not disabled according to the widget's disable strategy
+  /// and is within the valid date range.
+  ///
+  /// Returns `null` if no active day is found in the month.
+  ///
+  /// Parameters:
+  /// - `date`: The date representing the month to search within.
+  ///
+  /// Returns:
+  /// - A `DateTime` object representing the first active day in the month, or
+  ///   `null` if no active day is found.
+  DateTime? _findFirstActiveDayInMonth(DateTime date) {
+    return generateMonthDays(date).firstWhereOrNull(
+      (date) =>
+          !widget.disableStrategy.isDisabled(date) && _isDateInRange(date),
+    );
+  }
+
+  /// Checks if the given date is within the range specified by [firstDate] and [lastDate].
+  ///
+  /// Returns `true` if the date is after [firstDate] and before [lastDate], otherwise `false`.
+  ///
+  /// - Parameter date: The date to check.
+  /// - Returns: A boolean indicating whether the date is within the specified range.
+  bool _isDateInRange(DateTime date) {
+    return date.isAfter(widget.firstDate) && date.isBefore(widget.lastDate);
+  }
+
+  /// Checks if all days in the given year are disabled based on the provided disable strategy.
+  ///
+  /// This method generates all the days in the year of the given [date] and
+  /// checks if every day is disabled according to the [widget.disableStrategy].
+  ///
+  /// Returns `true` if all days in the year are disabled, otherwise `false`.
+  ///
+  /// - Parameter date: The [DateTime] object representing the year to check.
+  bool _isYearDisabled(DateTime date) {
+    return generateYearDays(date).every(widget.disableStrategy.isDisabled);
   }
 
   /// Builds either the month or year picker view based on current mode
@@ -340,6 +484,7 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
           currentDate: widget.currentDate,
           onChanged: _handleYearChanged,
           dragStartBehavior: DragStartBehavior.start,
+          disableStrategy: widget.disableStrategy,
         ),
     };
   }
@@ -361,16 +506,28 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
         fontSizeToScale;
     final Size dialogSize = _dialogSize(context) * textScaleFactor;
     final DialogTheme dialogTheme = theme.dialogTheme;
+    final String effectiveTitle = DateFormat(
+            _isYearDisabled(_selectedYear)
+                ? DateFormatUtils.yearNumber
+                : DateFormatUtils.monthY,
+            widget._locale)
+        .format(_selectedYear);
     final Widget header = EasyDatePickerModeToggleButton(
       mode: _mode,
-      title: DateFormat(DateFormatUtils.monthY, widget._locale)
-          .format(_selectedDate),
+      title: effectiveTitle,
       onTitlePressed: () => _handleModeChanged(switch (_mode) {
         EasyDatePickerMode.month => EasyDatePickerMode.year,
         EasyDatePickerMode.year => EasyDatePickerMode.month,
       }),
     );
 
+    final String effectiveCancelText = widget.cancelText ??
+        ((useMaterial3
+                ? localizations?.cancelButtonLabel
+                : localizations?.cancelButtonLabel.toUpperCase()) ??
+            cancelButtonLabel);
+    final String effectiveConfirmText =
+        widget.confirmText ?? (localizations?.okButtonLabel ?? okButtonLabel);
     final Widget actions = ConstrainedBox(
       constraints: const BoxConstraints(minHeight: 52.0),
       child: Padding(
@@ -380,24 +537,28 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
           child: OverflowBar(
             spacing: 8,
             children: <Widget>[
-              TextButton(
-                style: datePickerTheme.cancelButtonStyle ??
-                    defaults.cancelButtonStyle,
-                onPressed: _handleCancel,
-                child: Text(widget.cancelText ??
-                    ((useMaterial3
-                            ? localizations?.cancelButtonLabel
-                            : localizations?.cancelButtonLabel.toUpperCase()) ??
-                        cancelButtonLabel)),
-              ),
-              TextButton(
-                style: datePickerTheme.confirmButtonStyle ??
-                    defaults.confirmButtonStyle,
-                onPressed: _handleOk,
-                child: Text(widget.confirmText ??
-                    localizations?.okButtonLabel ??
-                    okButtonLabel),
-              ),
+              widget.cancelButtonBuilder
+                      ?.call(context, _handleCancel, effectiveCancelText) ??
+                  TextButton(
+                    style: datePickerTheme.cancelButtonStyle ??
+                        defaults.cancelButtonStyle,
+                    onPressed: _handleCancel,
+                    child: Text(
+                      effectiveCancelText,
+                      style: widget.cancelTextStyle,
+                    ),
+                  ),
+              widget.confirmButtonBuilder
+                      ?.call(context, _handleOk, effectiveConfirmText) ??
+                  TextButton(
+                    style: datePickerTheme.confirmButtonStyle ??
+                        defaults.confirmButtonStyle,
+                    onPressed: _handleOk,
+                    child: Text(
+                      effectiveConfirmText,
+                      style: widget.confirmTextStyle,
+                    ),
+                  ),
             ],
           ),
         ),

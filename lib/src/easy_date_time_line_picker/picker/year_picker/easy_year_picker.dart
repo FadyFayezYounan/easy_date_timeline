@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import '../../disable_strategy/strategies.dart';
 import '../../utils/constants.dart';
 import 'year_widget.dart';
 
@@ -35,6 +36,7 @@ class EasyYearPicker extends StatefulWidget {
     required this.currentDate,
     required this.onChanged,
     required this.dragStartBehavior,
+    required this.disableStrategy,
   }) : assert(!firstDate.isAfter(lastDate));
 
   /// The earliest date the user is permitted to pick.
@@ -53,6 +55,8 @@ class EasyYearPicker extends StatefulWidget {
 
   /// Called when the user picks a year.
   final ValueChanged<DateTime> onChanged;
+
+  final DisableStrategy disableStrategy;
 
   /// Determines the way that drag start behavior is handled.
   /// Defaults to DragStartBehavior.start.
@@ -121,7 +125,7 @@ class _EasyYearPickerState extends State<EasyYearPicker> {
         Expanded(
           child: GridView.builder(
             controller: _scrollController,
-            dragStartBehavior: widget.dragStartBehavior,
+            // dragStartBehavior: widget.dragStartBehavior,
             gridDelegate: _yearPickerGridDelegate,
             itemBuilder: (context, index) {
               return YearWidget(
@@ -132,6 +136,7 @@ class _EasyYearPickerState extends State<EasyYearPicker> {
                 currentDate: widget.currentDate,
                 isDisabled: false,
                 onChanged: widget.onChanged,
+                disableStrategy: widget.disableStrategy,
               );
             },
             itemCount: _itemCount,

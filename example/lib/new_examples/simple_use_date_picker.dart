@@ -10,7 +10,7 @@ class SimpleUseExample extends StatefulWidget {
 
 class _NewWidgetExampleState extends State<SimpleUseExample> {
   final _now = DateTime.now();
-  DateTime _selectedDate = DateTime.now();
+  DateTime _selectedDate = DateTime(2025, 1, 1);
   late final EasyDatePickerController _controller;
   @override
   void initState() {
@@ -18,9 +18,9 @@ class _NewWidgetExampleState extends State<SimpleUseExample> {
     _controller = EasyDatePickerController();
   }
 
-// do not forget to dispose the controller
   @override
   void dispose() {
+    // do not forget to dispose the controller
     _controller.dispose();
     super.dispose();
   }
@@ -32,10 +32,25 @@ class _NewWidgetExampleState extends State<SimpleUseExample> {
       children: [
         EasyDateTimeLinePicker(
           controller: _controller,
+          // disableStrategy: DisableStrategy.before(
+          //   DateTime(2025, 1, 1),
+          // ),
+          // disableStrategy: DisableStrategy.before(
+          //   DateTime(2024, 12, 15),
+          // ),
+          disableStrategy: DisableStrategy.ranges([
+            DateTimeRange(
+              start: DateTime(2024, 5, 1),
+              end: DateTime(2024, 5, 31),
+            ),
+            DateTimeRange(
+              start: DateTime(2025, 6, 1),
+              end: DateTime(2025, 6, 29),
+            ),
+          ]),
           firstDate: DateTime(2024, 3, 18),
           lastDate: DateTime(2030, 3, 18),
           focusedDate: _selectedDate,
-          headerType: HeaderType.picker,
           onDateChange: (selectedDate) {
             setState(() {
               _selectedDate = selectedDate;

@@ -45,7 +45,7 @@ class EasyDatePickerModeToggleButton extends StatefulWidget {
   final String title;
 
   /// The callback when the title is pressed.
-  final VoidCallback onTitlePressed;
+  final VoidCallback? onTitlePressed;
 
   @override
   State<StatefulWidget> createState() => _EasyDatePickerModeToggleButtonState();

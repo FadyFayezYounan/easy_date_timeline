@@ -1,3 +1,4 @@
+import 'package:easy_date_timeline/src/easy_date_time_line_picker/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../sealed_classes/sealed_classes.exports.dart';
@@ -141,24 +142,27 @@ class _DayWidgetState extends State<DayWidget> {
     // Build the day widget with all its parts
     Widget dayWidget = DecoratedBox(
       decoration: decoration,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: effectiveMainAxisAlignment,
-        children: widget.dayPartsOrder
-            .map(
-              (dayPart) => DayPartWidget(
-                date: widget.date,
-                format: dayPart.format,
-                locale: widget.locale,
-                style: switch (dayPart) {
-                  TopDayPart() => dayTopPartStyle,
-                  MiddleDayPart() => dayMiddlePartStyle,
-                  BottomDayPart() => dayBottomPartStyle,
-                }
-                    ?.apply(color: dayForegroundColor),
-              ),
-            )
-            .toList(),
+      child: Padding(
+        padding: const EdgeInsets.all(defaultDayPadding),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: effectiveMainAxisAlignment,
+          children: widget.dayPartsOrder
+              .map(
+                (dayPart) => DayPartWidget(
+                  date: widget.date,
+                  format: dayPart.format,
+                  locale: widget.locale,
+                  style: switch (dayPart) {
+                    TopDayPart() => dayTopPartStyle,
+                    MiddleDayPart() => dayMiddlePartStyle,
+                    BottomDayPart() => dayBottomPartStyle,
+                  }
+                      ?.apply(color: dayForegroundColor),
+                ),
+              )
+              .toList(),
+        ),
       ),
     );
 

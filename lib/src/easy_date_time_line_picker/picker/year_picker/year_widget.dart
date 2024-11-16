@@ -1,5 +1,7 @@
+import 'package:easy_date_timeline/src/easy_date_time_line_picker/utils/utils.exports.dart';
 import 'package:flutter/material.dart';
 
+import '../../disable_strategy/strategies.dart';
 import '../../theme/theme.exports.dart';
 
 class YearWidget extends StatefulWidget {
@@ -30,6 +32,7 @@ class YearWidget extends StatefulWidget {
     required this.currentDate,
     required this.isDisabled,
     required this.onChanged,
+    required this.disableStrategy,
   });
 
   /// The index of this year relative to the firstDate.
@@ -57,6 +60,8 @@ class YearWidget extends StatefulWidget {
   /// Provides the selected date as a parameter.
   final ValueChanged<DateTime> onChanged;
 
+  final DisableStrategy disableStrategy;
+
   @override
   State<YearWidget> createState() => _YearWidgetState();
 }
@@ -74,6 +79,10 @@ class _YearWidgetState extends State<YearWidget> {
     _statesController.dispose();
     super.dispose();
   }
+
+  // bool _isDisabled(DateTime date) {
+  //   return generateYearDays(date).every(widget.disableStrategy.isDisabled);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +109,7 @@ class _YearWidgetState extends State<YearWidget> {
     final int year = widget.firstDate.year + widget.index;
     final bool isSelected = year == widget.focusedDate?.year;
     final bool isCurrentYear = year == widget.currentDate.year;
+    // final bool isDisabled = _isDisabled(DateTime(year, 1, 1));
 
     // Constants for year item dimensions
     const double decorationHeight = 36.0;

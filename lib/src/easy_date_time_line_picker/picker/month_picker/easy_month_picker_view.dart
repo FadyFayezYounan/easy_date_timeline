@@ -106,17 +106,20 @@ class _EasyMonthPickerViewState extends State<EasyMonthPickerView> {
   ///
   /// [page] represents the index of the new page.
   void _onPageChanged(int page) {
-    var newDate = DateTime(
-      widget.firstDate.year + page,
-      widget.focusedDate.month,
-    );
+    final year = widget.firstDate.year + page;
+    DateTime date = DateTime(year, widget.focusedDate.month);
 
-    // Ensure newDate does not exceed widget.lastDate
-    if (newDate.isAfter(widget.lastDate)) {
-      newDate = widget.lastDate;
+    // Ensure the date stays within the allowed range
+    if (date
+        .isBefore(DateTime(widget.firstDate.year, widget.firstDate.month))) {
+      assert(date.year == widget.firstDate.year);
+      date = DateTime(year, widget.firstDate.month);
+    } else if (date.isAfter(widget.lastDate)) {
+      assert(date.year == widget.lastDate.year);
+      date = DateTime(year, widget.lastDate.month);
     }
 
-    widget.onYearPageChanged(newDate);
+    widget.onYearPageChanged(date);
   }
 
   @override

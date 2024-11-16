@@ -273,7 +273,8 @@ class EasyThemeData with Diagnosticable {
   ///
   /// This method allows for updating theme data using [DayThemeData] objects for
   /// different states (selected, unselected, disabled) of regular and current days.
-  EasyThemeData copyWithThemeState({
+
+  EasyThemeData copyWithState({
     // Regular days
     DayThemeData? selectedDayTheme,
     DayThemeData? unselectedDayTheme,
