@@ -38,12 +38,12 @@ class EasyThemeData with Diagnosticable {
     this.currentMonthBorder,
     this.yearBorder,
     this.currentYearBorder,
-    this.dayMiddlePartStyle,
-    this.currentDayMiddlePartStyle,
-    this.dayTopPartStyle,
-    this.currentDayTopPartStyle,
-    this.dayBottomPartStyle,
-    this.currentDayBottomPartStyle,
+    this.dayMiddleElementStyle,
+    this.currentDayMiddleElementStyle,
+    this.dayTopElementStyle,
+    this.currentDayTopElementStyle,
+    this.dayBottomElementStyle,
+    this.currentDayBottomElementStyle,
     this.monthStyle,
     this.currentMonthStyle,
     this.yearStyle,
@@ -129,23 +129,23 @@ class EasyThemeData with Diagnosticable {
   /// The border for the current year.
   final WidgetStateProperty<BorderSide?>? currentYearBorder;
 
-  /// The text style for the middle part of regular days.
-  final WidgetStateProperty<TextStyle?>? dayMiddlePartStyle;
+  /// The text style for the middle element of regular days.
+  final WidgetStateProperty<TextStyle?>? dayMiddleElementStyle;
 
-  /// The text style for the middle part of the current day.
-  final WidgetStateProperty<TextStyle?>? currentDayMiddlePartStyle;
+  /// The text style for the middle element of the current day.
+  final WidgetStateProperty<TextStyle?>? currentDayMiddleElementStyle;
 
-  /// The text style for the top part of regular days.
-  final WidgetStateProperty<TextStyle?>? dayTopPartStyle;
+  /// The text style for the top element of regular days.
+  final WidgetStateProperty<TextStyle?>? dayTopElementStyle;
 
-  /// The text style for the top part of the current day.
-  final WidgetStateProperty<TextStyle?>? currentDayTopPartStyle;
+  /// The text style for the top element of the current day.
+  final WidgetStateProperty<TextStyle?>? currentDayTopElementStyle;
 
-  /// The text style for the bottom part of regular days.
-  final WidgetStateProperty<TextStyle?>? dayBottomPartStyle;
+  /// The text style for the bottom element of regular days.
+  final WidgetStateProperty<TextStyle?>? dayBottomElementStyle;
 
-  /// The text style for the bottom part of the current day.
-  final WidgetStateProperty<TextStyle?>? currentDayBottomPartStyle;
+  /// The text style for the bottom element of the current day.
+  final WidgetStateProperty<TextStyle?>? currentDayBottomElementStyle;
 
   /// The text style for months.
   final WidgetStateProperty<TextStyle?>? monthStyle;
@@ -201,12 +201,12 @@ class EasyThemeData with Diagnosticable {
     WidgetStateProperty<BorderSide?>? currentMonthBorder,
     WidgetStateProperty<BorderSide?>? yearBorder,
     WidgetStateProperty<BorderSide?>? currentYearBorder,
-    WidgetStateProperty<TextStyle?>? dayMiddlePartStyle,
-    WidgetStateProperty<TextStyle?>? currentDayMiddlePartStyle,
-    WidgetStateProperty<TextStyle?>? dayTopPartStyle,
-    WidgetStateProperty<TextStyle?>? currentDayTopPartStyle,
-    WidgetStateProperty<TextStyle?>? dayBottomPartStyle,
-    WidgetStateProperty<TextStyle?>? currentDayBottomPartStyle,
+    WidgetStateProperty<TextStyle?>? dayMiddleElementStyle,
+    WidgetStateProperty<TextStyle?>? currentDayMiddleElementStyle,
+    WidgetStateProperty<TextStyle?>? dayTopElementStyle,
+    WidgetStateProperty<TextStyle?>? currentDayTopElementStyle,
+    WidgetStateProperty<TextStyle?>? dayBottomElementStyle,
+    WidgetStateProperty<TextStyle?>? currentDayBottomElementStyle,
     WidgetStateProperty<TextStyle?>? monthStyle,
     WidgetStateProperty<TextStyle?>? currentMonthStyle,
     WidgetStateProperty<TextStyle?>? yearStyle,
@@ -248,15 +248,17 @@ class EasyThemeData with Diagnosticable {
       currentMonthBorder: currentMonthBorder ?? this.currentMonthBorder,
       yearBorder: yearBorder ?? this.yearBorder,
       currentYearBorder: currentYearBorder ?? this.currentYearBorder,
-      dayMiddlePartStyle: dayMiddlePartStyle ?? this.dayMiddlePartStyle,
-      currentDayMiddlePartStyle:
-          currentDayMiddlePartStyle ?? this.currentDayMiddlePartStyle,
-      dayTopPartStyle: dayTopPartStyle ?? this.dayTopPartStyle,
-      currentDayTopPartStyle:
-          currentDayTopPartStyle ?? this.currentDayTopPartStyle,
-      dayBottomPartStyle: dayBottomPartStyle ?? this.dayBottomPartStyle,
-      currentDayBottomPartStyle:
-          currentDayBottomPartStyle ?? this.currentDayBottomPartStyle,
+      dayMiddleElementStyle:
+          dayMiddleElementStyle ?? this.dayMiddleElementStyle,
+      currentDayMiddleElementStyle:
+          currentDayMiddleElementStyle ?? this.currentDayMiddleElementStyle,
+      dayTopElementStyle: dayTopElementStyle ?? this.dayTopElementStyle,
+      currentDayTopElementStyle:
+          currentDayTopElementStyle ?? this.currentDayTopElementStyle,
+      dayBottomElementStyle:
+          dayBottomElementStyle ?? this.dayBottomElementStyle,
+      currentDayBottomElementStyle:
+          currentDayBottomElementStyle ?? this.currentDayBottomElementStyle,
       monthStyle: monthStyle ?? this.monthStyle,
       currentMonthStyle: currentMonthStyle ?? this.currentMonthStyle,
       yearStyle: yearStyle ?? this.yearStyle,
@@ -603,80 +605,82 @@ class EasyThemeData with Diagnosticable {
     // effective day text styles
 
     final WidgetStateProperty<TextStyle?>? effectiveDayTopPartStyle = switch ((
-      selectedDayTheme?.topPartStyle,
-      unselectedDayTheme?.topPartStyle,
-      disabledDayTheme?.topPartStyle
+      selectedDayTheme?.topElementStyle,
+      unselectedDayTheme?.topElementStyle,
+      disabledDayTheme?.topElementStyle
     )) {
       (null, null, null) => null,
-      (_, _, _) => _GenericWidgetStateProperty(selectedDayTheme?.topPartStyle,
-          unselectedDayTheme?.topPartStyle, disabledDayTheme?.topPartStyle),
+      (_, _, _) => _GenericWidgetStateProperty(
+          selectedDayTheme?.topElementStyle,
+          unselectedDayTheme?.topElementStyle,
+          disabledDayTheme?.topElementStyle),
     };
 
     final WidgetStateProperty<TextStyle?>? effectiveDayMiddlePartStyle =
         switch ((
-      selectedDayTheme?.middlePartStyle,
-      unselectedDayTheme?.middlePartStyle,
-      disabledDayTheme?.middlePartStyle
+      selectedDayTheme?.middleElementStyle,
+      unselectedDayTheme?.middleElementStyle,
+      disabledDayTheme?.middleElementStyle
     )) {
       (null, null, null) => null,
       (_, _, _) => _GenericWidgetStateProperty(
-          selectedDayTheme?.middlePartStyle,
-          unselectedDayTheme?.middlePartStyle,
-          disabledDayTheme?.middlePartStyle),
+          selectedDayTheme?.middleElementStyle,
+          unselectedDayTheme?.middleElementStyle,
+          disabledDayTheme?.middleElementStyle),
     };
 
     final WidgetStateProperty<TextStyle?>? effectiveDayBottomPartStyle =
         switch ((
-      selectedDayTheme?.bottomPartStyle,
-      unselectedDayTheme?.bottomPartStyle,
-      disabledDayTheme?.bottomPartStyle
+      selectedDayTheme?.bottomElementStyle,
+      unselectedDayTheme?.bottomElementStyle,
+      disabledDayTheme?.bottomElementStyle
     )) {
       (null, null, null) => null,
       (_, _, _) => _GenericWidgetStateProperty(
-          selectedDayTheme?.bottomPartStyle,
-          unselectedDayTheme?.bottomPartStyle,
-          disabledDayTheme?.bottomPartStyle),
+          selectedDayTheme?.bottomElementStyle,
+          unselectedDayTheme?.bottomElementStyle,
+          disabledDayTheme?.bottomElementStyle),
     };
 
     // effective current day text styles
 
     final WidgetStateProperty<TextStyle?>? effectiveCurrentDayTopPartStyle =
         switch ((
-      selectedCurrentDayTheme?.topPartStyle,
-      unselectedCurrentDayTheme?.topPartStyle,
-      disabledCurrentDayTheme?.topPartStyle
+      selectedCurrentDayTheme?.topElementStyle,
+      unselectedCurrentDayTheme?.topElementStyle,
+      disabledCurrentDayTheme?.topElementStyle
     )) {
       (null, null, null) => null,
       (_, _, _) => _GenericWidgetStateProperty(
-          selectedCurrentDayTheme?.topPartStyle,
-          unselectedCurrentDayTheme?.topPartStyle,
-          disabledCurrentDayTheme?.topPartStyle),
+          selectedCurrentDayTheme?.topElementStyle,
+          unselectedCurrentDayTheme?.topElementStyle,
+          disabledCurrentDayTheme?.topElementStyle),
     };
 
     final WidgetStateProperty<TextStyle?>? effectiveCurrentDayMiddlePartStyle =
         switch ((
-      selectedCurrentDayTheme?.middlePartStyle,
-      unselectedCurrentDayTheme?.middlePartStyle,
-      disabledCurrentDayTheme?.middlePartStyle
+      selectedCurrentDayTheme?.middleElementStyle,
+      unselectedCurrentDayTheme?.middleElementStyle,
+      disabledCurrentDayTheme?.middleElementStyle
     )) {
       (null, null, null) => null,
       (_, _, _) => _GenericWidgetStateProperty(
-          selectedCurrentDayTheme?.middlePartStyle,
-          unselectedCurrentDayTheme?.middlePartStyle,
-          disabledCurrentDayTheme?.middlePartStyle),
+          selectedCurrentDayTheme?.middleElementStyle,
+          unselectedCurrentDayTheme?.middleElementStyle,
+          disabledCurrentDayTheme?.middleElementStyle),
     };
 
     final WidgetStateProperty<TextStyle?>? effectiveCurrentDayBottomPartStyle =
         switch ((
-      selectedCurrentDayTheme?.bottomPartStyle,
-      unselectedCurrentDayTheme?.bottomPartStyle,
-      disabledCurrentDayTheme?.bottomPartStyle
+      selectedCurrentDayTheme?.bottomElementStyle,
+      unselectedCurrentDayTheme?.bottomElementStyle,
+      disabledCurrentDayTheme?.bottomElementStyle
     )) {
       (null, null, null) => null,
       (_, _, _) => _GenericWidgetStateProperty(
-          selectedCurrentDayTheme?.bottomPartStyle,
-          unselectedCurrentDayTheme?.bottomPartStyle,
-          disabledCurrentDayTheme?.bottomPartStyle),
+          selectedCurrentDayTheme?.bottomElementStyle,
+          unselectedCurrentDayTheme?.bottomElementStyle,
+          disabledCurrentDayTheme?.bottomElementStyle),
     };
 
     // effective month text styles
@@ -753,13 +757,13 @@ class EasyThemeData with Diagnosticable {
       yearBorder: effectiveYearBorder,
       currentYearBorder: effectiveCurrentYearBorder,
       // current day text styles
-      currentDayTopPartStyle: effectiveCurrentDayTopPartStyle,
-      currentDayMiddlePartStyle: effectiveCurrentDayMiddlePartStyle,
-      currentDayBottomPartStyle: effectiveCurrentDayBottomPartStyle,
+      currentDayTopElementStyle: effectiveCurrentDayTopPartStyle,
+      currentDayMiddleElementStyle: effectiveCurrentDayMiddlePartStyle,
+      currentDayBottomElementStyle: effectiveCurrentDayBottomPartStyle,
       // regular day text styles
-      dayTopPartStyle: effectiveDayTopPartStyle,
-      dayMiddlePartStyle: effectiveDayMiddlePartStyle,
-      dayBottomPartStyle: effectiveDayBottomPartStyle,
+      dayTopElementStyle: effectiveDayTopPartStyle,
+      dayMiddleElementStyle: effectiveDayMiddlePartStyle,
+      dayBottomElementStyle: effectiveDayBottomPartStyle,
       // month text styles
       monthStyle: effectiveMonthStyle,
       currentMonthStyle: effectiveCurrentMonthStyle,
@@ -795,17 +799,17 @@ class EasyThemeData with Diagnosticable {
     properties.add(DiagnosticsProperty<WidgetStateProperty<BorderSide?>>(
         'currentDayBorder', currentDayBorder));
     properties.add(DiagnosticsProperty<WidgetStateProperty<TextStyle?>>(
-        'dayTopPartStyle', dayTopPartStyle));
+        'dayTopElementStyle', dayTopElementStyle));
     properties.add(DiagnosticsProperty<WidgetStateProperty<TextStyle?>>(
-        'dayMiddlePartStyle', dayMiddlePartStyle));
+        'dayMiddleElementStyle', dayMiddleElementStyle));
     properties.add(DiagnosticsProperty<WidgetStateProperty<TextStyle?>>(
-        'dayBottomPartStyle', dayBottomPartStyle));
+        'dayBottomElementStyle', dayBottomElementStyle));
     properties.add(DiagnosticsProperty<WidgetStateProperty<TextStyle?>>(
-        'currentDayTopPartStyle', currentDayTopPartStyle));
+        'currentDayTopElementStyle', currentDayTopElementStyle));
     properties.add(DiagnosticsProperty<WidgetStateProperty<TextStyle?>>(
-        'currentDayMiddlePartStyle', currentDayMiddlePartStyle));
+        'currentDayMiddleElementStyle', currentDayMiddleElementStyle));
     properties.add(DiagnosticsProperty<WidgetStateProperty<TextStyle?>>(
-        'currentDayBottomPartStyle', currentDayBottomPartStyle));
+        'currentDayBottomElementStyle', currentDayBottomElementStyle));
     properties.add(
         DiagnosticsProperty<SelectionMode>('selectionMode', selectionMode));
     properties.add(DiagnosticsProperty<bool>(
@@ -829,9 +833,9 @@ class EasyThemeData with Diagnosticable {
         other.overlayColor == overlayColor &&
         other.currentDayBorder == currentDayBorder &&
         other.dayBorder == dayBorder &&
-        other.dayMiddlePartStyle == dayMiddlePartStyle &&
-        other.dayTopPartStyle == dayTopPartStyle &&
-        other.dayBottomPartStyle == dayBottomPartStyle &&
+        other.dayMiddleElementStyle == dayMiddleElementStyle &&
+        other.dayTopElementStyle == dayTopElementStyle &&
+        other.dayBottomElementStyle == dayBottomElementStyle &&
         other.locale == locale &&
         other.selectionMode == selectionMode &&
         other.ignoreUserInteractionOnAnimating ==
@@ -850,9 +854,9 @@ class EasyThemeData with Diagnosticable {
         overlayColor.hashCode ^
         currentDayBorder.hashCode ^
         dayBorder.hashCode ^
-        dayMiddlePartStyle.hashCode ^
-        dayTopPartStyle.hashCode ^
-        dayBottomPartStyle.hashCode ^
+        dayMiddleElementStyle.hashCode ^
+        dayTopElementStyle.hashCode ^
+        dayBottomElementStyle.hashCode ^
         locale.hashCode ^
         selectionMode.hashCode ^
         ignoreUserInteractionOnAnimating.hashCode ^

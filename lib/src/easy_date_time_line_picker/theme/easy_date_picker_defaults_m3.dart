@@ -33,33 +33,33 @@ final class EasyDatePickerDefaultsM3 extends EasyThemeData {
   late final TextTheme _textTheme = _theme.textTheme;
 
   @override
-  WidgetStateProperty<TextStyle?>? get dayTopPartStyle =>
+  WidgetStateProperty<TextStyle?>? get dayTopElementStyle =>
       WidgetStatePropertyAll<TextStyle?>(_textTheme.bodySmall);
 
   @override
-  WidgetStateProperty<TextStyle?>? get dayMiddlePartStyle =>
+  WidgetStateProperty<TextStyle?>? get dayMiddleElementStyle =>
       WidgetStatePropertyAll<TextStyle?>(_textTheme.titleMedium?.copyWith(
         fontWeight: FontWeight.bold,
         fontSize: 18.0,
       ));
 
   @override
-  WidgetStateProperty<TextStyle?>? get dayBottomPartStyle =>
+  WidgetStateProperty<TextStyle?>? get dayBottomElementStyle =>
       WidgetStatePropertyAll<TextStyle?>(_textTheme.bodySmall);
 
   @override
-  WidgetStateProperty<TextStyle?>? get currentDayTopPartStyle =>
+  WidgetStateProperty<TextStyle?>? get currentDayTopElementStyle =>
       WidgetStatePropertyAll<TextStyle?>(_textTheme.bodySmall);
 
   @override
-  WidgetStateProperty<TextStyle?>? get currentDayMiddlePartStyle =>
+  WidgetStateProperty<TextStyle?>? get currentDayMiddleElementStyle =>
       WidgetStatePropertyAll<TextStyle?>(_textTheme.titleMedium?.copyWith(
         fontWeight: FontWeight.bold,
         fontSize: 18.0,
       ));
 
   @override
-  WidgetStateProperty<TextStyle?>? get currentDayBottomPartStyle =>
+  WidgetStateProperty<TextStyle?>? get currentDayBottomElementStyle =>
       WidgetStatePropertyAll<TextStyle?>(_textTheme.bodySmall);
 
   @override

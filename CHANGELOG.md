@@ -1,3 +1,7 @@
+## 2.0.2
+
+update readme file.
+
 ## 2.0.1
 
 format localization files

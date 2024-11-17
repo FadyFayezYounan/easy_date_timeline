@@ -83,18 +83,18 @@ class _DayWidgetState extends State<DayWidget> {
 
     final TextStyle? dayMiddlePartStyle = resolve<TextStyle?>(
         (theme) => widget.isToday
-            ? theme?.currentDayMiddlePartStyle
-            : theme?.dayMiddlePartStyle,
+            ? theme?.currentDayMiddleElementStyle
+            : theme?.dayMiddleElementStyle,
         states);
     final TextStyle? dayTopPartStyle = resolve<TextStyle?>(
         (theme) => widget.isToday
-            ? theme?.currentDayTopPartStyle
-            : theme?.dayTopPartStyle,
+            ? theme?.currentDayTopElementStyle
+            : theme?.dayTopElementStyle,
         states);
     final TextStyle? dayBottomPartStyle = resolve<TextStyle?>(
         (theme) => widget.isToday
-            ? theme?.currentDayBottomPartStyle
-            : theme?.dayBottomPartStyle,
+            ? theme?.currentDayBottomElementStyle
+            : theme?.dayBottomElementStyle,
         states);
 
     // Resolve colors based on the current state and theme

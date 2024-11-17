@@ -151,7 +151,7 @@ EasyDateTimeLinePicker.itemBuilder(
 | `locale`                           | `Locale?`                          | The locale to use for formatting dates, default locale is `en_US`.                              |
 | `physics`                          | `ScrollPhysics?`                   | The scroll physics to use for the picker.                                                       |
 | `disableStrategy`                  | `DisableStrategy`                  | Strategy for disabling certain dates in the picker.                                             |
-| `dayPartsOrder`                    | `List<DayParts>`                   | The order of day parts to display. Only used when created with the default constructor.         |
+| `dayElementsOrder`                 | `List<DayElement>`                 | The order of day elements to display. Only used when created with the default constructor.      |
 | `ignoreUserInteractionOnAnimating` | `bool?`                            | Whether to ignore user interaction while the picker is animating, default is `true`.            |
 | `timelineOptions`                  | `TimelineOptions?`                 | Additional options for customizing the timeline appearance.                                     |
 | `headerType`                       | `HeaderType`                       | Defines the behavior and display of the header in the date timeline picker.                     |
@@ -560,12 +560,12 @@ The `EasyThemeData` class contains many properties to customize the appearance o
 | `currentMonthBorder`               | `WidgetStateProperty<BorderSide?>`     | Border style for current month                 |
 | `yearBorder`                       | `WidgetStateProperty<BorderSide?>`     | Border style for years                         |
 | `currentYearBorder`                | `WidgetStateProperty<BorderSide?>`     | Border style for current year                  |
-| `dayMiddlePartStyle`               | `WidgetStateProperty<TextStyle?>`      | Text style for middle part of days             |
-| `currentDayMiddlePartStyle`        | `WidgetStateProperty<TextStyle?>`      | Text style for middle part of current day      |
-| `dayTopPartStyle`                  | `WidgetStateProperty<TextStyle?>`      | Text style for top part of days                |
-| `currentDayTopPartStyle`           | `WidgetStateProperty<TextStyle?>`      | Text style for top part of current day         |
-| `dayBottomPartStyle`               | `WidgetStateProperty<TextStyle?>`      | Text style for bottom part of days             |
-| `currentDayBottomPartStyle`        | `WidgetStateProperty<TextStyle?>`      | Text style for bottom part of current day      |
+| `dayMiddleElementStyle`            | `WidgetStateProperty<TextStyle?>`      | Text style for middle element of days          |
+| `currentDayMiddleElementStyle`     | `WidgetStateProperty<TextStyle?>`      | Text style for middle element of current day   |
+| `dayTopElementStyle`               | `WidgetStateProperty<TextStyle?>`      | Text style for top element of days             |
+| `currentDayTopElementStyle`        | `WidgetStateProperty<TextStyle?>`      | Text style for top element of current day      |
+| `dayBottomElementStyle`            | `WidgetStateProperty<TextStyle?>`      | Text style for bottom element of days          |
+| `currentDayBottomElementStyle`     | `WidgetStateProperty<TextStyle?>`      | Text style for bottom element of current day   |
 | `monthStyle`                       | `WidgetStateProperty<TextStyle?>`      | Text style for months                          |
 | `currentMonthStyle`                | `WidgetStateProperty<TextStyle?>`      | Text style for current month                   |
 | `yearStyle`                        | `WidgetStateProperty<TextStyle?>`      | Text style for years                           |

@@ -13,9 +13,9 @@ class DayThemeData with Diagnosticable {
     this.foregroundColor,
     this.shape,
     this.border,
-    this.middlePartStyle,
-    this.topPartStyle,
-    this.bottomPartStyle,
+    this.middleElementStyle,
+    this.topElementStyle,
+    this.bottomElementStyle,
   });
 
   /// The background color of the Day widget.
@@ -30,14 +30,14 @@ class DayThemeData with Diagnosticable {
   /// The border of the Day widget, defined as a [BorderSide].
   final BorderSide? border;
 
-  /// The text style for the top part of the Day widget.
-  final TextStyle? topPartStyle;
+  /// The text style for the top element of the Day widget.
+  final TextStyle? topElementStyle;
 
-  /// The text style for the middle part of the Day widget.
-  final TextStyle? middlePartStyle;
+  /// The text style for the middle element of the Day widget.
+  final TextStyle? middleElementStyle;
 
-  /// The text style for the bottom part of the Day widget.
-  final TextStyle? bottomPartStyle;
+  /// The text style for the bottom element of the Day widget.
+  final TextStyle? bottomElementStyle;
 
   /// Creates a copy of this [DayThemeData] but with the given fields
   /// replaced with new values.
@@ -49,17 +49,17 @@ class DayThemeData with Diagnosticable {
     OutlinedBorder? shape,
     BorderSide? border,
     TextStyle? topPartStyle,
-    TextStyle? middlePartStyle,
-    TextStyle? bottomPartStyle,
+    TextStyle? middleElementStyle,
+    TextStyle? bottomElementStyle,
   }) {
     return DayThemeData(
       backgroundColor: backgroundColor ?? this.backgroundColor,
       foregroundColor: foregroundColor ?? this.foregroundColor,
       shape: shape ?? this.shape,
       border: border ?? this.border,
-      topPartStyle: topPartStyle ?? this.topPartStyle,
-      middlePartStyle: middlePartStyle ?? this.middlePartStyle,
-      bottomPartStyle: bottomPartStyle ?? this.bottomPartStyle,
+      topElementStyle: topPartStyle ?? this.topElementStyle,
+      middleElementStyle: middleElementStyle ?? this.middleElementStyle,
+      bottomElementStyle: bottomElementStyle ?? this.bottomElementStyle,
     );
   }
 
@@ -71,9 +71,9 @@ class DayThemeData with Diagnosticable {
         other.foregroundColor == foregroundColor &&
         other.shape == shape &&
         other.border == border &&
-        other.topPartStyle == topPartStyle &&
-        other.middlePartStyle == middlePartStyle &&
-        other.bottomPartStyle == bottomPartStyle;
+        other.topElementStyle == topElementStyle &&
+        other.middleElementStyle == middleElementStyle &&
+        other.bottomElementStyle == bottomElementStyle;
   }
 
   @override
@@ -82,9 +82,9 @@ class DayThemeData with Diagnosticable {
         foregroundColor.hashCode ^
         shape.hashCode ^
         border.hashCode ^
-        topPartStyle.hashCode ^
-        middlePartStyle.hashCode ^
-        bottomPartStyle.hashCode;
+        topElementStyle.hashCode ^
+        middleElementStyle.hashCode ^
+        bottomElementStyle.hashCode;
   }
 
   @override
@@ -95,12 +95,12 @@ class DayThemeData with Diagnosticable {
         .add(DiagnosticsProperty<Color?>('foregroundColor', foregroundColor));
     properties.add(DiagnosticsProperty<OutlinedBorder?>('shape', shape));
     properties.add(DiagnosticsProperty<BorderSide?>('border', border));
-    properties
-        .add(DiagnosticsProperty<TextStyle?>('topPartStyle', topPartStyle));
     properties.add(
-        DiagnosticsProperty<TextStyle?>('middlePartStyle', middlePartStyle));
-    properties.add(
-        DiagnosticsProperty<TextStyle?>('bottomPartStyle', bottomPartStyle));
+        DiagnosticsProperty<TextStyle?>('topElementStyle', topElementStyle));
+    properties.add(DiagnosticsProperty<TextStyle?>(
+        'middleElementStyle', middleElementStyle));
+    properties.add(DiagnosticsProperty<TextStyle?>(
+        'bottomElementStyle', bottomElementStyle));
     super.debugFillProperties(properties);
   }
 }
