@@ -1,3 +1,7 @@
+## 2.0.3
+
+fix time difference issue in `EasyDateTimeLinePicker` widget.
+
 ## 2.0.2
 
 update readme file.
