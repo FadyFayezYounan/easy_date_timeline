@@ -10,7 +10,7 @@ class SimpleUseExample extends StatefulWidget {
 
 class _NewWidgetExampleState extends State<SimpleUseExample> {
   final _now = DateTime.now();
-  DateTime _selectedDate = DateTime(2025, 1, 1);
+  DateTime _selectedDate = DateTime(2024, 3, 18);
   late final EasyDatePickerController _controller;
   @override
   void initState() {

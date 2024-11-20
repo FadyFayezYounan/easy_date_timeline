@@ -25,4 +25,12 @@ extension DateTimeExtensions on DateTime {
       microseconds: focusDate.microsecond,
     );
   }
+
+  int daysBetween(DateTime other) {
+    final normalizedFirst = normalized;
+    final normalizedLast = other.normalized;
+    final differencesInHours =
+        normalizedLast.difference(normalizedFirst).inHours;
+    return (differencesInHours / Duration.hoursPerDay).round() + 1;
+  }
 }

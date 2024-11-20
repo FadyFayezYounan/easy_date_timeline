@@ -122,8 +122,9 @@ class _DayTimeLinePickerWidgetState extends State<DayTimeLinePickerWidget> {
     // Calculate the total extent of each item including padding
     _itemExtent = widget.itemExtent + widget.separatorPadding;
     // Calculate the total number of days in the date range
-    _itemCount =
-        EasyDateUtils.getDaysBetween(widget.firstDate, widget.lastDate);
+    _itemCount = widget.firstDate.daysBetween(widget.lastDate);
+    // _itemCount =
+    //     EasyDateUtils.getDaysBetween(widget.firstDate, widget.lastDate);
     // Create an internal controller if not provided
     if (widget.controller == null) {
       _internalController = EasyDatePickerController();
@@ -172,8 +173,9 @@ class _DayTimeLinePickerWidgetState extends State<DayTimeLinePickerWidget> {
     // Update item count if date range changes
     if (widget.firstDate != oldWidget.firstDate ||
         widget.lastDate != oldWidget.lastDate) {
-      _itemCount =
-          EasyDateUtils.getDaysBetween(widget.firstDate, widget.lastDate);
+      _itemCount = widget.firstDate.daysBetween(widget.lastDate);
+      // _itemCount =
+      //     EasyDateUtils.getDaysBetween(widget.firstDate, widget.lastDate);
     }
   }
 

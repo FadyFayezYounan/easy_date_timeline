@@ -25,7 +25,7 @@ mixin InfiniteTimeLineScrollMixin on ScrollController {
     final normalizedLast = last.normalized;
     final differencesInHours =
         normalizedLast.difference(normalizedFirst).inHours;
-    return (differencesInHours / 24).round();
+    return (differencesInHours / Duration.hoursPerDay).round();
   }
 
   /// Calculate scroll offset adjustments for centering

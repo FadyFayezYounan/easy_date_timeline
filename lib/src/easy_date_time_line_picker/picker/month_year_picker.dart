@@ -362,6 +362,7 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
   void _handleYearChanged(DateTime date) {
     _vibrate();
     _mode = EasyDatePickerMode.month;
+
     if (widget.disableStrategy.isDisabled(date)) {
       final activeMonth = _findFirstActiveMonth(date);
       if (activeMonth != null) {
@@ -373,6 +374,17 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
         return;
       }
     }
+
+    if (date.isBefore(widget.firstDate)) {
+      date = DateTime(date.year, widget.firstDate.month, widget.firstDate.day);
+    } else if (date.isAfter(widget.lastDate)) {
+      date = DateTime(date.year, widget.lastDate.month, 1);
+      if (date.isAfter(widget.lastDate)) {
+        date =
+            DateTime(date.year - 1, widget.lastDate.month, widget.lastDate.day);
+      }
+    }
+
     // Update the selected date
     _handleDateChanged(date);
   }
