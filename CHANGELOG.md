@@ -1,3 +1,7 @@
+## 2.0.4
+
+Remove unused imports.
+
 ## 2.0.3
 
 fix time difference issue in `EasyDateTimeLinePicker` widget.

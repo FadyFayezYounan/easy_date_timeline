@@ -3,7 +3,6 @@ import 'package:intl/date_symbol_data_local.dart';
 
 import '../../easy_infinite_date_time/widgets/web_scroll_behavior.dart';
 import '../../utils/locale_from_language_tag.dart';
-import '../../utils/utils.dart';
 import '../controllers/infinite_time_line_scroll_mixin.dart';
 import '../disable_strategy/strategies.dart';
 import '../enums/enums.exports.dart';
