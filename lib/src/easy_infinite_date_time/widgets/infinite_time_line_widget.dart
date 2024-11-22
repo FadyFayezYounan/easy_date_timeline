@@ -219,8 +219,7 @@ class _InfiniteTimeLineWidgetState extends State<InfiniteTimeLineWidget> {
                   ///
                   /// The [firstDate] is the starting date from which the duration is added.
                   /// The [index] represents the number of days to be added to the [firstDate].
-                  final currentDate =
-                      widget.firstDate.add(Duration(days: index));
+                  final currentDate = widget.firstDate.addDays(index);
 
                   /// Checks if the [_focusDate] is the same day as [currentDate].
                   final isSelected =
