@@ -12,6 +12,8 @@ class EasyMonthSwitcher extends StatefulWidget {
     required this.value,
     this.onMonthChange,
     this.style,
+    this.startDate,
+    this.endDate,
   });
 
   /// A `String` that represents the locale code to use for formatting the month name in the switcher.
@@ -26,23 +28,39 @@ class EasyMonthSwitcher extends StatefulWidget {
   /// The text style applied to the month string.
   final TextStyle? style;
 
+  /// Represents the start date for the timeline widget.
+  final DateTime? startDate;
+
+  /// Represents the end date for the timeline widget.
+  final DateTime? endDate;
+
   @override
   State<EasyMonthSwitcher> createState() => _EasyMonthSwitcherState();
 }
 
 class _EasyMonthSwitcherState extends State<EasyMonthSwitcher> {
   List<EasyMonth> _yearMonths = [];
+
   int _currentMonth = 0;
+  late DateTime startDate;
+  late DateTime endDate;
+
   @override
   void initState() {
+    startDate = widget.startDate ?? DateTime.now();
+    endDate = widget.endDate ?? startDate.copyWith(year: startDate.year + 1);
     super.initState();
-    _yearMonths = EasyDateUtils.getYearMonths(DateTime.now(), widget.locale);
-    _currentMonth = widget.value != null ? ((widget.value!.vale - 1)) : 0;
+    _yearMonths = EasyDateUtils.getYearMonthsFromStartDate(
+      startDate,
+      widget.locale,
+      endDate,
+    );
+    // _currentMonth = widget.value != null ? ((widget.value!.vale - 1)) : 0;
   }
 
   bool get _isLastMonth => _currentMonth == _yearMonths.length - 1;
-  bool get _isFirstMonth => _currentMonth == 0;
 
+  bool get _isFirstMonth => _currentMonth == 0;
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;

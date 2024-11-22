@@ -21,6 +21,7 @@ abstract class EasyDateUtils {
     for (int month = 1; month <= 12; month++) {
       months.add(
         EasyMonth(
+          year: date.year,
           name: EasyDateFormatter.shortMonthName(
               DateTime(date.year, month), locale),
           vale: month,
@@ -30,9 +31,39 @@ abstract class EasyDateUtils {
     return months;
   }
 
+  static List<EasyMonth> getYearMonthsFromStartDate(
+    DateTime startDate,
+    String locale, [
+    DateTime? endDate,
+  ]) {
+    final List<EasyMonth> months = [];
+    DateTime currentDate = DateTime(startDate.year, startDate.month, 1);
+
+    while (endDate == null
+        ? months.length < 12
+        : currentDate.isBefore(
+            endDate.subtract(
+              Duration(days: startDate.day),
+            ),
+          )) {
+      months.add(
+        EasyMonth(
+          year: currentDate.year,
+          name: EasyDateFormatter.shortMonthName(currentDate, locale),
+          vale: currentDate.month,
+        ),
+      );
+
+      currentDate = DateTime(currentDate.year, currentDate.month + 1, 1);
+    }
+
+    return months;
+  }
+
   /// Converts the given date to an `EasyMonth` object in the specified locale.
   static EasyMonth convertDateToEasyMonth(DateTime date, String locale) {
     return EasyMonth(
+      year: date.year,
       name: EasyDateFormatter.shortMonthName(
           DateTime(date.year, date.month), locale),
       vale: date.month,

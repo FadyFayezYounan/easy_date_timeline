@@ -14,6 +14,8 @@ class EasyDateTimeLine extends StatefulWidget {
   const EasyDateTimeLine({
     super.key,
     required this.initialDate,
+    this.startDate,
+    this.endDate,
     this.disabledDates,
     this.headerProps = const EasyHeaderProps(),
     this.timeLineProps = const EasyTimeLineProps(),
@@ -27,6 +29,12 @@ class EasyDateTimeLine extends StatefulWidget {
   /// Represents the initial date for the timeline widget.
   /// This is the date that will be displayed as the first day in the timeline.
   final DateTime initialDate;
+
+  /// Represents the start date for the timeline widget.
+  final DateTime? startDate;
+
+  /// Represents the end date for the timeline widget.
+  final DateTime? endDate;
 
   /// Represents a list of inactive dates for the timeline widget.
   /// Note that all the dates defined in the `disabledDates` list will be deactivated.
@@ -74,10 +82,10 @@ class EasyDateTimeLine extends StatefulWidget {
 class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
   late EasyMonth _easyMonth;
   late int _initialDay;
-
   late ValueNotifier<DateTime?> _focusedDateListener;
 
   DateTime get initialDate => widget.initialDate;
+
   @override
   void initState() {
     // Init easy date timeline locale
@@ -151,6 +159,8 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
                     child!,
                   if (_showMonthPicker(pickerType: MonthPickerType.switcher))
                     EasyMonthSwitcher(
+                      startDate: widget.startDate,
+                      endDate: widget.endDate,
                       locale: widget.locale,
                       value: _easyMonth,
                       onMonthChange: _onMonthChange,
@@ -161,9 +171,12 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
             ),
           TimeLineWidget(
             initialDate: initialDate.copyWith(
+              year: _easyMonth.year,
               month: _easyMonth.vale,
               day: _initialDay,
             ),
+            startDate: widget.startDate,
+            endDate: widget.endDate,
             inactiveDates: widget.disabledDates,
             focusedDate: focusedDate,
             onDateChange: _onFocusedDateChanged,
@@ -185,7 +198,7 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
     );
   }
 
-  void _onMonthChange(month) {
+  void _onMonthChange(EasyMonth? month) {
     setState(() {
       _initialDay = 1;
       _easyMonth = month!;
