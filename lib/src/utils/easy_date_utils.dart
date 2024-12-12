@@ -49,12 +49,17 @@ abstract class EasyDateUtils {
   /// Calculates the number of days between the [firstDate] and [lastDate] inclusive.
   /// Returns the count of days.
   static int calculateDaysCount(DateTime firstDate, DateTime lastDate) {
-    return (lastDate.difference(firstDate).inHours / Duration.hoursPerDay).round() + 1;
+    return (lastDate.difference(firstDate).inHours / Duration.hoursPerDay)
+            .round() +
+        1;
   }
 
   /// Calculates the number of days between the [firstDate] and [lastDate] inclusive.
   /// Returns the count of days.
   static int getDaysBetween(DateTime firstDate, DateTime lastDate) {
-    return (lastDate.toDateOnly().difference(firstDate.toDateOnly()).inHours / Duration.hoursPerDay).round() + 1;
+    return (lastDate.toDateOnly().difference(firstDate.toDateOnly()).inHours /
+                Duration.hoursPerDay)
+            .round() +
+        1;
   }
 }

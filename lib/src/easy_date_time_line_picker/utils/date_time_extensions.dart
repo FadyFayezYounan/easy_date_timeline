@@ -15,7 +15,8 @@ extension DateTimeExtensions on DateTime {
     return normalized.add(originalTime);
   }
 
-  DateTime addDays(int days) => DateTime(year, month, day + days, hour, minute, second, millisecond);
+  DateTime addDays(int days) =>
+      DateTime(year, month, day + days, hour, minute, second, millisecond);
 
   /// Calculates the original time duration from the focus date.
   Duration calculateOriginalTime(DateTime focusDate) {

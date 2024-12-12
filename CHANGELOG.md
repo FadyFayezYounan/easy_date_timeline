@@ -1,3 +1,7 @@
+## 2.0.6
+
+fix files formatting.
+
 ## 2.0.5
 
 Update deprecated `withOpacity` method to the new method `.withValues`.
