@@ -68,7 +68,7 @@ final class EasyDatePickerDefaultsM3 extends EasyThemeData {
         if (states.contains(WidgetState.selected)) {
           return _colors.onPrimary;
         } else if (states.contains(WidgetState.disabled)) {
-          return _colors.onSurface.withOpacity(0.38);
+          return _colors.onSurface.withValues(alpha: 0.38);
         }
         return _colors.onSurface;
       });
@@ -88,23 +88,23 @@ final class EasyDatePickerDefaultsM3 extends EasyThemeData {
       WidgetStateProperty.resolveWith((Set<WidgetState> states) {
         if (states.contains(WidgetState.selected)) {
           if (states.contains(WidgetState.pressed)) {
-            return _colors.onPrimary.withOpacity(0.1);
+            return _colors.onPrimary.withValues(alpha: 0.1);
           }
           if (states.contains(WidgetState.hovered)) {
-            return _colors.onPrimary.withOpacity(0.08);
+            return _colors.onPrimary.withValues(alpha: 0.08);
           }
           if (states.contains(WidgetState.focused)) {
-            return _colors.onPrimary.withOpacity(0.1);
+            return _colors.onPrimary.withValues(alpha: 0.1);
           }
         } else {
           if (states.contains(WidgetState.pressed)) {
-            return _colors.onSurfaceVariant.withOpacity(0.1);
+            return _colors.onSurfaceVariant.withValues(alpha: 0.1);
           }
           if (states.contains(WidgetState.hovered)) {
-            return _colors.onSurfaceVariant.withOpacity(0.08);
+            return _colors.onSurfaceVariant.withValues(alpha: 0.08);
           }
           if (states.contains(WidgetState.focused)) {
-            return _colors.onSurfaceVariant.withOpacity(0.1);
+            return _colors.onSurfaceVariant.withValues(alpha: 0.1);
           }
         }
         return null;
@@ -116,7 +116,7 @@ final class EasyDatePickerDefaultsM3 extends EasyThemeData {
         if (states.contains(WidgetState.selected)) {
           return _colors.onPrimary;
         } else if (states.contains(WidgetState.disabled)) {
-          return _colors.primary.withOpacity(0.38);
+          return _colors.primary.withValues(alpha: 0.38);
         }
         return _colors.primary;
       });
@@ -134,7 +134,7 @@ final class EasyDatePickerDefaultsM3 extends EasyThemeData {
   @override
   WidgetStateProperty<BorderSide?>? get dayBorder =>
       WidgetStatePropertyAll<BorderSide>(
-        BorderSide(color: _colors.onSurface.withOpacity(0.08)),
+        BorderSide(color: _colors.onSurface.withValues(alpha: 0.08)),
       );
 
   @override

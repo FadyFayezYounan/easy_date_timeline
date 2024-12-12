@@ -144,7 +144,7 @@ class EasyDayWidget extends StatelessWidget {
     // Get the highlight color for today or use a default color if it should be highlighted
     final todayHighlightColor = easyDayProps.todayHighlightColor ??
         (isBackgroundHighlight
-            ? backgroundColor.withOpacity(0.2)
+            ? backgroundColor.withValues(alpha: 0.2)
             : backgroundColor);
 
     // Check if the date has a background or a border highlight

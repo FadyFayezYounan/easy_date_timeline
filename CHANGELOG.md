@@ -1,3 +1,7 @@
+## 2.0.5
+
+Update deprecated `withOpacity` method to the new method `.withValues`.
+
 ## 2.0.4
 
 Remove unused imports.

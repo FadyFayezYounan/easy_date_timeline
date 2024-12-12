@@ -85,7 +85,7 @@ class _EasyDatePickerModeToggleButtonState
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final TextTheme textTheme = Theme.of(context).textTheme;
-    final Color controlColor = colorScheme.onSurface.withOpacity(0.60);
+    final Color controlColor = colorScheme.onSurface.withValues(alpha: 0.60);
 
     return SizedBox(
       height: _subHeaderHeight,

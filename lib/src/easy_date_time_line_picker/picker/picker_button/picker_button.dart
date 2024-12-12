@@ -59,7 +59,7 @@ class _PickerButtonState extends State<PickerButton>
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
-    final Color controlColor = colorScheme.onSurface.withOpacity(0.60);
+    final Color controlColor = colorScheme.onSurface.withValues(alpha: 0.60);
     final double effectiveHorizontalPadding =
         math.max(0, widget.timelinePadding.horizontal - _innerPadding);
     return Padding(

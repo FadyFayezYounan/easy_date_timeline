@@ -517,7 +517,7 @@ class _MonthYearPickerState extends State<MonthYearPicker> {
             .scale(fontSizeToScale) /
         fontSizeToScale;
     final Size dialogSize = _dialogSize(context) * textScaleFactor;
-    final DialogTheme dialogTheme = theme.dialogTheme;
+    final DialogThemeData dialogTheme = theme.dialogTheme;
     final String effectiveTitle = DateFormat(
             _isYearDisabled(_selectedYear)
                 ? DateFormatUtils.yearNumber

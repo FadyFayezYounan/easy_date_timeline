@@ -48,7 +48,7 @@ class DayThemeData with Diagnosticable {
     Color? foregroundColor,
     OutlinedBorder? shape,
     BorderSide? border,
-    TextStyle? topPartStyle,
+    TextStyle? topElementStyle,
     TextStyle? middleElementStyle,
     TextStyle? bottomElementStyle,
   }) {
@@ -57,7 +57,7 @@ class DayThemeData with Diagnosticable {
       foregroundColor: foregroundColor ?? this.foregroundColor,
       shape: shape ?? this.shape,
       border: border ?? this.border,
-      topElementStyle: topPartStyle ?? this.topElementStyle,
+      topElementStyle: topElementStyle ?? this.topElementStyle,
       middleElementStyle: middleElementStyle ?? this.middleElementStyle,
       bottomElementStyle: bottomElementStyle ?? this.bottomElementStyle,
     );
