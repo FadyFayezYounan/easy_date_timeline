@@ -1,3 +1,7 @@
+## 2.0.8
+
+fix files formatting.
+
 ## 2.0.7
 
 Update intl package version constraint to ">=0.19.0 <0.21.0" to support newer versions.
