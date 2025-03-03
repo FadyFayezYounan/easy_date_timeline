@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'easy_date_timeline_localizations.dart';
 
 // ignore_for_file: type=lint

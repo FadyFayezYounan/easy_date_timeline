@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'easy_date_timeline_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -14,9 +16,8 @@ class EasyDateTimelineLocalizationsZh extends EasyDateTimelineLocalizations {
 }
 
 /// The translations for Chinese, as used in Hong Kong (`zh_HK`).
-class EasyDateTimelineLocalizationsZhHk
-    extends EasyDateTimelineLocalizationsZh {
-  EasyDateTimelineLocalizationsZhHk() : super('zh_HK');
+class EasyDateTimelineLocalizationsZhHk extends EasyDateTimelineLocalizationsZh {
+  EasyDateTimelineLocalizationsZhHk(): super('zh_HK');
 
   @override
   String get okButtonLabel => '確定';
@@ -26,9 +27,8 @@ class EasyDateTimelineLocalizationsZhHk
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
-class EasyDateTimelineLocalizationsZhTw
-    extends EasyDateTimelineLocalizationsZh {
-  EasyDateTimelineLocalizationsZhTw() : super('zh_TW');
+class EasyDateTimelineLocalizationsZhTw extends EasyDateTimelineLocalizationsZh {
+  EasyDateTimelineLocalizationsZhTw(): super('zh_TW');
 
   @override
   String get okButtonLabel => '確定';

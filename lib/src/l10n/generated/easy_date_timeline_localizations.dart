@@ -109,18 +109,15 @@ import 'easy_date_timeline_localizations_zh.dart';
 /// be consistent with the languages listed in the EasyDateTimelineLocalizations.supportedLocales
 /// property.
 abstract class EasyDateTimelineLocalizations {
-  EasyDateTimelineLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  EasyDateTimelineLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
   static EasyDateTimelineLocalizations? of(BuildContext context) {
-    return Localizations.of<EasyDateTimelineLocalizations>(
-        context, EasyDateTimelineLocalizations);
+    return Localizations.of<EasyDateTimelineLocalizations>(context, EasyDateTimelineLocalizations);
   }
 
-  static const LocalizationsDelegate<EasyDateTimelineLocalizations> delegate =
-      _EasyDateTimelineLocalizationsDelegate();
+  static const LocalizationsDelegate<EasyDateTimelineLocalizations> delegate = _EasyDateTimelineLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -132,8 +129,7 @@ abstract class EasyDateTimelineLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -209,202 +205,97 @@ abstract class EasyDateTimelineLocalizations {
   String get cancelButtonLabel;
 }
 
-class _EasyDateTimelineLocalizationsDelegate
-    extends LocalizationsDelegate<EasyDateTimelineLocalizations> {
+class _EasyDateTimelineLocalizationsDelegate extends LocalizationsDelegate<EasyDateTimelineLocalizations> {
   const _EasyDateTimelineLocalizationsDelegate();
 
   @override
   Future<EasyDateTimelineLocalizations> load(Locale locale) {
-    return SynchronousFuture<EasyDateTimelineLocalizations>(
-        lookupEasyDateTimelineLocalizations(locale));
+    return SynchronousFuture<EasyDateTimelineLocalizations>(lookupEasyDateTimelineLocalizations(locale));
   }
 
   @override
-  bool isSupported(Locale locale) => <String>[
-        'ar',
-        'az',
-        'bn',
-        'bs',
-        'cs',
-        'da',
-        'de',
-        'el',
-        'en',
-        'es',
-        'et',
-        'fa',
-        'fi',
-        'fr',
-        'gl',
-        'he',
-        'hi',
-        'hr',
-        'hu',
-        'hy',
-        'id',
-        'it',
-        'ja',
-        'ka',
-        'kk',
-        'ko',
-        'lt',
-        'lv',
-        'mk',
-        'mn',
-        'ms',
-        'nl',
-        'no',
-        'pl',
-        'pt',
-        'ro',
-        'ru',
-        'sk',
-        'sl',
-        'sq',
-        'sr',
-        'sv',
-        'th',
-        'tr',
-        'uk',
-        'ur',
-        'uz',
-        'vi',
-        'zh'
-      ].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'az', 'bn', 'bs', 'cs', 'da', 'de', 'el', 'en', 'es', 'et', 'fa', 'fi', 'fr', 'gl', 'he', 'hi', 'hr', 'hu', 'hy', 'id', 'it', 'ja', 'ka', 'kk', 'ko', 'lt', 'lv', 'mk', 'mn', 'ms', 'nl', 'no', 'pl', 'pt', 'ro', 'ru', 'sk', 'sl', 'sq', 'sr', 'sv', 'th', 'tr', 'uk', 'ur', 'uz', 'vi', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_EasyDateTimelineLocalizationsDelegate old) => false;
 }
 
-EasyDateTimelineLocalizations lookupEasyDateTimelineLocalizations(
-    Locale locale) {
+EasyDateTimelineLocalizations lookupEasyDateTimelineLocalizations(Locale locale) {
+
   // Lookup logic when language+country codes are specified.
   switch (locale.languageCode) {
-    case 'pt':
-      {
-        switch (locale.countryCode) {
-          case 'BR':
-            return EasyDateTimelineLocalizationsPtBr();
-        }
-        break;
-      }
-    case 'zh':
-      {
-        switch (locale.countryCode) {
-          case 'HK':
-            return EasyDateTimelineLocalizationsZhHk();
-          case 'TW':
-            return EasyDateTimelineLocalizationsZhTw();
-        }
-        break;
-      }
+    case 'pt': {
+  switch (locale.countryCode) {
+    case 'BR': return EasyDateTimelineLocalizationsPtBr();
+   }
+  break;
+   }
+    case 'zh': {
+  switch (locale.countryCode) {
+    case 'HK': return EasyDateTimelineLocalizationsZhHk();
+case 'TW': return EasyDateTimelineLocalizationsZhTw();
+   }
+  break;
+   }
   }
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar':
-      return EasyDateTimelineLocalizationsAr();
-    case 'az':
-      return EasyDateTimelineLocalizationsAz();
-    case 'bn':
-      return EasyDateTimelineLocalizationsBn();
-    case 'bs':
-      return EasyDateTimelineLocalizationsBs();
-    case 'cs':
-      return EasyDateTimelineLocalizationsCs();
-    case 'da':
-      return EasyDateTimelineLocalizationsDa();
-    case 'de':
-      return EasyDateTimelineLocalizationsDe();
-    case 'el':
-      return EasyDateTimelineLocalizationsEl();
-    case 'en':
-      return EasyDateTimelineLocalizationsEn();
-    case 'es':
-      return EasyDateTimelineLocalizationsEs();
-    case 'et':
-      return EasyDateTimelineLocalizationsEt();
-    case 'fa':
-      return EasyDateTimelineLocalizationsFa();
-    case 'fi':
-      return EasyDateTimelineLocalizationsFi();
-    case 'fr':
-      return EasyDateTimelineLocalizationsFr();
-    case 'gl':
-      return EasyDateTimelineLocalizationsGl();
-    case 'he':
-      return EasyDateTimelineLocalizationsHe();
-    case 'hi':
-      return EasyDateTimelineLocalizationsHi();
-    case 'hr':
-      return EasyDateTimelineLocalizationsHr();
-    case 'hu':
-      return EasyDateTimelineLocalizationsHu();
-    case 'hy':
-      return EasyDateTimelineLocalizationsHy();
-    case 'id':
-      return EasyDateTimelineLocalizationsId();
-    case 'it':
-      return EasyDateTimelineLocalizationsIt();
-    case 'ja':
-      return EasyDateTimelineLocalizationsJa();
-    case 'ka':
-      return EasyDateTimelineLocalizationsKa();
-    case 'kk':
-      return EasyDateTimelineLocalizationsKk();
-    case 'ko':
-      return EasyDateTimelineLocalizationsKo();
-    case 'lt':
-      return EasyDateTimelineLocalizationsLt();
-    case 'lv':
-      return EasyDateTimelineLocalizationsLv();
-    case 'mk':
-      return EasyDateTimelineLocalizationsMk();
-    case 'mn':
-      return EasyDateTimelineLocalizationsMn();
-    case 'ms':
-      return EasyDateTimelineLocalizationsMs();
-    case 'nl':
-      return EasyDateTimelineLocalizationsNl();
-    case 'no':
-      return EasyDateTimelineLocalizationsNo();
-    case 'pl':
-      return EasyDateTimelineLocalizationsPl();
-    case 'pt':
-      return EasyDateTimelineLocalizationsPt();
-    case 'ro':
-      return EasyDateTimelineLocalizationsRo();
-    case 'ru':
-      return EasyDateTimelineLocalizationsRu();
-    case 'sk':
-      return EasyDateTimelineLocalizationsSk();
-    case 'sl':
-      return EasyDateTimelineLocalizationsSl();
-    case 'sq':
-      return EasyDateTimelineLocalizationsSq();
-    case 'sr':
-      return EasyDateTimelineLocalizationsSr();
-    case 'sv':
-      return EasyDateTimelineLocalizationsSv();
-    case 'th':
-      return EasyDateTimelineLocalizationsTh();
-    case 'tr':
-      return EasyDateTimelineLocalizationsTr();
-    case 'uk':
-      return EasyDateTimelineLocalizationsUk();
-    case 'ur':
-      return EasyDateTimelineLocalizationsUr();
-    case 'uz':
-      return EasyDateTimelineLocalizationsUz();
-    case 'vi':
-      return EasyDateTimelineLocalizationsVi();
-    case 'zh':
-      return EasyDateTimelineLocalizationsZh();
+    case 'ar': return EasyDateTimelineLocalizationsAr();
+    case 'az': return EasyDateTimelineLocalizationsAz();
+    case 'bn': return EasyDateTimelineLocalizationsBn();
+    case 'bs': return EasyDateTimelineLocalizationsBs();
+    case 'cs': return EasyDateTimelineLocalizationsCs();
+    case 'da': return EasyDateTimelineLocalizationsDa();
+    case 'de': return EasyDateTimelineLocalizationsDe();
+    case 'el': return EasyDateTimelineLocalizationsEl();
+    case 'en': return EasyDateTimelineLocalizationsEn();
+    case 'es': return EasyDateTimelineLocalizationsEs();
+    case 'et': return EasyDateTimelineLocalizationsEt();
+    case 'fa': return EasyDateTimelineLocalizationsFa();
+    case 'fi': return EasyDateTimelineLocalizationsFi();
+    case 'fr': return EasyDateTimelineLocalizationsFr();
+    case 'gl': return EasyDateTimelineLocalizationsGl();
+    case 'he': return EasyDateTimelineLocalizationsHe();
+    case 'hi': return EasyDateTimelineLocalizationsHi();
+    case 'hr': return EasyDateTimelineLocalizationsHr();
+    case 'hu': return EasyDateTimelineLocalizationsHu();
+    case 'hy': return EasyDateTimelineLocalizationsHy();
+    case 'id': return EasyDateTimelineLocalizationsId();
+    case 'it': return EasyDateTimelineLocalizationsIt();
+    case 'ja': return EasyDateTimelineLocalizationsJa();
+    case 'ka': return EasyDateTimelineLocalizationsKa();
+    case 'kk': return EasyDateTimelineLocalizationsKk();
+    case 'ko': return EasyDateTimelineLocalizationsKo();
+    case 'lt': return EasyDateTimelineLocalizationsLt();
+    case 'lv': return EasyDateTimelineLocalizationsLv();
+    case 'mk': return EasyDateTimelineLocalizationsMk();
+    case 'mn': return EasyDateTimelineLocalizationsMn();
+    case 'ms': return EasyDateTimelineLocalizationsMs();
+    case 'nl': return EasyDateTimelineLocalizationsNl();
+    case 'no': return EasyDateTimelineLocalizationsNo();
+    case 'pl': return EasyDateTimelineLocalizationsPl();
+    case 'pt': return EasyDateTimelineLocalizationsPt();
+    case 'ro': return EasyDateTimelineLocalizationsRo();
+    case 'ru': return EasyDateTimelineLocalizationsRu();
+    case 'sk': return EasyDateTimelineLocalizationsSk();
+    case 'sl': return EasyDateTimelineLocalizationsSl();
+    case 'sq': return EasyDateTimelineLocalizationsSq();
+    case 'sr': return EasyDateTimelineLocalizationsSr();
+    case 'sv': return EasyDateTimelineLocalizationsSv();
+    case 'th': return EasyDateTimelineLocalizationsTh();
+    case 'tr': return EasyDateTimelineLocalizationsTr();
+    case 'uk': return EasyDateTimelineLocalizationsUk();
+    case 'ur': return EasyDateTimelineLocalizationsUr();
+    case 'uz': return EasyDateTimelineLocalizationsUz();
+    case 'vi': return EasyDateTimelineLocalizationsVi();
+    case 'zh': return EasyDateTimelineLocalizationsZh();
   }
 
   throw FlutterError(
-      'EasyDateTimelineLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'EasyDateTimelineLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }
