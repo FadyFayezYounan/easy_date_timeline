@@ -1,3 +1,23 @@
+## 1.1.4
+
+The first release of the fork (github.com/AlexSeednov/easy_date_timeline), cut
+from 1.1.3. The original package went on to 2.0.x, whose new
+`EasyDateTimeLinePicker` has no marked days either, so the fork stays.
+
+- **Marked days**, already in the fork since 1.1.3 but never written down:
+  `EasyInfiniteDateTimeLine.markedDatesList` takes `MarkedDaysProps` — a list of
+  dates and the `DayStyle` they are drawn with. A marked day yields to the
+  selected, disabled and today styles; a date listed twice takes the first
+  style. `DayStyle.backgroundColor` changes only the fill of the default
+  decoration, and the text colour of a day follows the brightness of its final
+  fill instead of the active colour alone.
+- `intl` is a range (`>=0.19.0 <0.21.0`) instead of an exact version:
+  `flutter_localizations` pins it to the release its SDK ships, and an exact
+  pin here fought that on every Flutter upgrade of an application.
+- `Color.withOpacity` replaced with `withValues`, as the original did in 2.0.5.
+- FVM pinned to Flutter 3.44.4, the SDK the applications on this stack build
+  with.
+
 ## 1.1.3
 
 - Update readme file.
