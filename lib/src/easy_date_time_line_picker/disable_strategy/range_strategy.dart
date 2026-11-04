@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show DateTimeRange;
+import 'package:material_ui/material_ui.dart' show DateTimeRange;
 
 import '../utils/date_time_extensions.dart';
 

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl/locale.dart' as intl;
 
 /// Converts a language tag into a [Locale] object.

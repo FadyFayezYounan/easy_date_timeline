@@ -110,13 +110,15 @@ import 'easy_date_timeline_localizations_zh.dart';
 /// property.
 abstract class EasyDateTimelineLocalizations {
   EasyDateTimelineLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
   static EasyDateTimelineLocalizations? of(BuildContext context) {
     return Localizations.of<EasyDateTimelineLocalizations>(
-        context, EasyDateTimelineLocalizations);
+      context,
+      EasyDateTimelineLocalizations,
+    );
   }
 
   static const LocalizationsDelegate<EasyDateTimelineLocalizations> delegate =
@@ -134,11 +136,11 @@ abstract class EasyDateTimelineLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
@@ -193,7 +195,7 @@ abstract class EasyDateTimelineLocalizations {
     Locale('vi'),
     Locale('zh'),
     Locale('zh', 'HK'),
-    Locale('zh', 'TW')
+    Locale('zh', 'TW'),
   ];
 
   /// Label for the OK button.
@@ -216,68 +218,70 @@ class _EasyDateTimelineLocalizationsDelegate
   @override
   Future<EasyDateTimelineLocalizations> load(Locale locale) {
     return SynchronousFuture<EasyDateTimelineLocalizations>(
-        lookupEasyDateTimelineLocalizations(locale));
+      lookupEasyDateTimelineLocalizations(locale),
+    );
   }
 
   @override
   bool isSupported(Locale locale) => <String>[
-        'ar',
-        'az',
-        'bn',
-        'bs',
-        'cs',
-        'da',
-        'de',
-        'el',
-        'en',
-        'es',
-        'et',
-        'fa',
-        'fi',
-        'fr',
-        'gl',
-        'he',
-        'hi',
-        'hr',
-        'hu',
-        'hy',
-        'id',
-        'it',
-        'ja',
-        'ka',
-        'kk',
-        'ko',
-        'lt',
-        'lv',
-        'mk',
-        'mn',
-        'ms',
-        'nl',
-        'no',
-        'pl',
-        'pt',
-        'ro',
-        'ru',
-        'sk',
-        'sl',
-        'sq',
-        'sr',
-        'sv',
-        'th',
-        'tr',
-        'uk',
-        'ur',
-        'uz',
-        'vi',
-        'zh'
-      ].contains(locale.languageCode);
+    'ar',
+    'az',
+    'bn',
+    'bs',
+    'cs',
+    'da',
+    'de',
+    'el',
+    'en',
+    'es',
+    'et',
+    'fa',
+    'fi',
+    'fr',
+    'gl',
+    'he',
+    'hi',
+    'hr',
+    'hu',
+    'hy',
+    'id',
+    'it',
+    'ja',
+    'ka',
+    'kk',
+    'ko',
+    'lt',
+    'lv',
+    'mk',
+    'mn',
+    'ms',
+    'nl',
+    'no',
+    'pl',
+    'pt',
+    'ro',
+    'ru',
+    'sk',
+    'sl',
+    'sq',
+    'sr',
+    'sv',
+    'th',
+    'tr',
+    'uk',
+    'ur',
+    'uz',
+    'vi',
+    'zh',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_EasyDateTimelineLocalizationsDelegate old) => false;
 }
 
 EasyDateTimelineLocalizations lookupEasyDateTimelineLocalizations(
-    Locale locale) {
+  Locale locale,
+) {
   // Lookup logic when language+country codes are specified.
   switch (locale.languageCode) {
     case 'pt':
@@ -403,8 +407,9 @@ EasyDateTimelineLocalizations lookupEasyDateTimelineLocalizations(
   }
 
   throw FlutterError(
-      'EasyDateTimelineLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'EasyDateTimelineLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

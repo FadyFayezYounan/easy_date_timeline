@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show TextStyle, FontWeight;
+import 'package:material_ui/material_ui.dart' show TextStyle, FontWeight;
 
 import 'utils.dart';
 

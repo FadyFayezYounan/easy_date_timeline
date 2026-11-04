@@ -1,5 +1,5 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class ThemingExample extends StatefulWidget {
   const ThemingExample({super.key});

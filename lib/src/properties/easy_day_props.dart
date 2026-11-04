@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show BoxDecoration, Color, TextStyle;
+import 'package:material_ui/material_ui.dart' show BoxDecoration, Color, TextStyle;
 
 import '../utils/utils.dart';
 import 'day_style.dart';

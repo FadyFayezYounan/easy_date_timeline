@@ -1,5 +1,5 @@
 import 'package:easy_date_timeline/src/utils/easy_constants.dart';
-import 'package:flutter/material.dart' show Color, EdgeInsets, BoxDecoration;
+import 'package:material_ui/material_ui.dart' show Color, EdgeInsets, BoxDecoration;
 
 final class EasyTimeLineProps {
   const EasyTimeLineProps({

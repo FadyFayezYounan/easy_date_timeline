@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart'
     show DiagnosticPropertiesBuilder, DiagnosticsProperty;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'easy_date_picker_defaults_m2.dart';
 import 'easy_date_picker_defaults_m3.dart';

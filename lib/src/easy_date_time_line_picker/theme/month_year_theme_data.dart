@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart'
+import 'package:material_ui/material_ui.dart'
     show Color, BorderSide, OutlinedBorder, TextStyle;
 
 class MonthYearThemeData with Diagnosticable {

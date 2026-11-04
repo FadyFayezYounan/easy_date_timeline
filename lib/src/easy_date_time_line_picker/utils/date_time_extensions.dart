@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show DateUtils;
+import 'package:material_ui/material_ui.dart' show DateUtils;
 
 extension DateTimeExtension on DateTime {
   DateTime toDateOnly() => DateUtils.dateOnly(this);

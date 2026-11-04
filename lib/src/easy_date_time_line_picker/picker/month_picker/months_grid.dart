@@ -1,6 +1,6 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:easy_date_timeline/src/easy_date_time_line_picker/utils/utils.exports.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/rendering.dart';
 
 import 'month_widget.dart';

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../easy_date_time_line_picker/utils/typed_ahead.dart';
 import '../../widgets/easy_date_timeline_widget/selected_date_widget.dart';

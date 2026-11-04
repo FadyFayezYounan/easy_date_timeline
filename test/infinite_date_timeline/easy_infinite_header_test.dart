@@ -1,7 +1,7 @@
 import 'package:easy_date_timeline/src/easy_infinite_date_time/widgets/easy_infinite_header.dart';
 import 'package:easy_date_timeline/src/easy_infinite_date_time/widgets/selected_full_date.dart';
 import 'package:easy_date_timeline/src/widgets/easy_date_timeline_widget/selected_date_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../testable_widget.dart';

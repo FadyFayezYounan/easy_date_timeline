@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show BorderRadius, Radius;
+import 'package:material_ui/material_ui.dart' show BorderRadius, Radius;
 
 /// A utility class that provides easy access to commonly used constants in the `EasyDateTimeLine` widget.
 class EasyConstants {
