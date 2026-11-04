@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 
 import 'examples/simple_use_date_picker.dart';

@@ -2,7 +2,7 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:easy_date_timeline/src/easy_infinite_date_time/widgets/infinite_time_line_widget.dart';
 import 'package:easy_date_timeline/src/utils/easy_constants.dart';
 import 'package:easy_date_timeline/src/widgets/easy_day_widget/easy_day_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../testable_widget.dart';

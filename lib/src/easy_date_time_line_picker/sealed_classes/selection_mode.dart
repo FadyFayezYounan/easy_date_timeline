@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show Curve;
+import 'package:material_ui/material_ui.dart' show Curve;
 
 sealed class SelectionMode {
   /// Defines different selection modes for a timeline.

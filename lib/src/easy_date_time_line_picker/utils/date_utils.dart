@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Generates an iterable sequence of `DateTime` objects representing each day
 /// in the month of the given `date`.

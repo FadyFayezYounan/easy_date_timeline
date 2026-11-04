@@ -1,5 +1,5 @@
 import 'package:easy_date_timeline/src/utils/utils.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import '../sealed_classes/sealed_classes.exports.dart';
 
 /// A mixin that provides infinite timeline scrolling functionality

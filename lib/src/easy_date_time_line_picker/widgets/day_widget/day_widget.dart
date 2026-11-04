@@ -1,5 +1,5 @@
 import 'package:easy_date_timeline/src/easy_date_time_line_picker/utils/constants.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../sealed_classes/sealed_classes.exports.dart';
 import '../../theme/theme.exports.dart';

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show TextStyle, EdgeInsets;
+import 'package:material_ui/material_ui.dart' show TextStyle, EdgeInsets;
 
 import 'date_formatter.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart'
     show DiagnosticPropertiesBuilder, Diagnosticable, DiagnosticsProperty;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../options/options.exports.dart';
 import '../sealed_classes/sealed_classes.exports.dart';

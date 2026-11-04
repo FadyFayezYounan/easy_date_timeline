@@ -1,5 +1,5 @@
 import 'package:easy_date_timeline/src/utils/easy_text_styles.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../utils/easy_date_formatter.dart';
 
